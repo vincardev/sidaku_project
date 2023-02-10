@@ -1,0 +1,198 @@
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Kepemilikan Usaha </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-2">
+                    <label>Jumlah Tenaga Kerja <button type="button" id="modaltngkrj" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addtngkrj" data-bs-whatever="Jenis Produk">+</button></label>
+                    <textarea name="tngkrj" id="tngkrj"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Tenaga Kerja</th>
+                                <th >Jumlah Orang</th>
+                                <th >Pendidikan</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-tngkrj">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-4">
+                    <label>Perijinan yang Dimiliki<button type="button" id="modalijin" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addijin" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="dataijin" id="dataijin"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Tipe Perijinan</th>
+                                <th >Nomor Perijinan</th>
+                                <th >Tanggal Perijinan</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-ijin">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_uraimslh.label }} </label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_uraimslh.errors %}
+                    {% render_field form.dtu_uraimslh class="form-control is-invalid" rows="5" %}
+                    {% else %}
+                    {% render_field form.dtu_uraimslh class="form-control is-valid" rows="5" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_uraimslh class="form-control" rows="5" %}
+                    {% endif %}
+                    {% for error in form.dtu_uraimslh.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-4">
+                    <label>Bahan Baku <button type="button" id="modalbhbaku" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addbhbaku" data-bs-whatever="Tambah Data"> +</button></label>
+                    <textarea name="databhbaku" id="databhbaku"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Jenis Bahan Baku/Penolong</th>
+                                <th >Volume</th>
+                                <th >Nilai</th>
+                                <th >Asal BB/BP</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-bhbaku">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 my-4">
+                    <label>Pemakaian Energi<button type="button" id="modalenergi" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addenergi" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="dataenergi" id="dataenergi"  hidden="hidden"></textarea>
+                   
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Jenis dan Sumber Energi</th>
+                                <th >Kapasitas</th>
+                                <th >Keterangan</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-energi">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 my-4">
+                    <label>Mesin/Alat Produksi yang Dimiliki <button type="button" id="modalmsndata" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addmsndata" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="datamesin" id="datamesin"  hidden="hidden"></textarea>
+                   
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Nama Mesin</th>
+                                <th >Keterangan</th>
+                                <th >Jumlah Mesin</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-msndata">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 my-4">
+                    <label>Fasilitas yang Pernah Diperoleh <button type="button" id="modalfasil" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addfasil" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="fasildata" id="fasildata"  hidden="hidden"></textarea>
+                   
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Tipe Fasilitas</th>
+                                <th >Nama Fasilitas</th>
+                                <th >Tahun</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-fasil">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 my-4">
+                    <label>Pelatihan yang Pernah Diikuti <button type="button" id="modalpelat" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addpelat" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="pelatdata" id="pelatdata"  hidden="hidden"></textarea>
+                   
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Nama Pelatihan</th>
+                                <th >Tahun</th>
+                                <th >Tempat Pelatihan</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-pelat">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+</div>
+
+

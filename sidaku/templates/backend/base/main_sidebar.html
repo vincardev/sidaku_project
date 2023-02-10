@@ -1,0 +1,93 @@
+
+
+<div class="offcanvas-sm offcanvas-start d-flex d-inline-flex flex-column-fluid flex-row flex-shrink-0 mw-25"
+    tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="width: fit-content;">
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+        <div class="align-self-center pt-4">
+            <a href="/" class="d-flex flex-column align-items-center mb-4 mb-md-0 me-md-auto text-white text-decoration-none">
+            
+              {% if tables_profile.avatar %}
+              <img href="/sidaku_admin/" src="{{ tables_profile.avatar.url}}"   class="img-fluid rounded-circle mb-3" style="max-width:150px;">
+              {% else %}
+              <img href="/sidaku_admin/" src="/static/images/team/default-profile-picture.png"  class="img-fluid rounded-circle" style="max-width:150px;">
+              {% endif %}
+
+                <p class="fs-6 mb-3"> {{ tables_profile.user.first_name }}  {{ tables_profile.user.last_name }}</p>
+            </a>
+        </div>
+        
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item ">
+            <a href="{% url 'dash:dashboard' %}" class="nav-link text-white {% if side_active == 'dash' %} active {% endif %}" aria-current="page">
+              Dashboard
+            </a>
+          </li> 
+          <li class="nav-item ">
+            <a href="{% url 'userprofile:master_userp' %}" class="nav-link text-white {% if side_active == 'profile' %} active {% endif %}" aria-current="page">
+              Data Pengguna
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="{% url 'uang:master_keu' %}" class="nav-link text-white  {% if side_active == 'lapkeu' %} active {% endif %}" aria-current="page">
+              Data Keuangan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'koper:master_kop' %}" class="nav-link text-white {% if side_active == 'koper' %} active {% endif %}" aria-current="page">
+              Data Koperasi
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'umkmdat:master_umkm' %}" class="nav-link text-white {% if side_active == 'umkmdat' %} active {% endif %}" aria-current="page">
+              Data UMKM
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'artic:master_article' %}" class="nav-link text-white {% if side_active == 'article' %} active {% endif %}" aria-current="page">
+              Berita
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'artic:master_series' %}" class="nav-link text-white {% if side_active == 'series' %} active {% endif %}" aria-current="page">
+              Kategori Berita
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'regul:master_regul' %}" class="nav-link text-white {% if side_active == 'regul' %} active {% endif %}" aria-current="page">
+              Regulasi
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'setting:newsetting' %}" class="nav-link text-white {% if side_active == 'compset' %} active {% endif %}" aria-current="page">
+              Info Grafis dan SIDAKU
+            </a>
+          </li>
+          
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+           
+            {% if tables_profile.avatar %}
+            <img src="{{ tables_profile.avatar.url}}"  alt="" width="32" height="32" class="rounded-circle me-2">
+            {% else %}
+            <img src="/static/images/team/default-profile-picture.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            {% endif %}
+
+            
+            <strong>{{ user }} </strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item {% if side_active == 'compset' %} active {% endif %}" href="{% url 'setting:newsetting' %}">Settings</a></li>
+            <li><a class="dropdown-item {% if side_active == 'selfprof' %} active {% endif %}" href="{% url 'userprofile:selfprofile' %}">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'signout' %} ">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    
+</div>

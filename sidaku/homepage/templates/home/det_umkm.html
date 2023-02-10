@@ -1,0 +1,114 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+
+{% block title %} Data UMKM {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+
+<div class="container-fluid">
+  <div class="row mb-2 mt-2">
+    <div class="col-lg-3 mb-2">
+      <div class="flex-shrink-0 p-3 bg-blue-3 rounded-3 shadow text-white">
+        {% comment %} <a href="/"
+          class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+          <svg class="bi pe-none me-2" width="30" height="24">
+            <use xlink:href="#bootstrap" /></svg>
+          <span class="fs-5 fw-semibold">Collapsible</span>
+        </a> {% endcomment %}
+
+        <div class="list-group" id="list-tab" role="tablist">
+          <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0  collapsed"
+                data-bs-toggle="collapse" data-bs-target="#dakop-collapse" aria-expanded="true">
+                Data UMKM
+              </button>
+              <div class="collapse show" id="dakop-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  <li><a class="d-flex text-decoration-none rounded list-group-item  active" data-bs-toggle="list"
+                      href="#list-damum" role="tab" aria-controls="list-damum" aria-selected="true">Data Umum
+                      UMKM</a></li>
+
+                  <li><a class="d-flex text-decoration-none rounded list-group-item " data-bs-toggle="list"
+                      href="#list-detusha" role="tab" aria-controls="list-detusha">Data Detail UMKM</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-produng" role="tab" aria-controls="list-produng">Produk Unggulan</a></li>
+                </ul>
+              </div>
+            </li>
+
+
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0  collapsed"
+                data-bs-toggle="collapse" data-bs-target="#dokor-collapse" aria-expanded="true">
+                Data Keuangan
+              </button>
+              <div class="collapse show" id="dokor-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-lapneraca" role="tab" aria-controls="list-lapneraca">Laporan Neraca</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-lapbarug" role="tab" aria-controls="list-lapbarug">Laporan Laba Rugi</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-lapermod" role="tab" aria-controls="list-lapermod">Laporan Perubahan Modal</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-laparkas" role="tab" aria-controls="list-laparkas">Laporan Arus Kas</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-catlapkeu" role="tab" aria-controls="list-catlapkeu">Catatan Laporan</a></li>
+                  <li><a class="d-flex text-decoration-none rounded list-group-item" data-bs-toggle="list"
+                      href="#list-lapakun" role="tab" aria-controls="list-lapakun">Laporan Akuntansi</a></li>
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-9">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-damum" role="tabpanel" aria-labelledby="list-damum-list">
+          {% include "umkm/damumumkm.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-detusha" role="tabpanel" aria-labelledby="list-detusha-list">
+          {% include "umkm/detushumkm.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-produng" role="tabpanel" aria-labelledby="list-produng-list">
+          {% include "umkm/produngumkm.html" %}
+        </div>
+        
+        <div class="tab-pane fade" id="list-lapneraca" role="tabpanel" aria-labelledby="list-lapneraca-list">
+          {% include "umkm/lapneraca.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-lapbarug" role="tabpanel" aria-labelledby="list-lapbarug-list">
+          {% include "umkm/lapbarug.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-lapermod" role="tabpanel" aria-labelledby="list-lapermod-list">
+          {% include "umkm/lapermod.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-laparkas" role="tabpanel" aria-labelledby="list-laparkas-list">
+          {% include "umkm/laparkas.html" %}
+        </div>
+        <div class="tab-pane fade" id="list-catlapkeu" role="tabpanel" aria-labelledby="list-catlapkeu-list">
+          {% include "umkm/catlapkeu.html" %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+{% endblock  %}

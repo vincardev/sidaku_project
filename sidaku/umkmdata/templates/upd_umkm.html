@@ -1,0 +1,302 @@
+
+{% extends 'backend/base/main_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} Data UMKM {% endblock %}
+{% block main_content %}
+
+<div class="container">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3 >Data UMKM</h3>
+        <div class="btn-toolbar mb-2 mb-md-0">
+         
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }} </div>
+            {% else %}
+            <div class="alert alert-danger">{{ message }} </div>
+            {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'umkmdat:upd_umkm' tables.id  %}" method="post" enctype="multipart/form-data">
+                {% comment %} /* pengamanan data form {% endcomment %}
+                {% csrf_token %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+                <div class="col-lg-4  col-sm-12 text-left py-6 mb-2">
+                    <label>{{ form.dt_user.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.dt_user.errors %}
+                            {% render_field form.dt_user class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.dt_user class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.dt_user class="form-control"  %}
+                    {% endif %}
+                    {% for error in form.dt_user.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% include "part/pu_umkm.html" %}
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      {% comment %} <button class="nav-link " id="nav-pu_umkm-tab" data-bs-toggle="tab" data-bs-target="#nav-pu_umkm" type="button" role="tab" aria-controls="nav-pu_umkm" aria-selected="false">PEMILIK USAHA</button> {% endcomment %}
+                      <button class="nav-link active" id="nav-du_umkm-tab" data-bs-toggle="tab" data-bs-target="#nav-du_umkm" type="button" role="tab" aria-controls="nav-du_umkm" aria-selected="true">DATA UMUM USAHA</button>
+                      <button class="nav-link" id="nav-det_umkm-tab" data-bs-toggle="tab" data-bs-target="#nav-det_umkm" type="button" role="tab" aria-controls="nav-det_umkm" aria-selected="false">DATA DETAIL USAHA</button>
+                      <button class="nav-link" id="nav-kpmlk_umkm-tab" data-bs-toggle="tab" data-bs-target="#nav-kpmlk_umkm" type="button" role="tab" aria-controls="nav-kpmlk_umkm" aria-selected="false" >KEPEMILIKAN USAHA</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    {% comment %} <div class="tab-pane fade" id="nav-pu_umkm" role="tabpanel" aria-labelledby="nav-pu_umkm-tab" tabindex="0">
+                    </div> {% endcomment %}
+                    <div class="tab-pane fade show active" id="nav-du_umkm" role="tabpanel" aria-labelledby="nav-du_umkm-tab" tabindex="0">
+                        {% include "part/du_umkm.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="nav-det_umkm" role="tabpanel" aria-labelledby="nav-det_umkm-tab" tabindex="0">
+                        {% include "part/det_umkm.html" %}
+                    </div>
+                    <div class="tab-pane fade " id="nav-kpmlk_umkm" role="tabpanel" aria-labelledby="nav-kpmlk_umkm-tab" tabindex="0">
+                        {% include "part/kpmlk_umkm.html" %}
+                    </div>
+                </div>
+
+
+                <button class="btn btn-primary">Simpan</button>
+                <a href="{% url 'umkmdat:master_umkm' %}" class="btn btn-danger">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "part/modal_list.html" %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{% static 'js/mainjs/mapareaadmin.js' %}"></script>
+<script src="{% static 'js/mainjs/jenprodumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/demprodumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/demsuppumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/pensuppumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/tngkrjumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/perijinumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/energiumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/bhbakuumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/msndataumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/detfasilumkm.js' %}"></script>
+<script src="{% static 'js/mainjs/detpelatumkm.js' %}"></script>
+
+<script>
+    
+    var urlprod = "{% url 'umkmdat:jsontabledata' tables.id  %}"
+    FillJsonData(urlprod);
+
+    function FillJsonData (urlstring)
+    {
+        $.ajax({
+            //url: '/wilayah_bri/kab/' + kabid +'/'+briid,
+            url: urlstring,
+            type: 'GET',
+            dataType: "json",
+        
+            success : function (resp) {
+                for (let i = 0; i < resp.prod_json.length; i++) {
+                    data = {
+                        "id":resp.prod_json[i].id,
+                        "foto":resp.prod_json[i].fotoprod,
+                        "komoditi":resp.prod_json[i].komoditi,
+                        "volume":resp.prod_json[i].volume,
+                        "satuan":resp.prod_json[i].satuan,
+                        "harga":resp.prod_json[i].harga,
+                        "total":resp.prod_json[i].total,
+                    }
+                    strjson.push(data);
+                }
+
+                for (let i = 0; i < resp.demprod_json.length; i++) {
+                    data = {
+                        "id":resp.demprod_json[i].id,
+                        "dpd_nmprod":resp.demprod_json[i].dpd_nmprod,
+                        "dpd_bulan":resp.demprod_json[i].dpd_bulan,
+                        "dpd_tahun":resp.demprod_json[i].dpd_tahun,
+                        "dpd_demand":resp.demprod_json[i].dpd_demand,
+                        "dpd_produksi":resp.demprod_json[i].dpd_produksi,
+                    }
+                    strjson_demprod.push(data);
+                }
+
+                for (let i = 0; i < resp.demsupp_json.length; i++) {
+                    data = {
+                        "id":resp.demsupp_json[i].id,
+                        "dsp_jensup":resp.demsupp_json[i].dsp_jensup,
+                        "dsp_bulan":resp.demsupp_json[i].dsp_bulan,
+                        "dsp_tahun":resp.demsupp_json[i].dsp_tahun,
+                        "dsp_demand":resp.demsupp_json[i].dsp_demand,
+                        "dsp_produksi":resp.demsupp_json[i].dsp_produksi,
+                    }
+                    strjson_demsupp.push(data);
+                }
+
+                for (let i = 0; i < resp.bhbaku_json.length; i++) {
+                    data = {
+                        "id":resp.bhbaku_json[i].id,
+                        "jen_bhbaku":resp.bhbaku_json[i].jen_bhbaku,
+                        "volume":resp.bhbaku_json[i].volume,
+                        "nilai":resp.bhbaku_json[i].nilai,
+                        "asalBB":resp.bhbaku_json[i].asalBB,
+                    }
+                    strjson_bhbaku.push(data);
+                }
+
+                for (let i = 0; i < resp.energi_json.length; i++) {
+                    data = {
+                        "id":resp.energi_json[i].id,
+                        "jen_energi":resp.energi_json[i].jen_energi_id,
+                        "kapasitas":resp.energi_json[i].kapasitas,
+                        "keterangan":resp.energi_json[i].keterangan,
+                    }
+                    strjson_energi.push(data);
+                }
+
+                for (let i = 0; i < resp.fasil_json.length; i++) {
+                    data = {
+                        "id":resp.fasil_json[i].id,
+                        "tipe_fasi":resp.fasil_json[i].tipe_fasi_id,
+                        "nm_fasi":resp.fasil_json[i].nm_fasi,
+                        "thn_fasi":resp.fasil_json[i].thn_fasi,
+                    }
+                    strjson_fasil.push(data);
+                }
+
+
+                for (let i = 0; i < resp.mesin_json.length; i++) {
+                    data = {
+                        "id":resp.mesin_json[i].id,
+                        "nm_mesin":resp.mesin_json[i].nm_mesin,
+                        "desc_mesin":resp.mesin_json[i].desc_mesin,
+                        "jml_mesin":resp.mesin_json[i].jml_mesin,
+                    }
+                    strjson_msndata.push(data);
+                }
+
+                for (let i = 0; i < resp.pelat_json.length; i++) {
+                    data = {
+                        "id":resp.pelat_json[i].id,
+                        "nm_pelat":resp.pelat_json[i].nm_pelat,
+                        "tmpt_pelat":resp.pelat_json[i].tmpt_pelat,
+                        "thn_pelat":resp.pelat_json[i].thn_pelat,
+                    }
+                    strjson_pelat.push(data);
+                }
+
+                for (let i = 0; i < resp.ijin_json.length; i++) {
+                    data = {
+                        "id":resp.ijin_json[i].id,
+                        "tipe_ijin":resp.ijin_json[i].tipe_ijin_id,
+                        "no_ijin":resp.ijin_json[i].no_ijin,
+                        "tgl_ijin":resp.ijin_json[i].tgl_ijin,
+                    }
+                    strjson_ijin.push(data);
+                }
+
+                for (let i = 0; i < resp.tngkerja_json.length; i++) {
+                    data = {
+                        "id":resp.tngkerja_json[i].id,
+                        "jenis_tngkrj":resp.tngkerja_json[i].jenis_tngkrj_id,
+                        "jml_org":resp.tngkerja_json[i].jml_org,
+                        "pendidikan":resp.tngkerja_json[i].pendidikan_id,
+                    }
+                    strjson_tngkrj.push(data);
+                }
+
+                for (let i = 0; i < resp.pensupp_json.length; i++) {
+                    data = {
+                        "id":resp.pensupp_json[i].id,
+                        "dps_nm_supp":resp.pensupp_json[i].dps_nm_supp,
+                        "dps_kualitas":resp.pensupp_json[i].dps_kualitas,
+                        "dps_pengiriman":resp.pensupp_json[i].dps_pengiriman,
+                        "dps_harga":resp.pensupp_json[i].dps_harga,
+                    }
+                    strjson_pensupp.push(data);
+                }
+
+
+
+                ConvertToTable();
+                ConvertToTableTngkrj();
+                ConvertToTableDemprod();
+                ConvertToTableDemsupp();
+                ConvertToTablebhbaku();
+                ConvertToTableEnergi();
+                ConvertToTablefasil();
+                ConvertToTablemsndata();
+                ConvertToTablepelat();
+                ConvertToTableIjin();
+                ConvertToTablePensupp();
+
+                $("#jenprod").text(JSON.stringify(strjson));
+                $("#tngkrj").text(JSON.stringify(strjson_tngkrj));
+                $("#demprod").text(JSON.stringify(strjson_demprod));
+                $("#demsupp").text(JSON.stringify(strjson_demsupp));
+                $("#databhbaku").text(JSON.stringify(strjson_bhbaku));
+                $("#dataenergi").text(JSON.stringify(strjson_energi));
+                $("#fasildata").text(JSON.stringify(strjson_fasil));
+                $("#datamesin").text(JSON.stringify(strjson_msndata));
+                $("#pelatdata").text(JSON.stringify(strjson_pelat));
+                $("#dataijin").text(JSON.stringify(strjson_ijin));
+                $("#pensupp").text(JSON.stringify(strjson_pensupp));
+
+            },
+            error: function(){
+            }
+        });
+    }
+
+
+
+    function get_klhg(){
+        var val = document.querySelector("input[type='radio'][name=kltshargaradio]:checked").value;
+        data   = document.getElementById("id_dtu_kltsharga")
+        data.value = val;
+    }
+
+    function get_klkr(){
+        var val = document.querySelector("input[type='radio'][name=kltskirimradio]:checked").value;
+        data   = document.getElementById("id_dtu_kltskirim")
+        data.value = val;
+    }
+
+    function get_hgkr(){
+        var val = document.querySelector("input[type='radio'][name=hargakirimradio]:checked").value;
+        data   = document.getElementById("id_dtu_hrgakirim")
+        data.value = val;
+    }
+
+    function SetRadioChecked(){
+        value1   = document.getElementById("id_dtu_kltsharga").value;
+        value2   = document.getElementById("id_dtu_kltskirim").value;
+        value3   = document.getElementById("id_dtu_hrgakirim").value;
+
+        $("input[name=kltshargaradio][value=" + value1 + "]").attr('checked', 'checked');
+        $("input[name=kltskirimradio][value=" + value2 + "]").attr('checked', 'checked');
+        $("input[name=hargakirimradio][value=" + value3 + "]").attr('checked', 'checked');
+    }
+
+
+    $(document).ready(function(){
+        SetRadioChecked();
+    });
+
+</script>
+
+{% endblock %}

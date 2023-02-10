@@ -1,0 +1,67 @@
+<div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
+    <h3 class="text-center cl-green-3 text-uppercase "> {{koper.du_nakop}} </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12 col-sm-12 mb-2 form-group">
+            {% if koper.du_ftkop %}
+            <img src="{{ koper.du_ftkop.url}}" class="img-fluid w-100" style="max-height:350px; object-fit:cover;">
+            {% else %}
+            <img src="/static/images/team/default-profile-picture.png" class="img-fluid w-100"
+                style="max-height:300px; object-fit:cover;">
+            {% endif %}
+        </div>
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Alamat </label>
+            <p> {{koper.du_alkop }} </p>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Jenis Koperasi
+            </label>
+            <p> {{koper.du_jenkop }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Badan Hukum </label>
+            <p> {{koper.du_bhkkop }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Ketua Koperasi
+            </label>
+            <p> {{koper.da_nmketua }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Sekretaris
+                Koperasi</label>
+            <p> {{koper.da_nmsekre }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Bendahara Koperasi
+            </label>
+            <p> {{koper.da_nmbenda }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Pengelola Koperasi
+            </label>
+            <p> {{koper.da_nmpngla }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Pengawas Koperasi
+            </label>
+            <p> {{koper.da_nmpngws }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Anggota </label>
+            <p> {{koper.da_jmlaggt }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Karyawan </label>
+            <p> {{koper.da_jmlkrywn }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Rapat
+                Anggota</label>
+            <p> {{koper.du_bhkkop }} </p>
+        </div>
+    </div>
+
+</div>

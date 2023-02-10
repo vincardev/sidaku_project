@@ -1,0 +1,475 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Laporan Biaya </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bilanghpp.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.lpb_bilanghpp.errors %}
+                    {% render_field form.lpb_bilanghpp class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.lpb_bilanghpp class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.lpb_bilanghpp class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bilanghpp.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_jasimp.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_jasimp.errors %}
+                            {% render_field form.lpb_jasimp class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_jasimp class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_jasimp class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_jasimp.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_jasbank.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_jasbank.errors %}
+                            {% render_field form.lpb_jasbank class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_jasbank class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_jasbank class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_jasbank.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_jasimplain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_jasimplain.errors %}
+                            {% render_field form.lpb_jasimplain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_jasimplain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_jasimplain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_jasimplain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_jasimpjang.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_jasimpjang.errors %}
+                            {% render_field form.lpb_jasimpjang class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_jasimpjang class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_jasimpjang class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_jasimpjang.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_jasimpkhus.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_jasimpkhus.errors %}
+                            {% render_field form.lpb_jasimpkhus class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_jasimpkhus class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_jasimpkhus class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_jasimpkhus.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bypiutang.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bypiutang.errors %}
+                            {% render_field form.lpb_bypiutang class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bypiutang class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bypiutang class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bypiutang.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byasuran.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byasuran.errors %}
+                            {% render_field form.lpb_byasuran class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byasuran class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byasuran class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byasuran.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byaudit.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byaudit.errors %}
+                            {% render_field form.lpb_byaudit class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byaudit class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byaudit class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byaudit.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bypajak.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bypajak.errors %}
+                            {% render_field form.lpb_bypajak class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bypajak class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bypajak class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bypajak.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bykeulain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bykeulain.errors %}
+                            {% render_field form.lpb_bykeulain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bykeulain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bykeulain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bykeulain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byrptpeng.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byrptpeng.errors %}
+                            {% render_field form.lpb_byrptpeng class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byrptpeng class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byrptpeng class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byrptpeng.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byrptangg.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byrptangg.errors %}
+                            {% render_field form.lpb_byrptangg class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byrptangg class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byrptangg class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byrptangg.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byjaladin.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byjaladin.errors %}
+                            {% render_field form.lpb_byjaladin class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byjaladin class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byjaladin class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byjaladin.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bydiklat.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bydiklat.errors %}
+                            {% render_field form.lpb_bydiklat class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bydiklat class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bydiklat class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bydiklat.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_honorpeng.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_honorpeng.errors %}
+                            {% render_field form.lpb_honorpeng class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_honorpeng class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_honorpeng class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_honorpeng.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bypmbina.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bypmbina.errors %}
+                            {% render_field form.lpb_bypmbina class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bypmbina class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bypmbina class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bypmbina.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byorglain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byorglain.errors %}
+                            {% render_field form.lpb_byorglain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byorglain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byorglain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byorglain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_gjkaryawan.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_gjkaryawan.errors %}
+                            {% render_field form.lpb_gjkaryawan class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_gjkaryawan class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_gjkaryawan class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_gjkaryawan.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_tunjangan.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_tunjangan.errors %}
+                            {% render_field form.lpb_tunjangan class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_tunjangan class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_tunjangan class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_tunjangan.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_konsumsi.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_konsumsi.errors %}
+                            {% render_field form.lpb_konsumsi class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_konsumsi class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_konsumsi class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_konsumsi.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bytransdin.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bytransdin.errors %}
+                            {% render_field form.lpb_bytransdin class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bytransdin class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bytransdin class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bytransdin.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bypend.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bypend.errors %}
+                            {% render_field form.lpb_bypend class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bypend class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bypend class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bypend.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bykarylain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bykarylain.errors %}
+                            {% render_field form.lpb_bykarylain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bykarylain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bykarylain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bykarylain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byatulis.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byatulis.errors %}
+                            {% render_field form.lpb_byatulis class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byatulis class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byatulis class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byatulis.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bylistrik.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bylistrik.errors %}
+                            {% render_field form.lpb_bylistrik class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bylistrik class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bylistrik class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bylistrik.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_bytelp.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_bytelp.errors %}
+                            {% render_field form.lpb_bytelp class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_bytelp class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_bytelp class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_bytelp.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byair.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byair.errors %}
+                            {% render_field form.lpb_byair class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byair class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byair class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byair.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpb_byopslain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpb_byopslain.errors %}
+                            {% render_field form.lpb_byopslain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpb_byopslain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpb_byopslain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpb_byopslain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

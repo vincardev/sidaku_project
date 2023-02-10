@@ -1,0 +1,40 @@
+{% load static %}
+<header class="py-3 mb-0 bg-white sticky-top ">
+
+    <div class="container-fluid d-flex flex-wrap align-items-center justify-content-md-center justify-content-lg-between ">
+        <a href="/" class="d-flex align-items-center col-md-4 col-lg-3 mb-2 mb-md-0 text-dark text-decoration-none gap-2">
+            <img src="{{tables_company.partLogo.url}}" class="img-fluid" width="54" height="54"> 
+            <span class="fw-semibold"> {{tables_company.partName}}</span>
+            {% comment %} <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap" /></svg> {% endcomment %}
+        </a>
+
+        <ul class="nav text-center col-12 col-md-auto col-lg-auto  mb-2 justify-content-md-end justify-content-lg-end  justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERANDA</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">HUBUNGI KAMI</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERITA</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">REGULASI</a></li>
+            {% if user.is_authenticated%}
+                <li><a href="/sidaku_admin/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">DASHBOARD </a>  </li>
+                <li><a href="/signout/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">SIGN OUT</a></li>
+            {% else%}
+                <li><a href="/sidaku_admin/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">MASUK</a></li>
+            {% endif %}
+        </ul>
+
+        {% comment %} <div class="col-md-4 col-lg-3 text-end"> {% endcomment %}
+        {% comment %} <ul class="nav col-md-3  col-lg-3  justify-content-end">
+            <li >
+                <a class="nav-link px-3 link-dark font-monospace" aria-current="page" href="#" style="font-size:0.8rem;">SIGN IN</a> 
+            </li>
+            <li >
+                <a class="nav-link px-3 link-dark font-monospace" href="#" style="font-size:0.8rem;"><i class="bi bi-minecart"></i></a>
+            </li>
+        </ul> {% endcomment %}
+
+            {% comment %} <button type="button" class="btn btn-outline-primary me-2">SIGN IN</button> | 
+            <button type="button" class="btn btn-primary">SIGN UP</button> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+    </div>
+</header>
+  

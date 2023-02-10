@@ -1,0 +1,288 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Produk Jasa </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-2">
+                    <label>Produk <button type="button" id="modalprod" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addprod" data-bs-whatever="Jenis Produk">+</button></label>
+                    <textarea name="jenprod" id="jenprod"  hidden="hidden"></textarea>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th >Komoditi</th>
+                                <th >Volume</th>
+                                <th >Satuan</th>
+                                <th >Harga</th>
+                                <th >Total</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill">
+                            <tr>
+                                <td colspan="6" class="text-center">no item</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.pj_jassimkop.label }} 
+                        {% if form.instance.pj_jassimkop %}
+                        <span class="text-xs font-weight-bold">
+                            <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.pj_jassimkop.url}}" download>
+                                <i class="bi bi-download"></i>
+                            </a> 
+                        </span> 
+                        {% endif %}
+                    </label>
+                    {% if form.is_bound %}
+                    {% if form.pj_jassimkop.errors %}
+                    {% render_field form.pj_jassimkop class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.pj_jassimkop class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.pj_jassimkop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pj_jassimkop.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.pj_jaspinkop.label }}</label>
+                    {% if form.instance.pj_jaspinkop %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.pj_jaspinkop.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+                    {% if form.is_bound %}
+                        {% if form.pj_jaspinkop.errors %}
+                            {% render_field form.pj_jaspinkop class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.pj_jaspinkop class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pj_jaspinkop class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.pj_jaspinkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.pj_produngkop.label }}</label>
+                    {% if form.instance.pj_produngkop %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.pj_produngkop.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+                    {% if form.is_bound %}
+                        {% if form.pj_produngkop.errors %}
+                            {% render_field form.pj_produngkop class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.pj_produngkop class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pj_produngkop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pj_produngkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="addprod" tabindex="-1" aria-labelledby="addprodlLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addprodlLabel">Tambah Jenis Produk</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="foto-name" class="col-form-label">Foto Produk</label>
+              <input accept="image/*" class="form-control form-control-sm" id="fotoprod" type="file">
+            </div>
+            <div class="mb-3">
+              <label for="komoditi-name" class="col-form-label">Komoditi</label>
+              <input type="hidden" class="form-control form-control-sm" id="idxinput">
+              <input type="text" class="form-control form-control-sm" id="komoditiprod">
+            </div>
+            <div class="mb-3">
+              <label for="volume-text" class="col-form-label">Volume</label>
+              <input type="number" class="form-control form-control-sm" id="volumeprod">
+            </div>
+            <div class="mb-3">
+              <label for="satuan-text" class="col-form-label">Satuan</label>
+              <input type="text" class="form-control form-control-sm" id="satuanprod">
+            </div>
+            <div class="mb-3">
+              <label for="harga-text" class="col-form-label">Harga</label>
+              <input type="number" class="form-control form-control-sm" id="hargaprod">
+            </div>
+            <div class="mb-3">
+              <label for="total-text" class="col-form-label">Total</label>
+              <input type="number" class="form-control form-control-sm" id="totalprod">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btntambah">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnedit" onclick="EditData()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% block javascripts %}
+<script>
+
+btntambah   = document.getElementById("btntambah")
+btnedit     = document.getElementById("btnedit")
+modalprod   = document.getElementById("modalprod")
+
+var strjson = []
+
+modalprod.addEventListener("click", function(){
+
+    fotoprod = document.getElementById("fotoprod")
+    komoditiprod = document.getElementById("komoditiprod")
+    volumeprod = document.getElementById("volumeprod")
+    satuanprod = document.getElementById("satuanprod")
+    hargaprod = document.getElementById("hargaprod")
+    totalprod = document.getElementById("totalprod")
+
+    fotoprod.value = "";
+    komoditiprod.value = "";
+    volumeprod.value = "";
+    satuanprod.value = "";
+    hargaprod.value = "";
+    totalprod.value = "";
+
+    $("#btnedit").hide();
+    $("#btntambah").show();
+});
+
+btntambah.addEventListener("click", function(){
+
+    fotoprod = document.getElementById("fotoprod")
+    komoditiprod = document.getElementById("komoditiprod")
+    volumeprod = document.getElementById("volumeprod")
+    satuanprod = document.getElementById("satuanprod")
+    hargaprod = document.getElementById("hargaprod")
+    totalprod = document.getElementById("totalprod")
+    
+
+    data = {
+        "id":"",
+        "foto":fotoprod.value,
+        "komoditi":komoditiprod.value,
+        "volume":volumeprod.value,
+        "satuan":satuanprod.value,
+        "harga":hargaprod.value,
+        "total":totalprod.value,
+    }
+    //convert JavaScript object to JSON
+    strjson.push(data);
+    //console.log(JSON.stringify(strjson));
+    ConvertToTable();
+
+    $("#jenprod").text(JSON.stringify(strjson));
+    //jsonText.innerText = JSON.stringify(data)
+});
+
+
+function DeleteTable(index){
+    strjson.splice(index,1);
+    ConvertToTable();
+    $("#jenprod").text(JSON.stringify(strjson));
+}
+
+
+function EditTable(index){
+
+    fotoprod = document.getElementById("fotoprod")
+    komoditiprod = document.getElementById("komoditiprod")
+    volumeprod = document.getElementById("volumeprod")
+    satuanprod = document.getElementById("satuanprod")
+    hargaprod = document.getElementById("hargaprod")
+    totalprod = document.getElementById("totalprod")
+    idxinput = document.getElementById("idxinput")
+    
+    fotoprod.src      = strjson[index].foto;
+    komoditiprod.value  = strjson[index].komoditi;
+    volumeprod.value    = strjson[index].volume;
+    satuanprod.value    = strjson[index].satuan;
+    hargaprod.value     = strjson[index].harga;
+    totalprod.value     = strjson[index].total;
+
+    idxinput.value = index;
+
+    $("#btnedit").show();
+    $("#btntambah").hide();
+}
+
+
+function EditData(){
+
+    fotoprod = document.getElementById("fotoprod")
+    komoditiprod = document.getElementById("komoditiprod")
+    volumeprod = document.getElementById("volumeprod")
+    satuanprod = document.getElementById("satuanprod")
+    hargaprod = document.getElementById("hargaprod")
+    totalprod = document.getElementById("totalprod")
+    idxinput = document.getElementById("idxinput")
+    
+    index = idxinput.value 
+    strjson[index].foto = fotoprod.value;
+    strjson[index].komoditi = komoditiprod.value ;
+    strjson[index].volume = volumeprod.value  ;
+    strjson[index].satuan = satuanprod.value  ;
+    strjson[index].harga = hargaprod.value    ;
+    strjson[index].total = totalprod.value    ;
+
+    ConvertToTable();
+    $("#jenprod").text(JSON.stringify(strjson));
+}
+
+function ConvertToTable(){
+    html ="";
+    for (let i = 0; i < strjson.length; i++) {
+        html += "<tr>";
+        html +=   "<td id='komoditi-"+i+"'>"+ strjson[i].komoditi+"</td>";
+        html +=   "<td id='volume-"+i+"'>"+ strjson[i].volume+"</td>";
+        html +=   "<td id='satuan-"+i+"'>"+ strjson[i].satuan+"</td>";
+        html +=   "<td id='harga-"+i+"'>"+ strjson[i].harga+"</td>";
+        html +=   "<td id='total-"+i+"'>"+ strjson[i].total+"</td>";
+        html +=   "<td><button type='button' class='btn btn-sm btn-warning'  data-bs-toggle='modal' data-bs-target='#addprod' data-bs-whatever='Jenis Produk'  onclick='EditTable("+i+")'><i class='bi bi-pencil-square'></i></button> <button type='button' onclick='DeleteTable("+i+")' class='btn btn-sm btn-danger'><i class='bi bi-eraser-fill'></i></button></td>";
+        html += "<tr>"; 
+    }
+    
+    $(".tb-fill").html(html);
+}
+
+</script>
+
+
+
+{% endblock %}

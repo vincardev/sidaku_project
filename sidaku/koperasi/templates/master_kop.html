@@ -1,0 +1,153 @@
+{% extends 'backend/base/main_base.html' %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+
+{% comment %} {% load static %} {% endcomment %}
+{% load filter_kop %}
+
+{% block title %} Koperasi {% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block main_content %}
+<div class="container">
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Data Koperasi</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          <a href="{% url 'koper:add_kop' %}" class="btn btn-sm btn-dark">Tambah Data</a>
+        </h3>
+  
+      </div>
+    </div>
+  
+  
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+          <div class="card">
+              <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h6>Daftar  Koperasi </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                  <table class="table mb-0 table-hover">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Jenis</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Badan Hukum</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Image</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Dibentuk</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Ketua</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Owner</th>
+                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for field in tables_1 %}
+                      <tr>
+                        <td>
+                          <div class="d-flex py-1">
+                            <div class="d-flex flex-column ">
+                              <h6 class="mb-0 text-sm"> 
+                                  {{ field.du_nakop }} 
+                                  
+                              </h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex py-1">
+                            <div class="d-flex flex-column ">
+                              <h6 class="mb-0 text-sm"> 
+
+                              {% GetjenisKoperasi field.du_jenkop as val_kop %}
+                              {{ val_kop }} 
+                              </h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle text-sm" >
+
+                            <div class="d-flex flex-column ">
+                                <h6 class="mb-0 text-sm"> 
+                                    {{ field.du_bhkkop }} 
+                                </h6>
+                            </div>
+                        </td>
+                        <td class="align-middle text-sm">
+                          <span class="text-xs font-weight-bold">
+                            {% if field.du_ftkop %}
+                              <img src="{{ field.du_ftkop.url }}" class="img-fluid" style="max-height:50px"> 
+                            {% endif %}
+                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
+                          </span>
+                        </td>
+                        </td>
+                        <td class="align-middle text-sm">
+                          <span class="text-xs font-weight-bold">
+                              {{ field.rkp_tglinput }} 
+                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
+                          </span>
+                        </td>
+                        <td class="align-middle text-sm">
+                          <span class="text-xs font-weight-bold">
+                              {{ field.da_nmketua }} 
+                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
+                          </span>
+                        </td>
+                        <td class="align-middle text-sm">
+                            <span class="text-xs font-weight-bold">
+                                {{ field.rkp_nmpmlk }} 
+                              {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
+                            </span>
+                          </td>
+                        <td class="align-middle">
+                          <a type="button" href="{% url 'koper:upd_kop' field.id %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                          {% if field.user.is_superuser %}
+                          {% else %}
+                          <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                            class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
+                          {% endif %}
+                        </td>
+      
+                        <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p><strong> {{ field.du_nakop }} </strong></p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                                <a href="{% url 'koper:del_kop'  field.id %}" class="btn btn-danger">Hapus</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+      
+                      </tr>
+      
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

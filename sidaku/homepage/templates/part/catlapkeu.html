@@ -1,0 +1,29 @@
+<div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
+    <h3 class="text-center cl-green-3 text-uppercase "> CATATAN LAPORAN KEUANGAN </h3>
+    <div class="card-body row ">
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group  text-center">
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">BULAN</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">TAHUN</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">DOKUMEN </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lap in lapkeu %}
+                        <tr>
+                            <td> {{lap.doc_bulan}} </td>
+                            <td> {{lap.doc_tahun}} </td>
+                            <td> <a href=" {{lap.doc_catlapkeu.url}}">Download PDF</a> </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

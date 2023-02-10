@@ -1,0 +1,159 @@
+<div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
+    <h3 class="text-center cl-green-3 text-uppercase "> Data Detail UMKM </h3>
+    <div class="card-body row ">
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group mb-5">
+            <label class="cl-green-3 text-uppercase fs-5"> Jumlah Permintaan Produk </label>
+            
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Produk</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bulan</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun </th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Permintaan </th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Produksi </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field in tabledemprod %}
+                        <tr>
+                            <td> {{field.dpd_nmprod}} </td>
+                            <td> {{field.dpd_bulan}} </td>
+                            <td> {{field.dpd_tahun}} </td>
+                            <td> {{field.dpd_demand}} </td>
+                            <td> {{field.dpd_produksi}} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group mb-5">
+            <label class="cl-green-3 text-uppercase fs-5">Jumlah Permintaan Pemasok</label>
+
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tipe Pemasok</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bulan</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun </th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Permintaan </th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Produksi </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field in tabledemsup %}
+                        <tr>
+                            <td> {{field.dsp_jensup}} </td>
+                            <td> {{field.dsp_bulan}} </td>
+                            <td> {{field.dsp_tahun}} </td>
+                            <td> {{field.dsp_demand}} </td>
+                            <td> {{field.dsp_produksi}} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 mb-2 form-group mb-5">
+            <label class="cl-green-3 text-uppercase fs-5">Penilaian Pemasok </label>
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Pemasok</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Kualitas</th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Pengiriman </th>
+                            <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">harga </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field in tablepensup %}
+                        <tr>
+                            <td> {{field.dps_nm_supp}} </td>
+                            <td> {{field.dps_kualitas}} </td>
+                            <td> {{field.dps_pengiriman}} </td>
+                            <td> {{field.dps_harga}} </td
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5">Perbandingan Kepentingan
+            </label>
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <tbody class="tb-fill-perbandingan">
+                        <tr>
+                            <td class="text-center">Kualitas</td>
+                            <td class="text-center">
+                                
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 1 %} btn-success {% endif %}">Sangat Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 2 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 3 %} btn-success {% endif %} ">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 4 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 5 %} btn-success {% endif %}">Sama Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 6 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 7 %} btn-success {% endif %}">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 8 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltsharga == 9 %} btn-success {% endif %}">Sangat Penting</button>
+
+                                </div>
+                            </td>
+                            <td class="text-center">Harga</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-center">Kualitas</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 1 %} btn-success {% endif %}">Sangat Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 2 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 3 %} btn-success {% endif %} ">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 4 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 5 %} btn-success {% endif %}">Sama Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 6 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 7 %} btn-success {% endif %}">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 8 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_kltskirim == 9 %} btn-success {% endif %}">Sangat Penting</button>
+
+                                </div>
+                            </td>
+                            <td class="text-center">Pengiriman</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-center">Harga</td>
+                            <td class="text-center" >
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 1 %} btn-success {% endif %}">Sangat Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 2 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 3 %} btn-success {% endif %} ">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 4 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 5 %} btn-success {% endif %}">Sama Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 6 %} btn-success {% endif %}">Sedikit Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 7 %} btn-success {% endif %}">Lebih Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 8 %} btn-success {% endif %}">Penting</button>
+                                    <button type="button" class="btn btn-sm btn-default {% if umkmdat.dtu_hrgakirim == 9 %} btn-success {% endif %}">Sangat Penting</button>
+
+                                </div>
+                            </td>
+                            <td class="text-center">Pngiriman</td>
+                        </tr> 
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        
+    </div>
+
+</div>

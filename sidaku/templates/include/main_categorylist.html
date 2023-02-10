@@ -1,0 +1,12 @@
+
+
+
+<div class="form-floating">
+    <select class="form-select form-select-sm" id="floatingCategory">
+        <option value ="" selected> Semua Data</option>
+        {% for field in list_Category %}
+            <option value="{{field.id}}">{{field.itcCategoryName}}</option>
+        {% endfor %}
+    </select>
+    <label for="floatingCategory" class="p-2">kategori</label>
+</div>

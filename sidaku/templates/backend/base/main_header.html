@@ -1,0 +1,55 @@
+<header class="py-3 mb-0 bg-white sticky-top ">
+  
+    <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center justify-content-md-center justify-content-lg-between ">
+       
+        <a href="/" class="d-flex align-items-center col-md-5 col-lg-3 mb-2 mb-md-0 text-dark text-decoration-none gap-3">
+            
+            <img src="{{tables_company.partLogo.url}}" class="img-fluid " width="54" height="54">
+            {{tables_company.partName}}
+            {% comment %} <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap" /></svg> {% endcomment %}
+        </a>
+
+        <ul class="nav  col-12 col-md-auto col-lg-auto  mb-2 justify-content-lg-end  justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERANDA</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">HUBUNGI KAMI</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERITA</a></li>
+            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">REGULASI</a></li>
+
+            {% if user.is_authenticated%}
+                <li><a href="/sidaku_admin/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">DASHBOARD </a>  </li>
+                <li><a href="/signout/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">SIGN OUT</a></li>
+            {% else%}
+                <li><a href="/sidaku_admin/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">MASUK</a></li>
+            {% endif %}
+        </ul>   
+        <div class="d-flex offcanvas-sm-start d-md-none "> 
+            <button class="navbar-toggler d-flex align-items-center" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#sidebarMenu" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                    </path>
+                </svg>
+            <span class="d-flex"  style="font-size:0.8rem;"> ADMIN MENU</span>
+            </button>
+            
+        </div>
+    
+
+        {% comment %} <div class="col-md-4 col-lg-3 text-end"> {% endcomment %}
+        {% comment %} <ul class="nav col-md-3  col-lg-3  justify-content-end">
+            <li >
+                <a class="nav-link px-3 link-dark font-monospace" aria-current="page" href="#" style="font-size:0.8rem;">SIGN IN</a> 
+            </li>
+            <li >
+                <a class="nav-link px-3 link-dark font-monospace" href="#" style="font-size:0.8rem;"><i class="bi bi-minecart"></i></a>
+            </li>
+        </ul> {% endcomment %}
+
+            {% comment %} <button type="button" class="btn btn-outline-primary me-2">SIGN IN</button> | 
+            <button type="button" class="btn btn-primary">SIGN UP</button> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+    </div>
+</header>

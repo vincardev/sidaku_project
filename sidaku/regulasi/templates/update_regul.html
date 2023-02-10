@@ -1,0 +1,71 @@
+{% extends 'backend/base/main_base.html' %}
+{% load static %}
+
+{% block title %} Regulasi {% endblock %}
+{% block main_content %}
+
+{% block javascripts_head %}
+
+<script>
+
+
+</script>
+
+{% endblock %}
+
+<div class="container">
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Ubah Data</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            {% comment %} <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar" class="align-text-bottom"></span>
+                This week
+            </button> {% endcomment %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }} </div>
+            {% else %}
+            <div class="alert alert-danger">{{ message }} </div>
+            {% endif %}
+            {% endfor %}
+            
+            <form action="{% url 'regul:update_regul' tables.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                
+                <p class="text-xs font-weight-bold">
+                    <a class="text-decoration-none text-dark"  href="{{tables.documentFile.url}}" download> 
+                        <button class="btn btn-sm btn-success">Download File</button> 
+                    </a>
+                    {{tables.documentFile}}
+                </p>
+
+                <button class="btn btn-primary">Simpan</button>
+                <a href="{% url 'regul:master_regul' %}" class="btn btn-danger">Kembali</a>
+               
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+{% endblock %}

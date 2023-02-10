@@ -1,0 +1,93 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Laporan Ekuitas </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpe_simppkk.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.lpe_simppkk.errors %}
+                    {% render_field form.lpe_simppkk class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.lpe_simppkk class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.lpe_simppkk class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpe_simppkk.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpe_simpwjb.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpe_simpwjb.errors %}
+                            {% render_field form.lpe_simpwjb class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpe_simpwjb class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpe_simpwjb class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpe_simpwjb.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpe_donasi.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpe_donasi.errors %}
+                            {% render_field form.lpe_donasi class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpe_donasi class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpe_donasi class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpe_donasi.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpe_cadresk.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpe_cadresk.errors %}
+                            {% render_field form.lpe_cadresk class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpe_cadresk class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpe_cadresk class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpe_cadresk.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpe_modpnyt.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpe_modpnyt.errors %}
+                            {% render_field form.lpe_modpnyt class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpe_modpnyt class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpe_modpnyt class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpe_modpnyt.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+
+</div>

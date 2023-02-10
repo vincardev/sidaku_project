@@ -1,0 +1,335 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Data Detail Usaha </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-2">
+                    <label>Jenis Produk <button type="button" id="modalprod" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addprod" data-bs-whatever="Jenis Produk">+</button></label>
+                    <textarea name="jenprod" id="jenprod"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Komoditi</th>
+                                <th >Volume</th>
+                                <th >Satuan</th>
+                                <th >Harga</th>
+                                <th >Total</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill">
+                            <tr>
+                                <td colspan="6" class="text-center">no item</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_tujuan.label }} </label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_tujuan.errors %}
+                    {% render_field form.dtu_tujuan class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.dtu_tujuan class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_tujuan class="form-control" %}
+                    {% endif %}
+                    {% for error in form.dtu_tujuan.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_omzetthn.label }} </label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_omzetthn.errors %}
+                    {% render_field form.dtu_omzetthn class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.dtu_omzetthn class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_omzetthn class="form-control" %}
+                    {% endif %}
+                    {% for error in form.dtu_omzetthn.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_totalaset.label }} </label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_totalaset.errors %}
+                    {% render_field form.dtu_totalaset class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.dtu_totalaset class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_totalaset class="form-control" %}
+                    {% endif %}
+                    {% for error in form.dtu_totalaset.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_skalausha.label }} </label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_skalausha.errors %}
+                    {% render_field form.dtu_skalausha class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.dtu_skalausha class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_skalausha class="form-control" %}
+                    {% endif %}
+                    {% for error in form.dtu_skalausha.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-4">
+                    <label>Jumlah Permintaan Produk <button type="button" id="modaldemprod" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#adddemprod" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="demprod" id="demprod"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Bulan</th>
+                                <th >Tahun</th>
+                                <th >Nama Produk</th>
+                                <th >Permintaan</th>
+                                <th >Produksi</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-demprod">
+                            <tr>
+                                <td colspan="6" class="text-center">no data</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6 my-4">
+                    <label>Jumlah Permintaan Pemasok <button type="button" id="modaldemsupp" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#adddemsupp" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="demsupp" id="demsupp"  hidden="hidden"></textarea>
+                   
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Bulan</th>
+                                <th >Tahun</th>
+                                <th >Tipe Pemasok</th>
+                                <th >Permintaan</th>
+                                <th >Produksi</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-demsupp">
+                            <tr>
+                                <td colspan="6" class="text-center">no item</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-2  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_wktutggu.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.dtu_wktutggu.errors %}
+                            {% render_field form.dtu_wktutggu class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.dtu_wktutggu class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.dtu_wktutggu class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.dtu_wktutggu.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-5  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_bypsnunit.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.dtu_bypsnunit.errors %}
+                            {% render_field form.dtu_bypsnunit class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.dtu_bypsnunit class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.dtu_bypsnunit class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.dtu_bypsnunit.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-5  col-sm-12 text-left py-6">
+                    <label>{{ form.dtu_bysmpunit.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.dtu_bysmpunit.errors %}
+                    {% render_field form.dtu_bysmpunit class="form-control is-invalid" rows="8" %}
+                    {% else %}
+                    {% render_field form.dtu_bysmpunit class="form-control is-valid" rows="8" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.dtu_bysmpunit class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.dtu_bysmpunit.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6 mt-4">
+                    <label>Penilaian Pemasok <button type="button" id="modalpensupp" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#addpensupp" data-bs-whatever="Tambah Data">+</button></label>
+                    <textarea name="pensupp" id="pensupp"  hidden="hidden"></textarea>
+                    <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th >Nama Pemasok</th>
+                                <th >Kualitas</th>
+                                <th >Pengiriman</th>
+                                <th >Harga</th>
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tb-fill-pensupp">
+                            <tr>
+                                <td colspan="6" class="text-center">no item</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-12  col-sm-12 text-left py-6 mt-4">
+                <label>Perbandingan Kepentingan </label>
+                {{ form.dtu_kltsharga }}
+                {{ form.dtu_kltskirim }}
+                {{ form.dtu_hrgakirim }}
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <tbody class="tb-fill-perbandingan">
+                            <tr>
+                                <td class="text-center">Kualitas</td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" onclick="get_klhg()">
+                                        <input type="radio"  class="btn-check" value="1" name="kltshargaradio" id="kltshargaradio_1" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_1">Sangat Penting</label>
+                                        <input type="radio" class="btn-check" value="2" name="kltshargaradio" id="kltshargaradio_2" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_2">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="3" name="kltshargaradio" id="kltshargaradio_3" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_3">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm " value="4" name="kltshargaradio" id="kltshargaradio_4" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_4">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="5" name="kltshargaradio" id="kltshargaradio_5" autocomplete="off" checked>
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_5">Sama Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="6" name="kltshargaradio" id="kltshargaradio_6" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_6">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="7" name="kltshargaradio" id="kltshargaradio_7" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_7">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="8" name="kltshargaradio" id="kltshargaradio_8" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_8">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="9" name="kltshargaradio" id="kltshargaradio_9" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltshargaradio_9">Sangat Penting</label>
+                                      </div>
+                                </td>
+                                <td class="text-center">Harga</td>
+                            </tr> 
+                            <tr>
+                                <td class="text-center">Kualitas</td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" onclick="get_klkr()">
+                                        <input type="radio" class="btn-check" value="1" name="kltskirimradio" id="kltskirimradio_1" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_1">Sangat Penting</label>
+                                        <input type="radio" class="btn-check" value="2" name="kltskirimradio" id="kltskirimradio_2" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_2">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="3" name="kltskirimradio" id="kltskirimradio_3" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_3">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm " value="4" name="kltskirimradio" id="kltskirimradio_4" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_4">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="5" name="kltskirimradio" id="kltskirimradio_5" autocomplete="off" checked>
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_5">Sama Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="6" name="kltskirimradio" id="kltskirimradio_6" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_6">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="7" name="kltskirimradio" id="kltskirimradio_7" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_7">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="8" name="kltskirimradio" id="kltskirimradio_8" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_8">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="9" name="kltskirimradio" id="kltskirimradio_9" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="kltskirimradio_9">Sangat Penting</label>
+                                      </div>
+                                </td>
+                                <td class="text-center">Pengiriman</td>
+                            </tr> 
+                            <tr>
+                                <td class="text-center">Harga</td>
+                                <td class="text-center" >
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" onclick="get_hgkr()" >
+                                        <input type="radio" class="btn-check" value="1" name="hargakirimradio" id="hargakirimradio_1" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_1">Sangat Penting</label>
+                                        <input type="radio" class="btn-check" value="2" name="hargakirimradio" id="hargakirimradio_2" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_2">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="3" name="hargakirimradio" id="hargakirimradio_3" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_3">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm " value="4" name="hargakirimradio" id="hargakirimradio_4" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_4">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="5" name="hargakirimradio" id="hargakirimradio_5" autocomplete="off" checked>
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_5">Sama Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="6" name="hargakirimradio" id="hargakirimradio_6" autocomplete="off" >
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_6">Sedikit Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="7" name="hargakirimradio" id="hargakirimradio_7" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_7">Lebih Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="8" name="hargakirimradio" id="hargakirimradio_8" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_8">Penting</label>
+                                        <input type="radio" class="btn-check btn-sm" value="9" name="hargakirimradio" id="hargakirimradio_9" autocomplete="off">
+                                        <label class="btn btn-outline-dark btn-sm" for="hargakirimradio_9">Sangat Penting</label>
+                                      </div>
+                                </td>
+                                <td class="text-center">Pngiriman</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+                
+
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<input type="hidden" class="form-control form-control-sm" id="idxinput">
+
+
+
+{% block javascripts %}
+<script>
+  
+</script>
+{% endblock %}

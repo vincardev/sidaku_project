@@ -1,0 +1,108 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Pemilik Usaha </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_noaggta.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.pu_noaggta.errors %}
+                    {% render_field form.pu_noaggta class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.pu_noaggta class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.pu_noaggta class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pu_noaggta.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_nmpmlk.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.pu_nmpmlk.errors %}
+                            {% render_field form.pu_nmpmlk class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.pu_nmpmlk class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pu_nmpmlk class="form-control"  %}
+                    {% endif %}
+                    {% for error in form.pu_nmpmlk.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_aldmisi.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.pu_aldmisi.errors %}
+                            {% render_field form.pu_aldmisi class="form-control is-invalid" rows="5" %}
+                        {% else %}
+                            {% render_field form.pu_aldmisi class="form-control is-valid" rows="5" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pu_aldmisi class="form-control" rows="5" %}
+                    {% endif %}
+                    {% for error in form.pu_aldmisi.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-4  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_noktp.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.pu_noktp.errors %}
+                            {% render_field form.pu_noktp class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.pu_noktp class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pu_noktp class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pu_noktp.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-4  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_notlp.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.pu_notlp.errors %}
+                            {% render_field form.pu_notlp class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.pu_notlp class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pu_notlp class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pu_notlp.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4  col-sm-12 text-left py-6">
+                    <label>{{ form.pu_email.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.pu_email.errors %}
+                            {% render_field form.pu_email class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.pu_email class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.pu_email class="form-control" %}
+                    {% endif %}
+                    {% for error in form.pu_email.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,161 @@
+{% load static %}
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Data Umum Usaha </h3>
+    <div class="card-body row ">
+        <div class="col-lg-4 col-sm-12 mb-2 form-group">
+            {% comment %} <div class="row">
+                <div class="col-lg-auto  col-sm text-left py-6"> {% endcomment %}
+                    <label>{{ form.du_ftusha.label }} </label>
+                  
+                        {% if form.instance.du_ftusha %}
+                            {% comment %} {{form.du_ftkop}} ssssa {% endcomment %}
+                        <img src="{{ form.instance.du_ftusha.url}}" class="img-fluid w-100">
+                        {% else %}
+                        <img src="/static/images/team/default-profile-picture.png" class="img-fluid w-100">
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="du_ftusha" class="form-label"> {{ form.intance.du_ftusha }}</label>
+                            <input name="du_ftusha" accept="image/*" class="form-control form-control-sm" id="du_ftusha" type="file">
+                        </div>
+                {% comment %} </div>
+            </div> {% endcomment %}
+        </div>
+    
+        <div class="col-lg-8  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_nmusha.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.du_nmusha.errors %}
+                    {% render_field form.du_nmusha class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.du_nmusha class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.du_nmusha class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_nmusha.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_alusha.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_alusha.errors %}
+                            {% render_field form.du_alusha class="form-control is-invalid" rows="5" %}
+                        {% else %}
+                            {% render_field form.du_alusha class="form-control is-valid" rows="5" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_alusha class="form-control" rows="5" %}
+                    {% endif %}
+                    {% for error in form.du_alusha.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_btkusha.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_btkusha.errors %}
+                            {% render_field form.du_btkusha class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.du_btkusha class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_btkusha class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_btkusha.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_bdgusha.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_bdgusha.errors %}
+                            {% render_field form.du_bdgusha class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.du_bdgusha class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_bdgusha class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_bdgusha.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_thnbrdr.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_thnbrdr.errors %}
+                            {% render_field form.du_thnbrdr class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.du_thnbrdr class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_thnbrdr class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_thnbrdr.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Map Lokasi Usaha</h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6 ">
+                    <button type='button' class='btn btn-sm btn-dark mb-3'   onclick='mycurrentposition()'><i class='bi bi-geo-alt-fill'></i>My Position</button> 
+                    <div id="maparea" class="rounded-2 w-100" style="height: 50vh;"></div>
+                
+                </div>
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.du_lat.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.du_lat.errors %}
+                    {% render_field form.du_lat class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.du_lat class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.du_lat class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_lat.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.du_long.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_long.errors %}
+                            {% render_field form.du_long class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.du_long class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_long class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.du_long.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>

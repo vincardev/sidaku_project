@@ -1,0 +1,331 @@
+{% extends 'backend/base/main_base.html' %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+
+{% comment %} {% load static %} {% endcomment %}
+{% load filter_reg %}
+
+{% block title %} Regulasi {% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block main_content %}
+
+
+<div class="container">
+
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Regulasi </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <form method="get">
+        <div class="row mb-2">
+          <div class="col-md-8 align-items-center">
+            <div class="position-relative"><input class="form-control search" name="search"
+                placeholder="Search by Title, Kategori, Tahun"> </div>
+          </div>
+          <div class="col-md-2 align-items-center">
+            <button type="submit" class="btn btn-dark form-control">
+              <span data-feather="search"></span> Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-phk-tab" data-bs-toggle="tab" data-bs-target="#nav-phk" type="button" role="tab" aria-controls="nav-phk" aria-selected="true">Produk Hukum</button>
+          <button class="nav-link" id="nav-rpk-tab" data-bs-toggle="tab" data-bs-target="#nav-rpk" type="button" role="tab" aria-controls="nav-rpk" aria-selected="false">Rapat Koordinasi</button>
+          <button class="nav-link" id="nav-ppr-tab" data-bs-toggle="tab" data-bs-target="#nav-ppr" type="button" role="tab" aria-controls="nav-ppr" aria-selected="false">Paparan</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+
+        {% comment %} PRODUK HUKUM {% endcomment %}
+        <div class="tab-pane fade show active" id="nav-phk" role="tabpanel" aria-labelledby="nav-phk-tab" tabindex="0">
+
+          <div class="card rounded-0 rounded-bottom">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6">       
+                  <h3>
+                    <a href="{% url 'regul:add_regul' 1 %}" class="btn btn-sm btn-dark">Tambah Data</a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Judul</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Kategori</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7">
+                        File
+                      </th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for field in tables_1 %}
+                    <tr>
+                      <td style="width: 25rem;">
+                        <div class="d-flex py-1">
+                          <div class="d-flex flex-column text-break">
+                            <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}"> {{ field.title }} </a>
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex py-1">
+                          <div class="d-flex flex-column ">
+                            <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}">
+                              
+                              {% GetKategoriName field.kategori as val_kat %}
+                              {{ val_kat }}
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-sm" >
+                        <span class="text-xs small font-weight-bold text-break ">
+                          <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}">
+                            {% comment %} {{ field.rtDesc }} {% endcomment %}
+                            {{ field.tahun}}
+                          </a>
+                        </span>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <span class="text-xs font-weight-bold">
+                          <a class="text-decoration-none text-dark"  href="{{field.documentFile.url}}" download> <button class="btn btn-sm btn-success">Download File</button> </a>
+                        </span>
+                      </td>
+                      <td class="align-middle">
+                        <a type="button" href="{% url 'regul:update_regul' field.id%}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                        {% if field.user.is_superuser %}
+                        {% else %}
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                          class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
+                        {% endif %}
+                      </td>
+    
+                      <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p><strong> {{ field.title }}  </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                              <a href="{% url 'regul:del_regul' field.id%}" class="btn btn-danger">Hapus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </tr>
+    
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {% comment %} RAPAT KORDINASI {% endcomment %}
+        <div class="tab-pane fade" id="nav-rpk" role="tabpanel" aria-labelledby="nav-rpk-tab" tabindex="0">
+          
+          <div class="card rounded-0 rounded-bottom">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6">       
+                  <h3>
+                    <a href="{% url 'regul:add_regul' 2 %}" class="btn btn-sm btn-dark">Tambah Data</a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Judul</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Kategori</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7">
+                        File
+                      </th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for field in tables_2 %}
+                    <tr>
+                      <td  style="width: 25rem;">
+                        <div class="d-flex py-1">
+                          <div class="d-flex flex-column ">
+                            <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}"> {{ field.title }} </a>
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex py-1">
+                          <div class="d-flex flex-column ">
+                            <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}">
+                              {% GetKategoriName field.kategori as val_kat %}
+                              {{ val_kat }}
+                            </a>
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <span class="text-xs font-weight-bold">
+                          <a class="text-decoration-none text-dark"  href="{{field.documentFile.url}}" download> <button class="btn btn-sm btn-success">Download File</button> </a>
+                        </span>
+                      </td>
+                      <td class="align-middle">
+                        <a type="button" href="{% url 'regul:update_regul' field.id%}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                        {% if field.user.is_superuser %}
+                        {% else %}
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                          class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
+                        {% endif %}
+                      </td>
+    
+                      <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p><strong> {{ field.title }}  </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                              <a href="{% url 'regul:del_regul' field.id%}" class="btn btn-danger">Hapus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </tr>
+    
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        {% comment %} PAPARAN {% endcomment %}
+        <div class="tab-pane fade" id="nav-ppr" role="tabpanel" aria-labelledby="nav-ppr-tab" tabindex="0">
+
+          <div class="card rounded-0 rounded-bottom">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6">       
+                  <h3>
+                    <a href="{% url 'regul:add_regul' 3 %}" class="btn btn-sm btn-dark">Tambah Data</a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Judul</th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7">
+                        File
+                      </th>
+                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for field in tables_3 %}
+                    <tr>
+                      <td  style="width: 25rem;">
+                        <div class="d-flex py-1">
+                          <div class="d-flex flex-column ">
+                            <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'regul:update_regul' field.id %}"> {{ field.title }} </a>
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <span class="text-xs font-weight-bold">
+                          <a class="text-decoration-none text-dark"  href="{{field.documentFile.url}}" download> <button class="btn btn-sm btn-success">Download File</button> </a>
+                        </span>
+                      </td>
+                      <td class="align-middle">
+                        <a type="button" href="{% url 'regul:update_regul' field.id%}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                        {% if field.user.is_superuser %}
+                        {% else %}
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                          class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
+                        {% endif %}
+                      </td>
+    
+                      <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p><strong> {{ field.title }}  </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                              <a href="{% url 'regul:del_regul' field.id%}" class="btn btn-danger">Hapus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </tr>
+    
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

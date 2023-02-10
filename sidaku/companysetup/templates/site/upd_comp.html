@@ -1,0 +1,415 @@
+{% extends 'backend/base/main_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} Informasi SIDAKU {% endblock %}
+{% block main_content %}
+
+<div class="container">
+
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3>Informasi PLUT dan SIDAKU</h3>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            {% comment %} <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar" class="align-text-bottom"></span>
+                This week
+            </button> {% endcomment %}
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 mb-4">
+
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }} </div>
+            {% else %}
+            <div class="alert alert-danger">{{ message }} </div>
+            {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'setting:updsetting' tables.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+
+                <div class="card p-3 mb-2" >
+                    <h3 class="text-center"> Informasi SIDAKU </h3>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6  col-sm-12 mb-2 form-group">
+
+                               
+                                <div class="row mb-3">
+
+                                    <div class="col-lg col-sm text-left py-6">
+                                        <label>{{ form.compName.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compName.errors %}
+                                                {% render_field form.compName class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compName class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+
+                                            {% render_field form.compName class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compName.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label>{{ form.compLogo.label }}</label>
+                                    <div class="col-lg  col-sm text-center py-6">
+                                        {% if form.instance.compLogo %}
+                                        <img src="{{ form.instance.compLogo.url}}" alt="connect" class="img-fluid">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-lg-auto col-sm-auto text-left py-6">
+                                        {% if form.is_bound %}
+                                            {% if form.compLogo.errors %}
+                                                {% render_field form.compLogo class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compLogo class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+
+                                            <input type="file" val="{{form.compLogo.url}}" name="compLogo" class="form-control" id="id_compLogo">
+                                        {% endif %}
+                                        {% for error in form.compLogo.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-lg-6  col-sm-12 mb-2 form-group">
+
+
+                                <div class="row mb-3">
+
+                                    <div class="col-lg col-sm text-left py-6">
+                                        <label>{{ form.partName.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.partName.errors %}
+                                                {% render_field form.partName class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.partName class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+
+                                            {% render_field form.partName class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.partName.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label>{{ form.partLogo.label }}</label>
+                                    <div class="col-lg col-sm text-center py-6">
+                                        {% if form.instance.partLogo %}
+                                        <img src="{{ form.instance.partLogo.url}}" alt="connect" class="img-fluid">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-lg-auto col-sm-auto text-left py-6">
+                                        {% if form.is_bound %}
+                                            {% if form.partLogo.errors %}
+                                                {% render_field form.partLogo class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.partLogo class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                        <input type="file" value="{{form.partLogo.url}}" name="partLogo" class="form-control" id="id_partLogo">
+                                        {% endif %}
+                                        {% for error in form.partLogo.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col text-left py-6">
+                                        <label>{{ form.compDesc.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compDesc.errors %}
+                                                {% render_field form.compDesc class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compDesc class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compDesc class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compDesc.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col text-left py-6">
+                                        <label>{{ form.partDesc.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.partDesc.errors %}
+                                                {% render_field form.partDesc class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.partDesc class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.partDesc class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.partDesc.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col text-left py-6">
+                                        <label>{{ form.compAddr.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compAddr.errors %}
+                                                {% render_field form.compAddr class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compAddr class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compAddr class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compAddr.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        {% comment %} <div class="row">
+                            <div class="col-lg-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col text-left py-6">
+                                        <label>{{ form.partAddr.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compAddr.errors %}
+                                                {% render_field form.partAddr class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.partAddr class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.partAddr class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.partAddr.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> {% endcomment %}
+
+                        <div class="row">
+                            <div class="col-lg-12   col-sm-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col-lg col-sm text-left py-6">
+                                        <label>{{ form.compPhone.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compPhone.errors %}
+                                                {% render_field form.compPhone class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compPhone class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compPhone class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compPhone.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-lg col-sm text-left py-6">
+                                        <label>{{ form.compEmail.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compEmail.errors %}
+                                                {% render_field form.compEmail class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compEmail class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compEmail class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compEmail.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col-lg  col-sm text-left py-6">
+                                        <label>{{ form.compIg.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compIg.errors %}
+                                                {% render_field form.compIg class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compIg class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compIg class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compIg.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-lg  col-sm text-left py-6">
+                                        <label>{{ form.compFb.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compFb.errors %}
+                                                {% render_field form.compFb class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compFb class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compFb class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compFb.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="col-lg  col-sm text-left py-6">
+                                        <label>{{ form.compWeb.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compFb.errors %}
+                                                {% render_field form.compWeb class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compWeb class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compWeb class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compWeb.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card p-3 mb-2" >
+                    <h3 class="text-center"> Kontak Pelayanan </h3>
+                    <div class="card-body">
+                    
+
+                        <div class="row">
+                            <div class="col-lg-12  col-sm-12 mb-2 form-group">
+                                <div class="row">
+                                    <div class="col-lg  col-sm text-left py-6">
+                                        <label>{{ form.compAdm1.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compAdm1.errors %}
+                                                {% render_field form.compAdm1 class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compAdm1 class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compAdm1 class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compAdm1.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-lg  col-sm text-left py-6">
+                                        <label>{{ form.compAdm2.label }}</label>
+                                        {% if form.is_bound %}
+                                            {% if form.compAdm2.errors %}
+                                                {% render_field form.compAdm2 class="form-control is-invalid" %}
+                                            {% else %}
+                                                {% render_field form.compAdm2 class="form-control is-valid" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% render_field form.compAdm2 class="form-control" %}
+                                        {% endif %}
+                                        {% for error in form.compAdm2.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div> 
+
+                <p>
+                    <label for="id_created_by">Created by:</label>
+                    <input type="text" name="created_by"
+                        value="{{form.instance.created_by}} - {{form.instance.created_date}}" class="form-control"
+                        disabled="disabled" maxlength="25" id="id_created_by">
+                </p>
+                <p>
+                    <label for="id_modified_by">Modified by:</label>
+                    <input type="text" name="modified_by"
+                        value="{{form.instance.modified_by}} - {{form.instance.modified_date}}" class="form-control"
+                        disabled="disabled" maxlength="25" id="id_modified_by">
+                </p>
+
+                <button class="btn btn-primary">Simpan</button>
+                {% comment %} <a href="{% url 'setting:updsetting'  %}" class="btn btn-danger">Kembali</a> {% endcomment %}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% endblock %}

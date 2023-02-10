@@ -1,0 +1,97 @@
+
+{% load static %}
+{% comment %} {% load filter_home %} {% endcomment %}
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container-fluid">
+            <div class="footer-text">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="ft-about">
+                            <div class="logo container">
+                                <div class="row">
+                                    <div class="col-lg-3 align-self-center">
+                                        <a href="/"  style="text-decoration: none;">   
+                                            <img src=" {{tables_company.compLogo.url}}" class="img-fluid" >
+                                            {% comment %} <img src="{{ tables_company.vLogo.url }}"  
+                                            class="img-fluid" > {% endcomment %}
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-9 align-self-center">
+                                        <span class="text-dark fs-5"> {{tables_company.compName}}</span>
+                                        {% comment %} <a href="/"  style="text-decoration: none;">   
+                                            <span class="text-white"> {{ tables_company.vName }} </span>
+                                        </a> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="text-dark">  {{tables_company.compDesc}}</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+
+                        <div class="ft-contact">
+                            <div class="container">
+                                <div class="row">
+                                    <h6  class="text-dark">Kantor </h6>
+                                    <p class="text-dark small">  
+                                        {{tables_company.compAddr}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ft-contact"> 
+                            <div class="container">
+                                <div class="row">
+                                    <h6  class="text-dark">Kontak Kami</h6>
+                                    <ul class="text-dark">
+                                        <li><i class="fa fa-phone"></i> <small> {{tables_company.compPhone}}</small></li>
+                                        <li><i class="fa fa-envelope"></i> <small>  {{tables_company.compEmail}} </small></li>
+                                        <li><i class="fa fa-facebook"></i> <small>  {{tables_company.compFb}}</small></li>
+                                        <li><i class="fa fa-instagram"></i> <small>  {{tables_company.compIg}} </small></li>
+                                        <li><i class="fa fa-globe"></i> <small>  {{tables_company.compWeb}} </small></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <div class="ft-about">
+                            <div class="logo container">
+                                <div class="row">
+                                    <div class="col-lg-3 align-self-center">
+                                        <a href="/"  style="text-decoration: none;">   
+                                            <img src=" {{tables_company.partLogo.url}}" class="img-fluid" >
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-9 align-self-center">
+                                        <span class="text-dark fs-5"> {{tables_company.partName}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="text-dark">
+                                        {{tables_company.partDesc}}
+                                    </p>
+                                   
+                                </div>
+                            </div>
+                          
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-center py-4 border-top  link-dark">
+                <p>© 2022 vincardev, Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+  
+

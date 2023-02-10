@@ -1,0 +1,77 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Laporan Pendapatan </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpp_pendjas.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.lpp_pendjas.errors %}
+                    {% render_field form.lpp_pendjas class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.lpp_pendjas class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.lpp_pendjas class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpp_pendjas.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpp_pendadm.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpp_pendadm.errors %}
+                            {% render_field form.lpp_pendadm class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpp_pendadm class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpp_pendadm class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpp_pendadm.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpp_pendtko.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpp_pendtko.errors %}
+                            {% render_field form.lpp_pendtko class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpp_pendtko class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpp_pendtko class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpp_pendtko.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.lpp_pendlain.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.lpp_pendlain.errors %}
+                            {% render_field form.lpp_pendlain class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.lpp_pendlain class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.lpp_pendlain class="form-control" %}
+                    {% endif %}
+                    {% for error in form.lpp_pendlain.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+
+</div>

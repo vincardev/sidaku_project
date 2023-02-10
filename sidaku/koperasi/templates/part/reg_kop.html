@@ -1,0 +1,124 @@
+
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block javascripts_head %}
+{% endblock %}
+
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Registrasi Koperasi</h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6 ">
+                    <button type='button' class='btn btn-sm btn-dark mb-3'   onclick='mycurrentposition()'><i class='bi bi-geo-alt-fill'></i>My Position</button> 
+                    <div id="maparea" class="rounded-2 w-100" style="height: 50vh;"></div>
+                
+                </div>
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_lat.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.rkp_lat.errors %}
+                    {% render_field form.rkp_lat class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.rkp_lat class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.rkp_lat class="form-control" %}
+                    {% endif %}
+                    {% for error in form.rkp_lat.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_long.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.rkp_long.errors %}
+                            {% render_field form.rkp_long class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.rkp_long class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.rkp_long class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.rkp_long.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_tglinput.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.rkp_tglinput.errors %}
+                            {% render_field form.rkp_tglinput class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.rkp_tglinput class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.rkp_tglinput class="form-control" %}
+                    {% endif %}
+                    {% for error in form.rkp_tglinput.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_nmpmlk.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.rkp_nmpmlk.errors %}
+                            {% render_field form.rkp_nmpmlk class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.rkp_nmpmlk class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.rkp_nmpmlk class="form-control" %}
+                    {% endif %}
+                    {% for error in form.rkp_nmpmlk.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_nikpmlk.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.rkp_nikpmlk.errors %}
+                            {% render_field form.rkp_nikpmlk class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.rkp_nikpmlk class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.rkp_nikpmlk class="form-control" %}
+                    {% endif %}
+                    {% for error in form.rkp_nikpmlk.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.rkp_nibkop.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.rkp_nibkop.errors %}
+                            {% render_field form.rkp_nibkop class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.rkp_nibkop class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.rkp_nibkop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.rkp_nibkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% block javascripts %}
+{% comment %} <script src="{% static 'js/mainjs/mapareaadmin.js' %}"></script> {% endcomment %}
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
+    <h3 class="text-center cl-green-3 text-uppercase "> JASA PINJAMAN </h3>
+    <div class="card-body row ">
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group  text-center">
+
+            {% if koper.pj_jaspinkop %}
+            <object data="{{koper.pj_jaspinkop.url}}" type="application/pdf" width="750px" height="750px">
+                <embed src="{{koper.pj_jaspinkop.url}}" type="application/pdf">
+                <p>This browser does not support PDFs. Please download the PDF to view it: <a
+                        href="{{koper.pj_jaspinkop.url}}">Download PDF</a>.</p>
+                </embed>
+            </object>
+            {% endif %}
+        </div>
+    </div>
+
+</div>

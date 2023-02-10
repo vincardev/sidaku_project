@@ -1,0 +1,127 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="greenrock campers coban rondo">
+   <meta name="author" content="vincart developer">
+   <meta name="generator" content="vincart developer">
+
+   <title>
+      SIDAKU - {% block title %}{% endblock  %}
+   </title>
+
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}" />
+   {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" /> {% endcomment %}
+   {% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" /> {% endcomment %}
+   <link rel="stylesheet" href="{% static 'css/headers.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/sidebars.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/guideline.css' %}" />
+   <link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}" />
+
+   <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
+   
+   <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+   <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"  charset="utf-8"></script>
+   <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+
+
+   {% block stylesheet %}{% endblock stylesheet %}
+   {% block javascripts_head %}{% endblock javascripts_head %}
+
+   <style>
+      .bd-placeholder-img {
+         font-size: 1.125rem;
+         text-anchor: middle;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         user-select: none;
+      }
+
+      @media (min-width: 768px) {
+         .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+         }
+      }
+
+      .b-example-divider {
+         height: 3rem;
+         background-color: rgba(0, 0, 0, .1);
+         border: solid rgba(0, 0, 0, .15);
+         border-width: 1px 0;
+         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+         flex-shrink: 0;
+         width: 1.5rem;
+         height: 100vh;
+      }
+
+      .bi {
+         vertical-align: -.125em;
+         fill: currentColor;
+      }
+
+      .nav-scroller {
+         position: relative;
+         z-index: 2;
+         height: 2.75rem;
+         overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+         display: flex;
+         flex-wrap: nowrap;
+         padding-bottom: 1rem;
+         margin-top: -1px;
+         overflow-x: auto;
+         text-align: center;
+         white-space: nowrap;
+         -webkit-overflow-scrolling: touch;
+      }
+      .nav-pills {
+         --bs-nav-pills-link-active-bg: #47752c;
+      }
+      .nav {
+         --bs-nav-link-color: #375d2c;
+         --bs-nav-link-hover-color: #89a581;
+         --bs-nav-link-disabled-color: #6c757d;
+      }
+
+      .list-group-item.active {
+         background-color: #447536;
+         border-color: #3f6d3c;
+     }
+
+
+   </style>
+
+</head>
+
+<body class="d-flex flex-row flex-column-fluid">
+
+   {% include "backend/base/main_sidebar.html" %}
+
+   <main class="container overflow-auto mw-100">
+      {% include "backend/base/main_header.html" %}
+      {% block main_content %} {% endblock main_content %}
+   </main>
+
+   
+   <script src="{% static 'js/jquery.min.js'%}"></script>
+   <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+   <script src="{% static 'js/feather.min.js'%}"></script>
+   
+   <script src="{% static 'vendor/chartjs/Chart.js' %}"></script>
+   <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
+
+   <script src="{% static 'js/sidebars.js'%}"></script>
+{% block javascripts %}{% endblock javascripts %}
+</body>
+
+</html>

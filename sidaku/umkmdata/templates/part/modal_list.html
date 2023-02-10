@@ -1,0 +1,218 @@
+<div class="modal fade" id="addprod" tabindex="-1" aria-labelledby="addprodlLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addprodlLabel">Tambah Jenis Produk</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_pdumkm.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btntambah">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnedit" onclick="EditData()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="adddemprod" tabindex="-1" aria-labelledby="addprodlLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addprodlLabel">Tambah Permintaan Produk</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_demprod.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahdemprod">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editdemprod" onclick="EditDataDemprod()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="adddemsupp" tabindex="-1" aria-labelledby="addsupplLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addsupplLabel">Tambah Permintaan Pemasok</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_demsupp.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahdemsupp">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editdemsupp" onclick="EditDataDemsupp()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addpensupp" tabindex="-1" aria-labelledby="addpensuppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addpensuppLabel">Tambah Penilaian Pemasok</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_pensupp.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahpensupp">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editpensupp" onclick="EditDataPensupp()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="addtngkrj" tabindex="-1" aria-labelledby="addtngkrjLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addtngkrjLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_tngkrj.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahtngkrj">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="edittngkrj" onclick="EditDataTngkrj()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addijin" tabindex="-1" aria-labelledby="addijinLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addijinLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_perijin.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahijin">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editijin" onclick="EditDataIjin()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addenergi" tabindex="-1" aria-labelledby="addenergiLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addenergiLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_energi.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahenergi">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editenergi" onclick="EditDataEnergi()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addbhbaku" tabindex="-1" aria-labelledby="addbhbakuLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addbhbakuLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_bahanbaku.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahbhbaku">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editbhbaku" onclick="EditDatabhbaku()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addmsndata" tabindex="-1" aria-labelledby="addmsndataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addmsndataLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_detmesin.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahmsndata">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editmsndata" onclick="EditDatamsndata()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="addfasil" tabindex="-1" aria-labelledby="addfasilLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addfasilLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_detfasil.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahfasil">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editfasil" onclick="EditDatafasil()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addpelat" tabindex="-1" aria-labelledby="addpelatLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addpelatLabel">Tambah Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{form_detpelat.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tambahpelat">Tambah</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editpelat" onclick="EditDatapelat()">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>

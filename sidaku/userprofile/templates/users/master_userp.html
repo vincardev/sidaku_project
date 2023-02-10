@@ -1,0 +1,145 @@
+{% extends 'backend/base/main_base.html' %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+
+{% block title %} Data Penggunan SIDAKU {% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block main_content %}
+
+
+<div class="container">
+
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Daftar Pengguna SIDAKU</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      {% comment %} <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar" class="align-text-bottom"></span>
+        This week
+      </button> {% endcomment %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <a href="{% url 'userprofile:add_userp' %}" class="btn btn-sm btn-dark">Tambah Data</a>
+      </h3>
+
+      <form method="get">
+        <div class="row mb-2">
+          <div class="col-md-8 align-items-center">
+            <div class="position-relative"><input class="form-control search" name="search"
+                placeholder="Search by Kode, Kategori, Deskripsi..."> </div>
+          </div>
+          <div class="col-md-2 align-items-center">
+            <button type="submit" class="btn btn-dark form-control">
+              <span data-feather="search"></span> Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+      <div class="card">
+        <div class="card-header pb-0">
+          <div class="row">
+            <div class="col-lg-6">
+              <h6>Daftar Pengguna SIDAKU </h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive">
+            <table class="table mb-0 table-hover">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Depan</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Belakang</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Username</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7">
+                    Email
+                  </th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for field in tables %}
+                <tr>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.first_name }} </a>
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm"> <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.last_name }} </a>
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle text-sm" style="width: 25rem;">
+                    <span class="text-xs small font-weight-bold text-break ">
+                      <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}">
+                        {% comment %} {{ field.rtDesc }} {% endcomment %}
+                        {{ field.user.username }}
+                      </a>
+                    </span>
+                  </td>
+                  <td class="align-middle text-sm">
+                    <span class="text-xs font-weight-bold">
+                      <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a>
+                    </span>
+                  </td>
+                  <td class="align-middle">
+                    <a type="button" href="{% url 'userprofile:update_userp' field.id%}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    {% if field.user.is_superuser %}
+                    {% else %}
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                      class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
+                    {% endif %}
+                  </td>
+
+                  <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p><strong> {{ field.user.first_name }} {{ field.user.last_name }} </strong></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                          <a href="{% url 'userprofile:del_userp' field.id%}" class="btn btn-danger">Hapus</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

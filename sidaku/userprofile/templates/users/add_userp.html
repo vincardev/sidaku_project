@@ -1,0 +1,157 @@
+{% extends 'backend/base/main_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block main_content %}
+<div class="container">
+
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Tambah Pengguna</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }} </div>
+            {% else %}
+            <div class="alert alert-danger">{{ message }} </div>
+            {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'userprofile:add_userp' %}" method="post" enctype="multipart/form-data">
+                {% comment %} /* pengamanan data form {% endcomment %}
+                {% csrf_token %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+                <div class="row">
+
+                    <div class="col-lg-6 mb-2 form-group">
+
+                        <label>{{ form.first_name.label }}</label>
+                        {% if form.is_bound %}
+                            {% if form.first_name.errors %}
+                                {% render_field form.first_name class="form-control is-invalid" %}
+                            {% else %}
+                                {% render_field form.first_name class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.first_name class="form-control" %}
+                        {% endif %}
+                        {% for error in form.first_name.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+
+                    </div> <!-- form-group end.// -->
+
+                    <div class="col-lg-6 mb-2 form-group">
+
+                        <label>{{ form.last_name.label }}</label>
+                        {% if form.is_bound %}
+                        {% if form.last_name.errors %}
+                        {% render_field form.last_name class="form-control is-invalid" %}
+                        {% else %}
+                        {% render_field form.last_name class="form-control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.last_name class="form-control" %}
+                        {% endif %}
+                        {% for error in form.last_name.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+
+                    </div> <!-- form-group end.// -->
+
+                </div> <!-- form-row end.// -->
+
+                <div class="form-group mb-2">
+
+                    <label>{{ form.username.label }}</label>
+
+                    {% if form.is_bound %}
+                    {% if form.username.errors %}
+                    {% render_field form.username class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.username class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.username class="form-control" %}
+                    {% endif %}
+                    {% for error in form.username.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+
+                </div> <!-- form-group end.// -->
+
+                <div class="form-group  mb-2">
+
+                    <label>{{ form.email.label }}</label>
+
+                    {% if form.is_bound %}
+                    {% if form.email.errors %}
+                    {% render_field form.email class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.email class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.email class="form-control" %}
+                    {% endif %}
+                    {% for error in form.email.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+
+                </div> <!-- form-group end.// -->
+
+                <div class="form-group  mb-2">
+
+                    <label>{{ form.password1.label }}</label>
+
+                    {% if form.is_bound %}
+                    {% if form.password1.errors %}
+                    {% render_field form.password1 class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.password1 class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.password1 class="form-control" %}
+                    {% endif %}
+                    {% for error in form.password1.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div> <!-- form-group end.// -->
+
+                <div class="form-group  mb-2">
+
+                    <label>{{ form.password2.label }}</label>
+
+                    {% if form.is_bound %}
+                    {% if form.password2.errors %}
+                    {% render_field form.password2 class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.password2 class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.password2 class="form-control" %}
+                    {% endif %}
+                    {% for error in form.password2.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+
+                </div> <!-- form-group end.// -->
+
+                <button class="btn btn-primary">Tambah</button>
+                <a href="{% url 'userprofile:master_userp' %}" class="btn btn-danger">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

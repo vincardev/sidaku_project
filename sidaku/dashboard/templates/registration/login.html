@@ -1,0 +1,75 @@
+{% extends 'backend/base/main_login.html' %}
+
+{% block main_content %}
+
+{% if user.is_authenticated%}
+
+<meta http-equiv="refresh" content="0; url={% url 'dash:dashboard' %}">
+{% comment %} ecting
+<meta http-equiv="refresh" content="5; url=http://www.google.com/"> {% endcomment %}
+
+{% else %}
+
+
+<div class="d-flex flex-column vh-100">
+    <!--begin::Login-->
+    <div class="d-flex flex-column flex-lg-row flex-column-fluid h-100">
+
+        <div id="ltop" class="d-flex flex-column flex-lg-row-auto justify-content-center align-items-center w-100">
+            <img src="/static/images/login/login-illustrations.png"  class="img-fluid ">
+        </div>
+        
+
+        <div id="lbot" class="flex-lg-row-fluid d-flex flex-column justify-content-center align-items-center vw-100">
+            
+            <div class="d-flex flex-column-fluid flex-center py-10">
+
+                <div class="card shadow-lg border-0 ">
+                    <div class="card-body bg-blue-3 p-4 rounded-2">
+                                
+                        <form class="form w-100" method="post">
+
+                            {% csrf_token %}
+                            
+                            <div class="pb-3 pb-lg-15">
+                                <h3 class="text-white fs-6">Selamat Datang,</h3>
+                                <div class="text-white fs-6">
+                                    Penggerak Ekonomi!
+                                </div>
+                            </div>
+                            
+                            <div class="mb-10">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                                    <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+
+                            <div class="mb-10 ">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic2"><i class="bi bi-key-fill"></i></span>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic2">
+                                </div>
+                            </div>
+                            
+                            <div class="pb-lg-0 pt-5">
+                                <div class="d-grid gap-1 d-md-flex justify-content-md-end">
+                                    <button type="submit"  class="btn btn-sm btn-success ">Sign In</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

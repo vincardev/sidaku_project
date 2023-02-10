@@ -1,0 +1,229 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} Greenrock Campers {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+
+
+{% block front_content %} 
+
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="d-flex p-4 py-5 p-md-5 mb-4 rounded text-bg-light align-items-center"
+                style="background-color:#c2cbc4!important; min-height:200px;">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-7 col-lg-8 ">
+                            <h1 class="display-6 fst-italic fw-bold">Available Accommodations</h1>
+                        </div>
+                        <div class="col-md-5 col-lg-4 ">
+                            <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+                                <ol class="breadcrumb text-white justify-content-end no-border mb-0">
+                                    <li class="breadcrumb-item font-monospace text-sm"><a href="{% url 'home:homepage' %}"
+                                            class="text-decoration-none text-white"><small>HOME</small></a></li>
+                                    <li class="breadcrumb-item font-monospace active"><small>FILTER</small></span></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="room-details-section py-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 order-md-last mb-5">
+                    <div class="room-booking">
+                        <h3>Your Reservation</h3>
+                        <form action="{% url 'home:filter_available' %}" method="get">
+                            <div class="check-date">
+                                <label for="date-in">Check In:</label>
+                                <input type="date" id="checkin_date" onchange="getDateChange(0)"  name="ci_date"  value="{{ci_date}}" class="form-control">
+                                {% comment %} <input type="date" class="date-input" value="{{ci_date}}"  id="date-in"> {% endcomment %}
+                                {% comment %} <i class="icon_calendar"></i> {% endcomment %}
+                            </div>
+                            <div class="check-date">
+                                <label for="date-out">Check Out:</label>
+                                <input type="date" id="checkout_date" onchange="getDateChange(1)" name="co_date" value="{{co_date}}" class="form-control">
+                                {% comment %} <input type="date" class="date-input" value="{{co_date}}" id="date-out"> {% endcomment %}
+                                {% comment %} <i class="icon_calendar"></i> {% endcomment %}
+                            </div>
+                            <div class="select-option">
+                                <label for="guest">Guests:</label>
+                                <input type="number" id="person" value="{{person}}" name="person" min="1" class="form-control">
+                            </div>
+                            <div class="select-option">
+                                <label for="room">Room:</label>
+
+                                <select name="accom" id="paket" class="form-control">
+                                    <option value="0" {% if accom_type == "0" %} selected {% endif %}>Default</option>
+                                    <option value="1" {% if accom_type == "1" %} selected {% endif %}>Paket</option>
+                                    <option value="2" {% if accom_type == "2" %} selected {% endif %}>Lahan</option>
+                                 </select>
+{% comment %} 
+                                <select id="room" style="display: none;">
+                                    <option value="">1 Room</option>
+                                </select><div class="nice-select" tabindex="0"><span class="current">1 Room</span><ul class="list"><li data-value="" class="option selected">1 Room</li></ul></div> {% endcomment %}
+                            </div>
+                            <button type="submit">Check Availability</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+
+                        {% if accom_type == "0" %}
+                            {% for field in tables_package %}
+
+                                <div class="col-lg-6 col-md-6" >
+                                    <div class="card mb-3 border-0">
+                                        <img src="{{ field.rpgPackID.cpPicture.url }}" class="card-img-top rounded-0" alt="..." style="max-height:244px;">
+                                        <div class="card-body px-0">
+                                            <h5 class="card-title">  <a class="text-decoration-none text-dark" href="#">{{field.rpgPackID.cpPackName}}</a></h5>
+                                            <p class="card-text"> {{field.rpgPackID.cpDesc}}</p>
+                                            <p class="card-text"><small class="text-muted">Weekdays {{field.rpgWeekdays | intcomma}} | Weekends {{field.rpgWeekends | intcomma}} </small></p>
+                                        </div>
+                                        <div class="card-footer bg-transparent d-flex justify-content-end  px-0">
+                                            {% if weekday < 4 %}
+                                             <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rpgWeekdays | intcomma}} <span>/night</span></h1>
+                                            {% else %}
+                                             <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rpgWeekends | intcomma}} <span>/night</span></h1>
+                                            {% endif %}
+                                             <button type="button" href="#" class="btn btn-outline-success btn-sm">Booking</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            {% endfor %}
+
+                            {% for field in tables_room %}
+                                <div class="col-lg-6 col-md-6" >
+                                    <div class="card mb-3 border-0">
+                                        <img src="{{ field.rateRoomID.rPicture.url }}" class="card-img-top rounded-0" alt="..."  style="max-height:244px;">
+                                        <div class="card-body px-0">
+                                            <h5 class="card-title">  <a class="text-decoration-none text-dark" href="#">{{field.rateRoomID.rAreaLoc}}</a></h5>
+                                            <p class="card-text"> {{field.rateRoomID.rDesc}}</p>
+                                            <p class="card-text"><small class="text-muted">Weekdays {{field.rateWeekdays | intcomma}} | Weekends {{field.rateWeekends | intcomma}}</small></p>
+                                        </div>
+                                        <div class="card-footer bg-transparent d-flex justify-content-end  px-0">
+                                            {% if weekday < 4 %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rateWeekdays | intcomma}} <span>/night</span></h1>
+                                            {% else %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rateWeekends | intcomma}} <span>/night</span></h1>
+                                            {% endif %}
+                                            <button type="button" href="#" class="btn btn-outline-success btn-sm">Booking</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if accom_type == "2" %}
+                            {% for field in tables_room %}
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card mb-3 border-0">
+                                        <img src="{{ field.rateRoomID.rPicture.url }}" class="card-img-top rounded-0" alt="..."  style="max-height:244px;">
+                                        <div class="card-body px-0">
+                                            <h5 class="card-title">  <a class="text-decoration-none text-dark" href="#">{{field.rateRoomID.rAreaLoc}}</a></h5>
+                                            <p class="card-text"> {{field.rateRoomID.rDesc}}</p>
+                                            <p class="card-text"><small class="text-muted">Weekdays {{field.rateWeekdays | intcomma}} | Weekends {{field.rateWeekends | intcomma}}</small></p>
+                                        </div>
+                                        <div class="card-footer bg-transparent d-flex justify-content-end  px-0">
+                                            {% if weekday < 4 %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rateWeekdays | intcomma}} <span>/night</span></h1>
+                                            {% else %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rateWeekends | intcomma}} <span>/night</span></h1>
+                                            {% endif %}
+                                            <button type="button" href="#" class="btn btn-outline-success btn-sm">Booking</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if accom_type == "1" %}
+                            {% for field in tables_package %}
+                            
+                                <div class="col-lg-6 col-md-6" >
+                                    <div class="card mb-3 border-0">
+                                        <img src="{{ field.rpgPackID.cpPicture.url }}" class="card-img-top rounded-0" alt="..."  style="max-height:244px;">
+                                        <div class="card-body px-0">
+                                            <h5 class="card-title">  <a class="text-decoration-none text-dark" href="#">{{field.rpgPackID.cpPackName}}</a></h5>
+                                            <p class="card-text"> {{field.rpgPackID.cpDesc}}</p>
+                                            <p class="card-text"><small class="text-muted">Weekdays {{field.rpgWeekdays | intcomma}} | Weekends {{field.rpgWeekends | intcomma}}</small></p>
+                                        </div>
+                                        <div class="card-footer bg-transparent d-flex justify-content-end  px-0">
+                                            {% if weekday < 4 %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rpgWeekdays | intcomma}} <span>/night</span></h1>
+                                            {% else %}
+                                            <h1 class="fs-6 fs-6 w-100 text-left small">IDR {{field.rpgWeekends | intcomma}} <span>/night</span></h1>
+                                            {% endif %}
+                                            <button type="button" href="#" class="btn btn-outline-success btn-sm">Booking</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock  %}
+
+
+
+{% block javascripts %}
+<script>
+    function getDateChange(val=0) {
+        if (val == 0){
+           var today = new Date(document.getElementById("checkin_date").value) ;
+           var coday = new Date(document.getElementById("checkout_date").value) ;
+           
+           
+            if(formdate(today) >= formdate(coday)){
+                document.getElementById("checkout_date").value = formdate(today,1);
+                document.getElementById("checkout_date").setAttribute("min", formdate(today));
+            } else {
+                document.getElementById("checkout_date").setAttribute("min", formdate(today,1));
+            }
+        }
+     }
+      
+     function formdate(dt, val=0){
+
+        dt.setDate(dt.getDate() + val);
+
+        var dd = dt.getDate();
+     
+        var mm = dt.getMonth() + 1; //January is 0!
+        var yyyy = dt.getFullYear();
+        if(dd<10){
+              dd='0'+dd
+           } 
+           if(mm<10){
+              mm='0'+mm
+           } 
+  
+        dt = yyyy+'-'+mm+'-'+dd;
+        return dt;
+     }
+
+     getDateChange(0);
+</script>
+
+{% endblock %}

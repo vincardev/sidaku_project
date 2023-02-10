@@ -1,0 +1,89 @@
+
+{% extends 'backend/base/main_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} Koperasi {% endblock %}
+{% block main_content %}
+
+<div class="container">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3 >Data Koperasi</h3>
+        <div class="btn-toolbar mb-2 mb-md-0">
+         
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }} </div>
+            {% else %}
+            <div class="alert alert-danger">{{ message }} </div>
+            {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'koper:add_kop' %}" method="post" enctype="multipart/form-data">
+                {% comment %} /* pengamanan data form {% endcomment %}
+                {% csrf_token %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+                <div class="col-lg-4  col-sm-12 text-left py-6 mb-2">
+                    <label>{{ form.dt_user.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.dt_user.errors %}
+                            {% render_field form.dt_user class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.dt_user class="form-control is-valid"  %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.dt_user class="form-control"  %}
+                    {% endif %}
+                    {% for error in form.dt_user.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% include "part/du_kop.html" %}
+                {% include "part/prod_jasa.html" %}
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      {% comment %} <button class="nav-link " id="nav-du_kop-tab" data-bs-toggle="tab" data-bs-target="#nav-du_kop" type="button" role="tab" aria-controls="nav-du_kop" aria-selected="true">Data Umum Koperasi</button> {% endcomment %}
+                      <button class="nav-link active" id="nav-reg_kop-tab" data-bs-toggle="tab" data-bs-target="#nav-reg_kop" type="button" role="tab" aria-controls="nav-reg_kop" aria-selected="false" >Registrasi Koperasi</button>
+                      <button class="nav-link" id="nav-da_org-tab" data-bs-toggle="tab" data-bs-target="#nav-da_org" type="button" role="tab" aria-controls="nav-da_org" aria-selected="false">Data Organisasi</button>
+                      {% comment %} <button class="nav-link" id="nav-prod_jasa-tab" data-bs-toggle="tab" data-bs-target="#nav-prod_jasa" type="button" role="tab" aria-controls="nav-prod_jasa" aria-selected="false">Produk Jasa</button> {% endcomment %}
+                      <button class="nav-link" id="nav-doc_org-tab" data-bs-toggle="tab" data-bs-target="#nav-doc_org" type="button" role="tab" aria-controls="nav-doc_org" aria-selected="false" >Dokumentasi Organisasi</button>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                      {% comment %} <div class="tab-pane fade" id="nav-du_kop" role="tabpanel" aria-labelledby="nav-du_kop-tab" tabindex="0">
+                          
+                    </div> {% endcomment %}
+                    <div class="tab-pane fade show active" id="nav-reg_kop" role="tabpanel" aria-labelledby="nav-reg_kop-tab" tabindex="0">
+                        {% include "part/reg_kop.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="nav-da_org" role="tabpanel" aria-labelledby="nav-da_org-tab" tabindex="0">
+                        {% include "part/da_org.html" %}
+                    </div>
+                    {% comment %} <div class="tab-pane fade" id="nav-prod_jasa" role="tabpanel" aria-labelledby="nav-prod_jasa-tab" tabindex="0">
+                        {% include "part/prod_jasa.html" %}
+                    </div> {% endcomment %}
+                    <div class="tab-pane fade" id="nav-doc_org" role="tabpanel" aria-labelledby="nav-doc_org-tab" tabindex="0">
+                        {% include "part/doc_org.html" %}
+                    </div>
+                  </div>
+
+                <button class="btn btn-primary">Tambah</button>
+                <a href="{% url 'koper:master_kop' %}" class="btn btn-danger">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{% static 'js/mainjs/mapareaadmin.js' %}"></script>
+{% endblock %}

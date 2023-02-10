@@ -1,0 +1,58 @@
+<div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
+    <h3 class="text-center cl-green-3 text-uppercase "> {{umkmdat.du_nmusha}} </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12 col-sm-12 mb-2 form-group">
+            {% if umkmdat.du_ftusha %}
+            <img src="{{ umkmdat.du_ftusha.url}}" class="img-fluid w-100" style="max-height:350px; object-fit:cover;">
+            {% else %}
+            <img src="/static/images/team/default-profile-picture.png" class="img-fluid w-100"
+                style="max-height:300px; object-fit:cover;">
+            {% endif %}
+        </div>
+
+        <div class="col-lg-12 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Alamat </label>
+            <p> {{umkmdat.du_alusha }} </p>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Bentuk Usaha
+            </label>
+            <p> {{umkmdat.du_btkusha }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Tahun Berdiri </label>
+            <p> {{umkmdat.du_thnbrdr }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Bidang Usaha
+            </label>
+            <p> {{umkmdat.du_bdgusha }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Skala Usaha
+                </label>
+            <p> {{umkmdat.dtu_skalausha }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Nama Pemilik Usaha
+            </label>
+            <p> {{umkmdat.pu_nmpmlk }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Email Pemilik Usaha
+            </label>
+            <p> {{umkmdat.pu_email }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Wilayah Pemasaran
+            </label>
+            <p> {{umkmdat.dtu_tujuan }} </p>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-2 form-group ">
+            <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Omzet per Tahun </label>
+            <p> {{umkmdat.dtu_omzetthn }} </p>
+        </div>
+    </div>
+
+</div>

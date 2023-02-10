@@ -1,0 +1,204 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Dokumen Laporan </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                {% if form.doc_nmkop %}
+                    <div class="col-lg-12  col-sm-12 text-left py-6">
+                        <label>{{ form.doc_nmkop.label }}</label>
+                        {% if form.is_bound %}
+                        {% if form.doc_nmkop.errors %}
+                        {% render_field form.doc_nmkop class="form-control is-invalid" %}
+                        {% else %}
+                        {% render_field form.doc_nmkop class="form-control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.doc_nmkop class="form-control" %}
+                        {% endif %}
+                        {% for error in form.doc_nmkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if form.doc_nmumkm %}
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_nmumkm.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.doc_nmumkm.errors %}
+                    {% render_field form.doc_nmumkm class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.doc_nmumkm class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.doc_nmumkm class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_nmumkm.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_bulan.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.doc_bulan.errors %}
+                            {% render_field form.doc_bulan class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_bulan class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_bulan class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_bulan.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-3  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_tahun.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.doc_tahun.errors %}
+                            {% render_field form.doc_tahun class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_tahun class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_tahun class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_tahun.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_labrug.label }}</label>
+
+                    {% if form.instance.doc_labrug %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.doc_labrug.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+
+                    {% if form.is_bound %}
+                        {% if form.doc_labrug.errors %}
+                            {% render_field form.doc_labrug class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_labrug class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_labrug class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_labrug.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_neraca.label }}</label>
+
+                    {% if form.instance.doc_neraca %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.doc_neraca.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+
+                    {% if form.is_bound %}
+                        {% if form.doc_neraca.errors %}
+                            {% render_field form.doc_neraca class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_neraca class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_neraca class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_neraca.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_aruskas.label }}</label>
+
+                    {% if form.instance.doc_aruskas %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.doc_aruskas.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+
+                    {% if form.is_bound %}
+                        {% if form.doc_aruskas.errors %}
+                            {% render_field form.doc_aruskas class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_aruskas class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_aruskas class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_aruskas.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_permodal.label }}</label>
+
+                    {% if form.instance.doc_permodal %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.doc_permodal.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+
+                    {% if form.is_bound %}
+                        {% if form.doc_permodal.errors %}
+                            {% render_field form.doc_permodal class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_permodal class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_permodal class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_permodal.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6  col-sm-12 text-left py-6">
+                    <label>{{ form.doc_catlapkeu.label }}</label>
+
+                    {% if form.instance.doc_catlapkeu %}
+                    <span class="text-xs font-weight-bold">
+                        <a class="btn btn-sm btn-success" type="button" data-bs-toggle="tooltip" data-bs-title="Download File"  href="{{form.instance.doc_catlapkeu.url}}" download>
+                            <i class="bi bi-download"></i>
+                        </a> 
+                    </span> 
+                    {% endif %}
+
+                    {% if form.is_bound %}
+                        {% if form.doc_catlapkeu.errors %}
+                            {% render_field form.doc_catlapkeu class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.doc_catlapkeu class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.doc_catlapkeu class="form-control" %}
+                    {% endif %}
+                    {% for error in form.doc_catlapkeu.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

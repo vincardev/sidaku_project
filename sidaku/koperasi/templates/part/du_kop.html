@@ -1,0 +1,96 @@
+
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom" >
+    <h3 class="text-center"> Data Umum Koperasi </h3>
+    <div class="card-body row ">
+        <div class="col-lg-4 col-sm-12 mb-2 form-group">
+            {% comment %} <div class="row">
+                <div class="col-lg-auto  col-sm text-left py-6"> {% endcomment %}
+                    <label>{{ form.du_ftkop.label }} </label>
+                  
+                        {% if form.instance.du_ftkop %}
+                            {% comment %} {{form.du_ftkop}} ssssa {% endcomment %}
+                        <img src="{{ form.instance.du_ftkop.url}}" class="img-fluid w-100">
+                        {% else %}
+                        <img src="/static/images/team/default-profile-picture.png" class="img-fluid w-100">
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="du_ftkop" class="form-label"> {{ form.intance.du_ftkop }}</label>
+                            <input name="du_ftkop" accept="image/*" class="form-control form-control-sm" id="du_ftkop" type="file">
+                        </div>
+                {% comment %} </div>
+            </div> {% endcomment %}
+        </div>
+    
+        <div class="col-lg-8  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_nakop.label }}</label>
+                    {% if form.is_bound %}
+                    {% if form.du_nakop.errors %}
+                    {% render_field form.du_nakop class="form-control is-invalid" %}
+                    {% else %}
+                    {% render_field form.du_nakop class="form-control is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.du_nakop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_nakop.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_alkop.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_alkop.errors %}
+                            {% render_field form.du_alkop class="form-control is-invalid" rows="8" %}
+                        {% else %}
+                            {% render_field form.du_alkop class="form-control is-valid" rows="8" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_alkop class="form-control" rows="8" %}
+                    {% endif %}
+                    {% for error in form.du_alkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_jenkop.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_jenkop.errors %}
+                            {% render_field form.du_jenkop class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.du_jenkop class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_jenkop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_jenkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <label>{{ form.du_bhkkop.label }}</label>
+                    {% if form.is_bound %}
+                        {% if form.du_bhkkop.errors %}
+                            {% render_field form.du_bhkkop class="form-control is-invalid" %}
+                        {% else %}
+                            {% render_field form.du_bhkkop class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.du_bhkkop class="form-control" %}
+                    {% endif %}
+                    {% for error in form.du_bhkkop.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
