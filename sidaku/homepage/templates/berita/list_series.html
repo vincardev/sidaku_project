@@ -1,0 +1,146 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+
+{% block title %} Kategori  {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+
+<div class="container-fluid">
+    <div class="row mb-2 mt-2">
+        <div class="col-lg-9">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pb-4">
+
+                {% for field in page_obj %}
+                <div class="col">
+                    <div class="card shadow-md border-1 rounded">
+                        <img src="{{ field.image.url }}" class="img-fluid rounded" alt="image desc" width="100%" style="height:225px;object-fit:cover;">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ field.title }}</h5>
+                            <p class="card-text">{{ field.content | striptags | truncatechars:150  }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href=" {% url 'home:single_berita' field.series.slug field.article_slug %} "
+                                        class="btn btn-sm btn-outline-secondary">View</a>
+                                </div>
+                                <small class="text-muted">{{ field.published | date | striptags  }}</p></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            {% if page_obj.has_previous %}
+                        <li class="page-item"> <a class="page-link" href="?page=1">&laquo; first</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">previous</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        </li>
+                        {% endif %}
+                        </li>
+
+                        <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.next_page_number }}">next</a> </li>
+                        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last
+                                &raquo;</a> </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 mb-2">
+            <div class="flex-shrink-0 p-3 bg-green-3 rounded-3 shadow text-white">
+
+                <div class="list-group" id="list-tab" role="tablist">
+                    <ul class="list-unstyled ps-0">
+
+                        <li class="mb-1">
+                            <button
+                                class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-dark collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#projas-collapse" aria-expanded="true">
+                                Berita Terbaru
+                            </button>
+                            <div class="collapse show" id="projas-collapse">
+                                <ul class="list-group btn-toggle-nav list-unstyled">
+                                    {% for field in breaking_news %}
+                                    <hr class="w-100 my-0">
+                                    <li class="list-group-item align-items-start border-top py-0">
+                                        <a href="{% url 'home:single_berita' field.series.slug field.article_slug %}"
+                                            class="text-decoration-none text-dark">
+                                            <div class="ms-4 me-auto">
+                                                <div class="fw-bold text-truncate" style="max-width:200px">
+                                                    {{field.title}}</div>
+                                                <span class="d-inline-block text-truncate" style="max-width:150px">
+                                                    {{ field.subtitle }} </span> <br>
+                                                <small> {{field.author}} ,
+                                                    {{ field.published | date | striptags  }}</small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                    <hr class="w-100 my-1">
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="mb-1">
+                            <button
+                                class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-dark  collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#dokor-collapse" aria-expanded="true">
+                                Kategori
+                            </button>
+                            <div class="collapse show" id="dokor-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+                                    {% for series in all_series %}
+                                    <li><a class="d-flex text-decoration-none rounded list-group-item text-dark"
+                                            href="{% url 'home:list_series' series.slug  %}"> {{series.title}}</a></li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+{% endblock  %}

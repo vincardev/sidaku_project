@@ -24,6 +24,7 @@ from sidaku import settings
 
 urlpatterns = [
     path('', include('homepage.urls', namespace='home')),
+    path('admin/clearcache/', include('clearcache.urls')),
     path('admin/', admin.site.urls),
     path('sidaku_admin/site_setting/', include('companysetup.urls', namespace='setting')),
     path('sidaku_admin/users/', include("userprofile.urls", namespace='userprofile')),

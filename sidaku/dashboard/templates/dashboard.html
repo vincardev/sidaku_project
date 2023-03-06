@@ -25,8 +25,121 @@
             </button> {% endcomment %}
         </div>
     </div>
+   
 
-    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    <div class="row">
+        <div class="col-lg-3 my-1">
+            <a href="{% url 'umkmdat:master_umkm' %}" class="text-decoration-none text-dark">
+                <div class="card border-0 shadow p-3">
+                    <div class="card-body">
+                        <h5 class="text-muted fw-normal mt-0">Total UMKM</h5>
+                        <h3 class="mt-3 mb-3">{{umkmdata|length}}</h3>
+                        {% comment %} <p class="mb-0 text-muted">
+                            <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
+                            <span class="text-nowrap">Since last month</span>  
+                        </p> {% endcomment %}
+                    </div> 
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 my-1">
+            <a href="{% url 'koper:master_kop' %}" class="text-decoration-none text-dark">
+                <div class="card border-0 shadow p-3">
+                    <div class="card-body">
+                        <h5 class="text-muted fw-normal mt-0">Total Koperasi</h5>
+                        <h3 class="mt-3 mb-3">{{kopdata|length}}</h3>
+                        {% comment %} <p class="mb-0 text-muted">
+                            <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
+                            <span class="text-nowrap">Since last month</span>  
+                        </p> {% endcomment %}
+                    </div> 
+                </div>
+            </a>
+        </div> 
+        <div class="col-lg-3 my-1">
+            <a href="{% url 'userprofile:master_userp' %}" class="text-decoration-none text-dark">
+                <div class="card border-0 shadow p-3">
+                    <div class="card-body">
+                        <h5 class="text-muted fw-normal mt-0">Users</h5>
+                        <h3 class="mt-3 mb-3">{{userdata|length}}</h3>
+                        {% comment %} <p class="mb-0 text-muted">
+                            <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
+                            <span class="text-nowrap">Since last month</span>  
+                        </p> {% endcomment %}
+                    </div> 
+                </div>
+            </a>
+        </div> 
+        <div class="col-lg-3 my-1">
+            <a href="{% url 'setting:master_support' %}" class="text-decoration-none text-dark">
+                <div class="card border-0 shadow p-3">
+                    <div class="card-body">
+                        <h5 class="text-muted fw-normal mt-0">Inbox</h5>
+                        <h3 class="mt-3 mb-3">
+                            {{pesanmasuk|length}} {{pesanmasuk.created_date}}
+                        </h3>
+
+                        {% if unread > 0 %}
+                        <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger">
+                            <span class="me-2"> {{unread}}</span>
+                        </span>
+                        {% endif %}
+                    </div> 
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 my-1">
+            
+            <div class="card border-0 shadow p-3">
+                <div class="card-title text-center">
+                    <h6>10 UMKM Dengan INVESTASI TERTINGGI </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="barAsetChart"> </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6  my-1">
+            
+            <div class="card border-0 shadow p-3">
+                <div class="card-title text-center">
+                    <h6>10 UMKM Dengan OMZET TERTINGGI </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="barOmzetChart"> </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 my-1">
+
+            <div class="card border-0  shadow p-3">
+                <div class="card-title text-center">
+                    <h6>UMKM : SKALA</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="pieSkala"> </canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 my-1">
+
+            <div class="card border-0  shadow p-3">
+                <div class="card-title text-center">
+                    <h6>BIDANG USAHA</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="pieBidush"> </canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% comment %} <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
     <h2>Section title</h2>
     <div class="table-responsive">
@@ -155,6 +268,56 @@
                 </tr>
             </tbody>
         </table>
+    </div> {% endcomment %}
+</div>
+
+
+<div class="modal modal-xl fade" id="modalGraphOmz" tabindex="-1" aria-labelledby="modalGraphOmzLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalGraphOmzLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="graphContentOmz">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-xl fade" id="modalGraphAst" tabindex="-1" aria-labelledby="modalGraphAstLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalGraphAstLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="graphContentAst">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-xl fade" id="modalGraphSkl" tabindex="-1" aria-labelledby="modalGraphSklLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalGraphSklLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="graphContentSkl">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -162,4 +325,5 @@
 
 {% block javascripts %}
 <script src="{% static 'js/dashboard.js'%}"></script> 
+<script src="{% static 'vendor/chartjs/graphjs/frontgraphs.js' %}"></script>
 {% endblock %}

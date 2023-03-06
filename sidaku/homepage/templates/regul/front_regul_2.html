@@ -1,0 +1,139 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+{% load filter_reg %}
+
+{% block title %} Regulasi Rapat Kordinasi {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+<div class="container-fluid">
+    <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+            <form method="get" action="{% url 'home:list_rapat_koordinasi' %}">
+                <div class="row mb-2 px-5">
+
+                    <div class="card shadow-md border-1 rounded bg-blue-3">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <input class="form-control search" value="{{searchfilter}}" name="searchfilter" placeholder="Cari Judul">
+                                </div>
+                                <div class="col-md-5 mb-1">
+                                    
+                                    <select class="form-select" name="katefilter" value="{{katefilter}}">
+
+                                        <option value=""> ---- Pilih Kategori ----</option>
+                                        {% GetListKategori as list_kat  %}
+                                        {% for key,field in list_kat %}
+                                            <option value="{{key}}" {% if katefilter == key|stringformat:"i" %} selected {% endif %}> {{ field }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mb-1">
+                                    <button class="btn btn-outline-secondary bg-green-2 border-0" type="submit"><i class="bi bi-search"></i>
+                                        Cari</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mb-2 px-5">
+                    <div class="card  shadow-md border-1 rounded bg-blue-3">
+                        <div class="card-body ">
+                          <div class="table-responsive">
+                            <table class="table mb-0 table-light table-hover">
+                              <thead class="bg-green-2">
+                                <tr>
+                                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Judul</th>
+                                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Kategori</th>
+                                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7">
+                                    File
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for field in page_obj %}
+                                <tr>
+                                  <td style="width: 25rem;">
+                                    <div class="d-flex py-1">
+                                      <div class="d-flex flex-column text-break">
+                                        <h6 class="mb-0 text-sm"> 
+                                             {{ field.title }}
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="d-flex py-1">
+                                      <div class="d-flex flex-column ">
+                                        <h6 class="mb-0 text-sm"> 
+                                          {% GetKategoriName field.kategori as val_kat %}
+                                          {{ val_kat }}
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold">
+                                      <a class="text-decoration-none text-dark"  href="{{field.documentFile.url}}" download> <button class="btn btn-sm btn-success">Download File</button> </a>
+                                    </span>
+                                  </td>
+                                  
+                
+                                </tr>
+                
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+
+                <div class="row">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                {% if page_obj.has_previous %}
+                            <li class="page-item"> <a class="page-link" href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page=1">&laquo; first</a> </li>
+                            <li class="page-item"> <a class="page-link"
+                                    href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page={{ page_obj.previous_page_number }}">previous</a> </li>
+                            <li class="page-item"> <a class="page-link"
+                                    href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                            {% endif %}
+                            </li>
+    
+                            <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+    
+                            {% if page_obj.has_next %}
+                                <li class="page-item"> <a class="page-link"
+                                    href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+                                <li class="page-item"> <a class="page-link"
+                                    href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page={{ page_obj.next_page_number }}">next</a> </li>
+                                <li class="page-item"> <a class="page-link" href="?searchfilter={{searchfilter}}&katefilter={{katefilter}}&page={{ page_obj.paginator.num_pages }}">last
+                                    &raquo;</a> </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+{% endblock  %}

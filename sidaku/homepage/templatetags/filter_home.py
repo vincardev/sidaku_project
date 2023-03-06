@@ -6,6 +6,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib.pagesizes import A4
 
+from umkmdata.models import UmkmModel
+from datetime import datetime, timedelta
+
 register = template.Library()
 
 @register.simple_tag
@@ -21,8 +24,43 @@ def pdf_viewa(path):
     
     # try:
     return FileResponse(open(path, 'rb'), content_type='application/pdf')
-    # except FileNotFoundError:
-    #     raise Http404() 
+
+
+@register.simple_tag
+def getumkmskala(path):
+
+    skalamikro      = UmkmModel.objects.filter(dtu_skalausha = 1)
+    skalakecil      = UmkmModel.objects.filter(dtu_skalausha = 2)
+    skalamenengah      = UmkmModel.objects.filter(dtu_skalausha = 3)
+    
+    # try:
+
+    context_data = {
+        'sk_mikro'      : skalamikro,
+        'sk_kecil'      : skalakecil,
+        'sk_menengah'   : skalamenengah,
+    }
+    return context_data
+
+@register.simple_tag
+def CheckUnreadDate(currentdate):
+
+    ret_data = False
+    if currentdate == datetime.now() - timedelta(days=90):
+        ret_data = True
+    
+    return ret_data
+
+@register.simple_tag
+def CheckUnreadMessage(cdated, mdated):
+
+    date_1 = cdated.strftime("%m/%d/%Y, %H:%M:%S")
+    date_2 = mdated.strftime("%m/%d/%Y, %H:%M:%S")
+
+    res_data= False
+    if date_1 ==  date_2:
+        res_data = True
+    return res_data
 
 
 # from camppackages.models import PackagesItemsDetail

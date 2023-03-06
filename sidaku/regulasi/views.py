@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from .models import RegulasiModel
 from .forms import FormPaparan, FormRapatKoordinasi, FormRegProdHK
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -24,16 +25,39 @@ def master_regul(request):
         tables_1 = tables_1.filter(query )
         tables_2 = tables_2.filter(query )
         tables_3 = tables_3.filter(query )
-    # else:
-    #     tables_1 = RegulasiModel.objects.filter('type',1)
-    #     tables_2 = RegulasiModel.objects.filter('type',2)
-    #     tables_3 = RegulasiModel.objects.filter('type',3)
+        
+
+    
+    paginator_1   = Paginator(tables_1, 10) # Show 25 contacts per page.
+    page_number_1 = request.GET.get('page_1')
+    page_reg_1    = paginator_1.get_page(page_number_1)
+
+    paginator_2   = Paginator(tables_2, 10) # Show 25 contacts per page.
+    page_number_2 = request.GET.get('page_2')
+    page_reg_2   = paginator_2.get_page(page_number_2)
+
+    paginator_3   = Paginator(tables_3, 10) # Show 25 contacts per page.
+    page_number_3 = request.GET.get('page_3')
+    page_reg_3   = paginator_3.get_page(page_number_3)
+
+    tab_active = 'tab_1'
+    if page_number_2 :
+        tab_active = 'tab_2'
+    elif page_number_3 :
+        tab_active = 'tab_3'
+    elif page_number_1 :
+        tab_active = 'tab_1'
+    
     
     list_data = {
         'side_active'   : 'regul',
         'tables_1' : tables_1,
         'tables_2' : tables_2,
         'tables_3' : tables_3,
+        'page_reg_1' : page_reg_1,
+        'page_reg_2' : page_reg_2,
+        'page_reg_3' : page_reg_3,
+        'tab_active' : tab_active,
     }
 
     return render (request, 'master_regul.html', list_data)

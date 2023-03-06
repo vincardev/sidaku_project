@@ -1,0 +1,161 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+
+{% block title %} Gallery {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+
+<div class="container-fluid">
+    <div class="row mb-2 mt-2">
+        <div class="col-lg-9">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pb-4">
+
+                {% for field in page_obj %}
+                <div class="col">
+                    <a data-bs-toggle="modal" data-bs-target="#modalslide"  class="text-decoration-none"  onclick="SetActiveImage('{{ forloop.counter0 }}')" style="cursor: pointer;">
+                        <div class="card shadow-md border-1 rounded-1">
+                            <img src="{{ field.image.url }}" class="img-fluid rounded-top" alt="image desc" width="100%" style="height:225px;object-fit:cover;">
+
+                            <div class="card-body p-2 text-center bg-green-1">
+                                <p class="card-text text-truncate text-dark">{{ field.title }} </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            {% if page_obj.has_previous %}
+                        <li class="page-item"> <a class="page-link" href="?page=1">&laquo; first</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">previous</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        </li>
+                        {% endif %}
+                        </li>
+
+                        <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+                        <li class="page-item"> <a class="page-link"
+                                href="?page={{ page_obj.next_page_number }}">next</a> </li>
+                        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last
+                                &raquo;</a> </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 mb-2">
+            <div class="flex-shrink-0 p-3 bg-green-3 rounded-3 shadow text-white">
+
+                <div class="list-group" id="list-tab" role="tablist">
+                    <ul class="list-unstyled ps-0">
+
+                        <li class="mb-1">
+                            <button
+                                class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-dark  collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#dokor-collapse" aria-expanded="true">
+                                Kategori
+                            </button>
+                            <div class="collapse show" id="dokor-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+                                    {% for series in all_series %}
+                                    <li><a class="d-flex text-decoration-none rounded list-group-item text-dark"
+                                            href="{% url 'home:list_series_gallery' series.slug  %}"> {{series.title}}</a></li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="modalslide" aria-hidden="true" aria-tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 " style="background-color:transparent">
+            <div class="modal-header border-0" style="tram">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="slidecontrol" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner"  id="holderimg">
+
+                    {% for field in page_obj %}
+                      <div class="imgshow carousel-item text-center">
+                        <img src="{{ field.image.url }}" class="h-100"  alt="...">
+                        <div class="carousel-caption d-md-block" style="top:10rem;">
+                            <h5>{{field.title}}</h5>
+                            <p>{{field.subtitle}}</p>
+                        </div>
+                      </div>
+                    {%endfor%}
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#slidecontrol" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#slidecontrol" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+<script>
+
+    function SetActiveImage(index){
+
+        var btnContainer = document.getElementById("holderimg");
+        var btns = btnContainer.getElementsByClassName("imgshow");
+
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove("active");
+        }
+
+        for (var i = 0; i < btns.length; i++) {
+            if (i == index){
+                btns[i].className += " active";
+            }
+        }
+
+    }
+
+
+</script>
+{% endblock  %}

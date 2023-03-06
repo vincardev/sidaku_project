@@ -1,0 +1,568 @@
+{% load static %}
+{% load filter_kop %}
+{% load widget_tweaks %}
+
+<script src="{% static "js/dppatuh.js" %}"></script>
+{% block javascripts_head %}
+{% endblock %}
+
+<div class="card p-3 mb-2 rounded-0 rounded-bottom">
+    <h3 class="text-center"> KERTAS KERJA PEMERIKSAAN KESEHATAN KOPERASI </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    {% comment %} <h5 class="text-center">Nilai Acuan </h5> {% endcomment %}
+                    {% comment %} <div class="table-responsive">
+                        <table class="table table-bordered table-sm ">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th> RATIO (%) </th>
+                                    <th> NILAI </th>
+                                    <th> KATEGORI </th>
+                                    <th> SCORE </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> 76 < X < 100 </td>
+                                    <td> 1 </td>
+                                    <td> Sehat	 </td>
+                                    <td> 4 </td>
+                                </tr>
+                                <tr>
+                                    <td> 51 < X < 75 </td>
+                                    <td> 2 </td>
+                                    <td> Cukup Sehat	 </td>
+                                    <td> 3 </td>
+                                </tr>
+                                <tr>
+                                    <td> 26 < X < 50 </td>
+                                    <td> 3 </td>
+                                    <td> Kurang Sehat	 </td>
+                                    <td> 2 </td>
+                                </tr>
+                                <tr>
+                                    <td> 0 < X < 25 </td>
+                                    <td> 4 </td>
+                                    <td> Tidak Sehat	 </td>
+                                    <td> 1 </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div> {% endcomment %}
+                </div>
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm ">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th> KOMPONEN </th>
+                                    <th> PERHITUNGAN </th>
+                                    <th> RATIO (%) </th>
+                                    <th> NILAI KREDIT </th>
+                                    <th> BOBOT (%) </th>
+                                    <th> SCORE </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="fw-bold"> ASPEK TATA KELOLA </td> 
+                                    <td></td>
+                                    <td id="nilai-tata-kelola"></td>
+                                    <td id="bobot-tata-kelola"></td>
+                                    <td id="lastscore-tata-kelola"></td>
+                                </tr>
+                                {% regroup dpl_kelola by kat_var.ipsubkat as data_by_subkat %}
+                                {% for subkat in data_by_subkat %}
+                                <tr>
+                                    {% GetIPSUBKATList subkat.grouper as ipkattext %}
+                                    <td colspan="2" class="table-active fw-bold "> {{ ipkattext }} </td>
+                                    <td class="table-active" ></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                    {% regroup subkat.list by kat_var as data_by_dpl %}
+                                    {% for grdat in data_by_dpl %}
+
+                                        <tr>
+                                            <td colspan="1" > 
+                                                {{ grdat.grouper }}   <br>
+                                            </td>
+                                            <td class="text-center" id="hitung-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}" > 0  </td>
+                                            <td class="text-center"  id="ratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center" id="nilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center" id="bobot-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center"  id="lastscore-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                        </tr>
+
+                                        <script>
+                                            addKertasKerjatoArray("{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}");
+                                        </script>
+                                    
+                                    
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <tr>
+                                    <td colspan="2" class="fw-bold"> ASPEK PROFIL RESIKO </td> 
+                                    <td></td>
+                                    <td id="nilai-profil-risiko"></td>
+                                    <td id="bobot-profil-risiko"></td>
+                                    <td id="lastscore-profil-risiko"></td>
+                                </tr>
+
+
+                                   
+
+                                {% regroup dpl_risiko by kat_var.tagsubkat as data_by_tagsubkat %}                                
+
+                                {% for tagsubkat in data_by_tagsubkat %}
+
+                                    <tr>
+                                        {% GetTAGSUBKAT tagsubkat.grouper as tagsubtext %}
+                                        <td colspan="2" class="fw-bold bg-secondary text-white"> {{ tagsubtext }} </td>
+                                        <td class="bg-secondary"></td>
+                                        <td class="bg-secondary"></td>
+                                        <td class="bg-secondary"></td>
+                                        <td class="bg-secondary"></td>
+                                    </tr>
+                                    {% if tagsubkat.grouper == 'risiko-inheren' %}
+                                     <tr>
+                                        <td colspan="2" class="table-active fw-bold ">Resiko Pinjaman/Pembiayaan  </td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1" > Aset Produktif Terhadap Total Aset </td>
+                                        <td class="text-center" id="hitung-asprototal" > 0  </td>
+                                        <td class="text-center"  id="ratio-asprototal"></td>
+                                        <td class="text-center" id="nilai-asprototal"></td>
+                                        <td class="text-center" id="bobot-asprototal"></td>
+                                        <td class="text-center"  id="lastscore-asprototal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" > Pinjaman Diberikan Terhadap Total Aset Produktif </td>
+                                        <td class="text-center" id="hitung-pinjasprod" > 0  </td>
+                                        <td class="text-center"  id="ratio-pinjasprod"></td>
+                                        <td class="text-center" id="nilai-pinjasprod"></td>
+                                        <td class="text-center" id="bobot-pinjasprod"></td>
+                                        <td class="text-center"  id="lastscore-pinjasprod"></td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% regroup tagsubkat.list by kat_var.ipsubkat as data_by_subkat %}
+                                    {% for subkat in data_by_subkat %}
+
+
+                                    <tr>
+                                        {% GetIPSUBKATList subkat.grouper as ipkattext %}
+                                        <td colspan="2" class="table-active fw-bold "> {{ ipkattext }} {{subkat.grouper}}</td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                        <td class="table-active"></td>
+                                    </tr>
+
+                                      {% if subkat.grouper == 'risiko-likuiditas' %}
+                                    <tr>
+                                        <td colspan="1" > Aset Likuid Terhadap Total Aset </td>
+                                        <td class="text-center" id="hitung-aliktotal" > 0  </td>
+                                        <td class="text-center"  id="ratio-aliktotal"></td>
+                                        <td class="text-center" id="nilai-aliktotal"></td>
+                                        <td class="text-center" id="bobot-aliktotal"></td>
+                                        <td class="text-center"  id="lastscore-aliktotal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" > Aset Likuid Terhadap Kewajiban Lancar </td>
+                                        <td class="text-center" id="hitung-alikwajib" > 0  </td>
+                                        <td class="text-center"  id="ratio-alikwajib"></td>
+                                        <td class="text-center" id="nilai-alikwajib"></td>
+                                        <td class="text-center" id="bobot-alikwajib"></td>
+                                        <td class="text-center"  id="lastscore-alikwajib"></td>
+                                    </tr>
+                                    {% endif %}
+
+                                    
+                                        {% regroup subkat.list by kat_var as data_by_dpl %}
+                                        {% for grdat in data_by_dpl %}
+
+                                            <tr>
+                                                <td colspan="1" > {{ grdat.grouper }}  </td>
+                                                <td class="text-center" id="hitung-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}" > 0  </td>
+                                                <td class="text-center"  id="ratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center" id="nilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center" id="bobot-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center"  id="lastscore-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            </tr>
+
+                                            <script>
+                                                addProfileRisikoArray("{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}");
+                                            </script>
+                                        
+                                        
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <tr>
+                                    <td colspan="2" class="fw-bold"> KINERJA </td> 
+                                    <td></td>
+                                    <td id="nilai-kinerja"></td>
+                                    <td id="bobot-kinerja"></td>
+                                    <td id="lastscore-kinerja"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="fw-bold bg-secondary text-white"> EVALUASI KINERJA KEUANGAN</td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Rentabilitas dan Kemandirian </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Rentabilitas Aset (Return on Asset) </td>
+                                    <td class="text-center" id="hitung-roa" > 0  </td>
+                                    <td class="text-center"  id="ratio-roa"></td>
+                                    <td class="text-center" id="nilai-roa"></td>
+                                    <td class="text-center" id="bobot-roa"></td>
+                                    <td class="text-center"  id="lastscore-roa"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Rentabilitas Ekuitas (Return on Equity) </td>
+                                    <td class="text-center" id="hitung-roe" > 0  </td>
+                                    <td class="text-center"  id="ratio-roe"></td>
+                                    <td class="text-center" id="nilai-roe"></td>
+                                    <td class="text-center" id="bobot-roe"></td>
+                                    <td class="text-center"  id="lastscore-roe"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Kemandirian Operasional </td>
+                                    <td class="text-center" id="hitung-kmo" > 0  </td>
+                                    <td class="text-center"  id="ratio-kmo"></td>
+                                    <td class="text-center" id="nilai-kmo"></td>
+                                    <td class="text-center" id="bobot-kmo"></td>
+                                    <td class="text-center"  id="lastscore-kmo"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Efisiensi </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Biaya Operasional terhadap Pendapatan Operasional</td>
+                                    <td class="text-center" id="hitung-bopo" > 0  </td>
+                                    <td class="text-center"  id="ratio-bopo"></td>
+                                    <td class="text-center" id="nilai-bopo"></td>
+                                    <td class="text-center" id="bobot-bopo"></td>
+                                    <td class="text-center"  id="lastscore-bopo"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Biaya Usaha terhadap SHU Kotor</td>
+                                    <td class="text-center" id="hitung-busk" > 0  </td>
+                                    <td class="text-center"  id="ratio-busk"></td>
+                                    <td class="text-center" id="nilai-busk"></td>
+                                    <td class="text-center" id="bobot-busk"></td>
+                                    <td class="text-center"  id="lastscore-busk"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="fw-bold bg-secondary text-white"> MANAJEMEN KEUANGAN</td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Kualitas Aset </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pinjaman pada Anggota terhadap Total Piutang</td>
+                                    <td class="text-center" id="hitung-patp" > 0  </td>
+                                    <td class="text-center"  id="ratio-patp"></td>
+                                    <td class="text-center" id="nilai-patp"></td>
+                                    <td class="text-center" id="bobot-patp"></td>
+                                    <td class="text-center"  id="lastscore-patp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pinjaman Bermasalah Terhadap Total Piutang</td>
+                                    <td class="text-center" id="hitung-pbtp" > 0  </td>
+                                    <td class="text-center"  id="ratio-pbtp"></td>
+                                    <td class="text-center" id="nilai-pbtp"></td>
+                                    <td class="text-center" id="bobot-pbtp"></td>
+                                    <td class="text-center"  id="lastscore-pbtp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Cadangan Risiko  Terhadap Pinjaman Bermasalah</td>
+                                    <td class="text-center" id="hitung-crpb" > 0  </td>
+                                    <td class="text-center"  id="ratio-crpb"></td>
+                                    <td class="text-center" id="nilai-crpb"></td>
+                                    <td class="text-center" id="bobot-crpb"></td>
+                                    <td class="text-center"  id="lastscore-crpb"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Aspek Likuiditas </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Kas dan Bank terhadap Kewajiban Jangka Pendek</td>
+                                    <td class="text-center" id="hitung-kbwjp" > 0  </td>
+                                    <td class="text-center"  id="ratio-kbwjp"></td>
+                                    <td class="text-center" id="nilai-kbwjp"></td>
+                                    <td class="text-center" id="bobot-kbwjp"></td>
+                                    <td class="text-center"  id="lastscore-kbwjp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Piutang terhadap Dana Yang Diterima</td>
+                                    <td class="text-center" id="hitung-pdd" > 0  </td>
+                                    <td class="text-center"  id="ratio-pdd"></td>
+                                    <td class="text-center" id="nilai-pdd"></td>
+                                    <td class="text-center" id="bobot-pdd"></td>
+                                    <td class="text-center"  id="lastscore-pdd"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Aset Lancar terhadap Kewajiban Jangka Pendek</td>
+                                    <td class="text-center" id="hitung-alwjp" > 0  </td>
+                                    <td class="text-center"  id="ratio-alwjp"></td>
+                                    <td class="text-center" id="nilai-alwjp"></td>
+                                    <td class="text-center" id="bobot-alwjp"></td>
+                                    <td class="text-center"  id="lastscore-alwjp"></td>
+                                </tr>  
+                                <tr>
+                                    <td colspan="2" class="fw-bold bg-secondary text-white"> KESINAMBUNGAN KEUANGAN</td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Pertumbuhan </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Aset</td>
+                                    <td class="text-center" id="hitung-ptas" > 0  </td>
+                                    <td class="text-center"  id="ratio-ptas"></td>
+                                    <td class="text-center" id="nilai-ptas"></td>
+                                    <td class="text-center" id="bobot-ptas"></td>
+                                    <td class="text-center"  id="lastscore-ptas"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Dana diterima</td>
+                                    <td class="text-center" id="hitung-ptdd" > 0  </td>
+                                    <td class="text-center"  id="ratio-ptdd"></td>
+                                    <td class="text-center" id="nilai-ptdd"></td>
+                                    <td class="text-center" id="bobot-ptdd"></td>
+                                    <td class="text-center"  id="lastscore-ptdd"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Ekuitas</td>
+                                    <td class="text-center" id="hitung-ptek" > 0  </td>
+                                    <td class="text-center"  id="ratio-ptek"></td>
+                                    <td class="text-center" id="nilai-ptek"></td>
+                                    <td class="text-center" id="bobot-ptek"></td>
+                                    <td class="text-center"  id="lastscore-ptek"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Hasil Usaha Bersih</td>
+                                    <td class="text-center" id="hitung-ptub" > 0  </td>
+                                    <td class="text-center"  id="ratio-ptub"></td>
+                                    <td class="text-center" id="nilai-ptub"></td>
+                                    <td class="text-center" id="bobot-ptub"></td>
+                                    <td class="text-center"  id="lastscore-ptub"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> Aspek Jatidiri </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pendapatan Utama terhadap Total Pendapatan</td>
+                                    <td class="text-center" id="hitung-putp" > 0  </td>
+                                    <td class="text-center"  id="ratio-putp"></td>
+                                    <td class="text-center" id="nilai-putp"></td>
+                                    <td class="text-center" id="bobot-putp"></td>
+                                    <td class="text-center"  id="lastscore-putp"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >SHU Bersih terhadap Simpanan Pokok dan Simpanan</td>
+                                    <td class="text-center" id="hitung-sbsps" > 0  </td>
+                                    <td class="text-center"  id="ratio-sbsps"></td>
+                                    <td class="text-center" id="nilai-sbsps"></td>
+                                    <td class="text-center" id="bobot-sbsps"></td>
+                                    <td class="text-center"  id="lastscore-sbsps"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Partisipasi Simpanan Anggota</td>
+                                    <td class="text-center" id="hitung-psa" > 0  </td>
+                                    <td class="text-center"  id="ratio-psa"></td>
+                                    <td class="text-center" id="nilai-psa"></td>
+                                    <td class="text-center" id="bobot-psa"></td>
+                                    <td class="text-center"  id="lastscore-psa"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="2" class="fw-bold bg-secondary text-white"> PERMODALAN</td>
+                                    <td class="bg-secondary"></td>
+                                    <td class="bg-secondary"  id="nilai-modal"></td>
+                                    <td class="bg-secondary" id="bobot-modal"></td>
+                                    <td class="bg-secondary" id="lastscore-modal"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> KECUKUPAN PERMODALAN </td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>    
+                                <tr>
+                                    <td colspan="1" >Ekuitas terhadap Total Aset</td>
+                                    <td class="text-center" id="hitung-eta" > 0  </td>
+                                    <td class="text-center"  id="ratio-eta"></td>
+                                    <td class="text-center" id="nilai-eta"></td>
+                                    <td class="text-center" id="bobot-eta"></td>
+                                    <td class="text-center"  id="lastscore-eta"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Kecukupan Modal</td>
+                                    <td class="text-center" id="hitung-kcm" > 0  </td>
+                                    <td class="text-center"  id="ratio-kcm"></td>
+                                    <td class="text-center" id="nilai-kcm"></td>
+                                    <td class="text-center" id="bobot-kcm"></td>
+                                    <td class="text-center"  id="lastscore-kcm"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="2" class="table-active fw-bold "> KECUKUPAN PENGELOLAAN PERMODALAN</td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                    <td class="table-active"></td>
+                                </tr>    
+                                <tr>
+                                    <td colspan="1" >Modal Pinjaman Anggota Terhadap Total Aset</td>
+                                    <td class="text-center" id="hitung-mpata" > 0  </td>
+                                    <td class="text-center"  id="ratio-mpata"></td>
+                                    <td class="text-center" id="nilai-mpata"></td>
+                                    <td class="text-center" id="bobot-mpata"></td>
+                                    <td class="text-center"  id="lastscore-mpata"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Kewajiban Jk. Panjang Terhadap Ekuitas</td>
+                                    <td class="text-center" id="hitung-wjpe" > 0  </td>
+                                    <td class="text-center"  id="ratio-wjpe"></td>
+                                    <td class="text-center" id="nilai-wjpe"></td>
+                                    <td class="text-center" id="bobot-wjpe"></td>
+                                    <td class="text-center"  id="lastscore-wjpe"></td>
+                                </tr> 
+
+
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-warning text-white"> TINGKAT PEMERIKSAAN KESEHATAN</td>
+                                    <td colspan="2" class="bg-secondary text-center"> JUMLAH =</td>
+                                    <td class="bg-secondary text-center"  id="nilaikredit-total"></td>
+                                    <td class="bg-secondary text-center" id="bobot-total"></td>
+                                    <td class="bg-secondary text-center" id="lastscore-total"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="6"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="1" class="fw-bold"> 
+                                        <table class="table table-bordered table-sm ">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th colspan="2"> KETERANGAN </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> 60 </td>
+                                                    <td> Indikator	</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 240 </td>
+                                                    <td> Skor maksimal  </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td colspan="5" class=" text-center"> 
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-sm ">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th> SCORE </th>
+                                                        <th> PREDIKAT </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td> 80 <  x < 100 </td>
+                                                        <td> SEHAT	 </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> 66 <  x  < 80 </td>
+                                                        <td> CUKUP SEHAT </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> 51  <  x  < 66 </td>
+                                                        <td> DALAM PENGAWASAN	 </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>  <  51 </td>
+                                                        <td> DALAM PENGAWASAN KHUSUS	 </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                    
+                                        </div>    
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% comment %} {% block javascripts %}
+{% endblock %} {% endcomment %}

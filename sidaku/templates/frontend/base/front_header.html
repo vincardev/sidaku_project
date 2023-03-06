@@ -11,9 +11,30 @@
 
         <ul class="nav text-center col-12 col-md-auto col-lg-auto  mb-2 justify-content-md-end justify-content-lg-end  justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERANDA</a></li>
-            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">HUBUNGI KAMI</a></li>
-            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">BERITA</a></li>
-            <li><a href="#" class="nav-link px-3 link-dark " style="font-size:0.8rem;">REGULASI</a></li>
+            <li><a href="{% url 'home:cont_us' %}" class="nav-link px-3 link-dark " style="font-size:0.8rem;">HUBUNGI KAMI</a></li>
+            <li>
+                <div class="dropdown">
+                    <a type="button" class="nav-link px-3 link-dark dropdown-toggle" style="font-size:0.8rem;" data-bs-toggle="dropdown" aria-expanded="false">BERITA</a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item {% if sub_active == 'wartakumkm' %} active {% endif %}"  style="font-size:0.8rem;" href="/berita/warta-kumkm">Warta KUMKM</a></li>
+                        <li><a class="dropdown-item {% if sub_active == 'fakta' %} active {% endif %}"  style="font-size:0.8rem;" href="/berita/fakta-menarik">Fakta Menarik</a></li>
+                        <li><a class="dropdown-item {% if sub_active == 'gallery' %} active {% endif %}"  style="font-size:0.8rem;" href="/berita/gallery">GALLERY</a></li>
+                    </ul>
+                </div>
+            
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a type="button" class="nav-link px-3 link-dark dropdown-toggle" style="font-size:0.8rem;" data-bs-toggle="dropdown" aria-expanded="false">REGULASI</a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item {% if sub_active == 'prodhk' %} active {% endif %}"  style="font-size:0.8rem;" href="{% url 'home:list_produk_hukum' %}">Produk Hukum</a></li>
+                         <li><a class="dropdown-item {% if sub_active == 'rapatkoor' %} active {% endif %}"  style="font-size:0.8rem;" href="{% url 'home:list_rapat_koordinasi' %}">Rapat Koordinasi</a></li>
+                        <li><a class="dropdown-item {% if sub_active == 'paparan' %} active {% endif %}"  style="font-size:0.8rem;" href="{% url 'home:list_paparan' %}">Paparan</a></li>
+                    </ul>
+                </div>
+            </li>
             {% if user.is_authenticated%}
                 <li><a href="/sidaku_admin/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">DASHBOARD </a>  </li>
                 <li><a href="/signout/" class="nav-link px-3 link-dark " style="font-size:0.8rem;">SIGN OUT</a></li>

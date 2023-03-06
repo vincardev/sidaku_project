@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 
 from .forms import FormCompSetup
-from .models import CompanySetupModel
+from .models import CompanySetupModel, SupportCenterModel
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from datetime import datetime, timedelta
 
 def index(request):
     
@@ -83,3 +86,40 @@ def upd_compsetup(request, comp_id):
         'tables'        : tables,
     }
     return render (request, template, list_data)
+
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def master_support(request):
+    search =""
+    
+    tables = SupportCenterModel.objects.all()
+
+
+    paginator   = Paginator(tables, 10) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj    = paginator.get_page(page_number)
+
+    list_data = {
+        'side_active'   : 'scenter',
+        'tables' : tables,
+        'page_obj' : page_obj,
+    }
+
+    return render (request, 'master_support.html', list_data)
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def UpMessage(request):
+
+    res = 'failed'
+    if request.method == 'GET':
+        #    post_id = request.GET['post_id']
+        mid = request.GET['mid']
+        tables = SupportCenterModel.objects.get(id= mid)
+        tables.modified_date = datetime.now()
+        tables.save()
+
+        res = 'success'
+    
+    return HttpResponse(res)

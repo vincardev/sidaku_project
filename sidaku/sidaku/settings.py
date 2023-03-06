@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'clearcache',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -180,6 +181,10 @@ LOGIN_URL = '/sidaku_admin/login/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# export import
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+# IMPORT_EXPORT_IMPORT_PERMISSION_CODE ='delete'
 
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"

@@ -1,0 +1,78 @@
+{% load static %}
+{% load filter_kop %}
+{% load widget_tweaks %}
+<div class="card p-3 mb-2 rounded-0 rounded-bottom">
+    <h3 class="text-center"> Daftar Pertanyaan Kepatuhan </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm ">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th> Variable Indikator Pengukuran </th>
+                                    <th> Terpenuhi/Tidak Terpenuhi </th>
+                                    <th> Dokumen Pendukung </th>
+                                    <th> TEMUAN </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="fw-bold"> TATA KELOLA </td>
+                                </tr>
+                                {% regroup dpl_kelola by kat_var.ipsubkat as data_by_subkat %}
+                                {% for subkat in data_by_subkat %}
+                                <tr>
+                                    {% GetIPSUBKATList subkat.grouper as ipkattext %}
+                                    <td colspan="4" class="table-active fw-bold "> {{ ipkattext }} </td>
+                                </tr>
+                                {% regroup subkat.list by kat_var as data_by_dpl %}
+                                {% for grdat in data_by_dpl %}
+                                <tr>
+                                    <td colspan="4" class="table-active"> {{ grdat.grouper }} </td>
+                                </tr>
+                                {% for data in grdat.list %}
+                                <tr>
+                                    <td>{{ data.ind_ukur }}</td>
+                                    <td>
+                                        {% GetDPData tables.id data.id as dpvalue%}
+                                        
+                                        <select class="form-select form-select-sm {{data.kat_var.ipkat}}_{{ data.kat_var.ipsubkat }}_{{ data.kat_var.id }}" name="{{data.kat_var.ipkat}}_{{ data.kat_var.ipsubkat }}-{{data.id}}" aria-label=".form-select-sm example">
+                                            <option class="text-sm" value="0"  {% if dpvalue %} {% if dpvalue.nilai_dp == 0 %} selected {% endif %} {% else  %} selected {%endif%}>Tidak Terpenuhi</option>
+                                            <option class="text-sm" value="1"  {% if dpvalue %} {% if dpvalue.nilai_dp == 1 %} selected {% endif %}  {%endif%}>Terpenuhi</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ data.dok_pendukung }}">
+                                            Lihat
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ data.temuan }}">
+                                            Lihat
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endfor %}
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% block javascripts %}
+{% endblock %}

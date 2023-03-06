@@ -58,7 +58,6 @@ PERBANDINGAN = [
     (9, ''),
     ]
 
-
 class FormUMKM(forms.ModelForm):
     # content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     class Meta:
@@ -67,6 +66,9 @@ class FormUMKM(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FormUMKM, self).__init__(*args, **kwargs)   
+
+        biduslist = [[x.id, x.nama] for x in BidangUsaha.objects.all()]
+        bentuslist = [[x.id, x.nama] for x in BentukUsaha.objects.all()]
         
         userlist = [('0', '---------')] + [ (i.id, i.user.first_name + " " + i.user.last_name) for i in UserProfile.objects.all() ]
 
@@ -79,17 +81,16 @@ class FormUMKM(forms.ModelForm):
         self.fields['pu_noktp'].widget          = forms.NumberInput({'class': 'form-control','minlength':12, 'placeholder': '16 Digit/ 12 Digit'})
         self.fields['pu_notlp'].widget          = forms.NumberInput({'class': 'form-control', 'placeholder': '62'})
         self.fields['pu_email'].widget          = forms.EmailInput({'class': 'form-control','placeholder':'@gmail.com'})
-        
-
+    
 
         self.fields['du_ftusha'].widget          = ClearableFileInput ()
         self.fields['du_nmusha'].widget          = forms.TextInput({'class': 'form-control','placeholder':'Nama Usaha'})
         self.fields['du_alusha'].widget          = forms.Textarea({'class': 'form-control','placeholder':'Alamat Lengkap Beserta Kode Pos'})
-        self.fields['du_btkusha'].widget         = forms.Select({'class': 'form-select','placeholder':'-- Pilih Bentuk Usaha --'}, choices=BENTUK_USAHA)
-        self.fields['du_bdgusha'].widget         = forms.Select({'class': 'form-select','placeholder':'-- Pilih Bidang Usaha --'}, choices=BIDANG_USAHA)
+        self.fields['du_btkusha'].widget         = forms.CheckboxSelectMultiple({'placeholder':'-- Pilih Bentuk Usaha --'}, choices=bentuslist)
+        self.fields['du_bdgusha'].widget         = forms.CheckboxSelectMultiple({'placeholder':'-- Pilih Bidang Usaha --'}, choices=biduslist)
         self.fields['du_thnbrdr'].widget         = forms.NumberInput({'class': 'form-control', 'placeholder': '2000' ,'maxlength':"4"})
-        self.fields['du_lat'].widget           = forms.NumberInput({'class': 'form-control','step': 'any', 'placeholder':'Latitude', 'id':'id_rkp_lat'})
-        self.fields['du_long'].widget          = forms.NumberInput({'class': 'form-control','step': 'any', 'placeholder':'Longitude', 'id':'id_rkp_long'})
+        self.fields['du_lat'].widget             = forms.NumberInput({'class': 'form-control','step': 'any', 'placeholder':'Latitude', 'id':'id_rkp_lat'})
+        self.fields['du_long'].widget            = forms.NumberInput({'class': 'form-control','step': 'any', 'placeholder':'Longitude', 'id':'id_rkp_long'})
         
         
         self.fields['dtu_tujuan'].widget         = forms.TextInput({'class': 'form-control','placeholder':'Tujuan/Wilayah Pemasaran'})

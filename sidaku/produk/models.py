@@ -41,11 +41,11 @@ LIST_JEN_SUPP = [
 ]
 
 class ProdukModel(models.Model):
-    komoditi      = models.CharField(max_length=150)
-    volume        = models.CharField(max_length=150)
-    satuan        = models.CharField(max_length=150)
-    harga         = models.IntegerField()
-    total         = models.IntegerField()
+    komoditi      = models.CharField(max_length=150, blank=True, null=True)
+    volume        = models.CharField(max_length=150, blank=True, null=True)
+    satuan        = models.CharField(max_length=150, blank=True, null=True)
+    harga         = models.IntegerField(default=0, blank=True, null=True)
+    total         = models.IntegerField(default=0, blank=True, null=True)
     fotoprod      = models.ImageField(upload_to= 'produk/', null=True, blank=True)
     kopid         = models.ForeignKey(KoperasiModel, on_delete=models.CASCADE, null = True, blank = True )
 
@@ -58,11 +58,11 @@ class ProdukModel(models.Model):
 
 
 class ProdukUMKM(models.Model):
-    komoditi      = models.CharField(max_length=150)
-    volume        = models.CharField(max_length=150)
-    satuan        = models.CharField(max_length=150)
-    harga         = models.IntegerField()
-    total         = models.IntegerField()
+    komoditi      = models.CharField(max_length=150, blank=True, null=True)
+    volume        = models.CharField(max_length=150, blank=True, null=True)
+    satuan        = models.CharField(max_length=150, blank=True, null=True)
+    harga         = models.IntegerField(default=0, blank=True, null=True)
+    total         = models.IntegerField(default=0, blank=True, null=True)
     fotoprod      = models.ImageField(upload_to= 'produk/', null=True, blank=True)
     umkmid        = models.ForeignKey(UmkmModel, on_delete=models.CASCADE, null = True, blank = True )
 
@@ -76,11 +76,11 @@ class ProdukUMKM(models.Model):
 
 
 class DetDemandProd(models.Model):
-    dpd_nmprod    = models.CharField(max_length=150)
-    dpd_bulan     = models.PositiveIntegerField(choices=LIST_BULAN)
-    dpd_tahun     = models.IntegerField()
-    dpd_demand    = models.IntegerField()
-    dpd_produksi  = models.IntegerField()
+    dpd_nmprod    = models.CharField(max_length=150, blank=True, null=True)
+    dpd_bulan     = models.PositiveIntegerField(choices=LIST_BULAN, blank=True, null=True)
+    dpd_tahun     = models.IntegerField(default=0)
+    dpd_demand    = models.IntegerField(default=0)
+    dpd_produksi  = models.IntegerField(default=0)
     umkmid        = models.ForeignKey(UmkmModel, on_delete=models.CASCADE, null = True, blank = True )
 
     
@@ -93,11 +93,11 @@ class DetDemandProd(models.Model):
 
 
 class DetDemandSup(models.Model):
-    dsp_jensup    = models.CharField(choices=LIST_JEN_SUPP, max_length=150 )
-    dsp_bulan     = models.PositiveIntegerField(choices=LIST_BULAN)
-    dsp_tahun     = models.IntegerField()
-    dsp_demand    = models.IntegerField()
-    dsp_produksi  = models.IntegerField()
+    dsp_jensup    = models.CharField(choices=LIST_JEN_SUPP, max_length=150, blank=True, null=True )
+    dsp_bulan     = models.PositiveIntegerField(choices=LIST_BULAN, blank=True, null=True)
+    dsp_tahun     = models.IntegerField(default=0)
+    dsp_demand    = models.IntegerField(default=0)
+    dsp_produksi  = models.IntegerField(default=0)
     umkmid      = models.ForeignKey(UmkmModel, on_delete=models.CASCADE, null = True, blank = True )
 
     
@@ -111,11 +111,11 @@ class DetDemandSup(models.Model):
 
 
 class DetPenilaianSupp(models.Model):
-    dps_nm_supp         = models.CharField(max_length=200)
-    dps_kualitas        = models.CharField(max_length=200)
-    dps_pengiriman      = models.CharField(max_length=200)
+    dps_nm_supp         = models.CharField(max_length=200, blank=True, null=True)
+    dps_kualitas        = models.CharField(max_length=200, blank=True, null=True)
+    dps_pengiriman      = models.CharField(max_length=200, blank=True, null=True)
     dps_harga           = models.IntegerField()
-    umkmid          = models.ForeignKey(UmkmModel, on_delete=models.CASCADE, null = True, blank = True )
+    umkmid              = models.ForeignKey(UmkmModel, on_delete=models.CASCADE, null = True, blank = True )
 
     
     class Meta:

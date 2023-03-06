@@ -8,160 +8,237 @@
 {% block stylesheets %}{% endblock %}
 {% block main_content %}
 <div class="container">
-
-
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Data UMKM</h1>
-      <div class="btn-toolbar mb-2 mb-md-0">
-      </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Data UMKM</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select name="file-format" class="form-select-sm my-3" placeholder="Select Format">
+          <option selected>XLS (Excel)</option>
+          {% comment %} <option>CSV</option> {% endcomment %}
+          <option>JSON</option>
+        </select>
+        <input id="filehandle" type="file" name="importData" class="form-control-sm" style="display:none;">
+        <select name="post-type" class="form-select-sm my-3" placeholder="Select Format" onchange="ptypevalue(event)">
+          <option selected>Export</option>
+          <option>Import</option>
+        </select>
+        <button class="btn btn-sm btn-dark" type="submit">Proses</button>
+      </form>
     </div>
-  
-    <div class="row">
-      <div class="col-md-12">
-        <h3>
-          <a href="{% url 'umkmdat:add_umkm' %}" class="btn btn-sm btn-dark">Tambah Data</a>
-        </h3>
-  
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <a href="{% url 'umkmdat:add_umkm' %}" class="btn btn-sm btn-dark">Tambah Data</a>
+      </h3>
+
     </div>
-  
-  
-    <div class="row">
-      <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
-          <div class="card">
-              <div class="card-header pb-0">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <h6>Daftar  UMKM </h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive">
-                  <table class="table mb-0 table-hover">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Usaha</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Alamat Usaha</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bentuk Usaha</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bidang Usaha</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Image</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun Berdiri</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Owner</th>
-                        <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for field in tables %}
-                      <tr>
-                        <td>
-                          <div class="d-flex py-1">
-                            <div class="d-flex flex-column ">
-                              <h6 class="mb-0 text-sm"> 
-                                  {{ field.du_nmusha }} 
-                                  
-                              </h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex py-1">
-                            <div class="d-flex flex-column ">
-                              <h6 class="mb-0 text-sm"> 
-                                  {{ field.du_alusha }} 
-                                  
-                              </h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex py-1">
-                            <div class="d-flex flex-column ">
-                              <h6 class="mb-0 text-sm"> 
+  </div>
 
-                              {% GetBentukUsaha field.du_btkusha as val_btk %}
-                              {{ val_btk }} 
-                              </h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex py-1">
-                            <div class="d-flex flex-column ">
-                              <h6 class="mb-0 text-sm"> 
+  <div class="row">
+    <div class="col-md-12">
 
-                              {% GetBidangUsaha field.du_bdgusha as val_bdg %}
-                              {{ val_bdg }} 
-                              </h6>
-                            </div>
-                          </div>
-                        </td>
+      <form method="get">
+        <div class="row mb-2">
+          <div class="col-md-8 align-items-center">
+            <div class="position-relative"><input class="form-control search" name="search"
+                placeholder="Search by Nama Usaha, Nama pemilik, No Anggota"> </div>
+          </div>
+          <div class="col-md-2 align-items-center">
+            <button type="submit" class="btn btn-dark form-control">
+              <span data-feather="search"></span> Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-                        <td class="align-middle text-sm">
-                          <span class="text-xs font-weight-bold">
-                            {% if field.du_ftusha %}
-                              <img src="{{ field.du_ftusha.url }}" class="img-fluid" style="max-height:50px"> 
-                            {% endif %}
-                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
-                          </span>
-                        </td>
-                        </td>
-                        <td class="align-middle text-sm">
-                          <span class="text-xs font-weight-bold">
-                              {{ field.du_thnbrdr }} 
-                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
-                          </span>
-                        </td>
-                        <td class="align-middle text-sm">
-                          <span class="text-xs font-weight-bold">
-                              {{ field.da_nmketua }} 
-                            {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
-                          </span>
-                        </td>
-                        <td class="align-middle text-sm">
-                            <span class="text-xs font-weight-bold">
-                                {{ field.pu_nmpmlk }} 
-                              {% comment %} <a class="text-decoration-none text-dark"  href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a> {% endcomment %}
-                            </span>
-                          </td>
-                        <td class="align-middle">
-                          <a type="button" href="{% url 'umkmdat:upd_umkm' field.id %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
-                          {% if field.user.is_superuser %}
-                          {% else %}
-                          <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
-                            class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
-                          {% endif %}
-                        </td>
-      
-                        <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <p><strong> {{ field.du_ftusha }} </strong></p>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                <a href="{% url 'umkmdat:del_umkm'  field.id %}" class="btn btn-danger">Hapus</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-      
-                      </tr>
-      
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+      <div class="card">
+        <div class="card-header pb-0">
+          <div class="row">
+            <div class="col-lg-6">
+              <h6>Daftar UMKM </h6>
             </div>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive">
+            <table class="table mb-0 table-hover">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Usaha</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Alamat Usaha</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bentuk Usaha</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bidang Usaha</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Image</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun Berdiri</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Owner</th>
+                  <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for field in page_obj %}
+                <tr>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm">
+                          {{ field.du_nmusha }}
+
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm">
+                          {{ field.du_alusha }}
+
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm">
+                          {% for datval in field.du_btkusha.all %}
+                          {{datval}}
+                          {% endfor %}
+                          {% comment %} {% GetBentukUsaha field.du_btkusha as val_btk %}
+                          {{ val_btk }} {% endcomment %}
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column ">
+                        <h6 class="mb-0 text-sm">
+                          {% for datval in field.du_bdgusha.all %}
+                          {{datval}}
+                          {% endfor %}
+                          {% comment %} {% GetBidangUsaha field.du_bdgusha as val_bdg %}
+                          {{ val_bdg }} {% endcomment %}
+                        </h6>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="align-middle text-sm">
+                    <span class="text-xs font-weight-bold">
+                      {% if field.du_ftusha %}
+                      <img src="{{ field.du_ftusha.url }}" class="img-fluid" style="max-height:50px">
+                      {% endif %}
+                      {% comment %} <a class="text-decoration-none text-dark"
+                        href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a>
+                      {% endcomment %}
+                    </span>
+                  </td>
+                  </td>
+                  <td class="align-middle text-sm">
+                    <span class="text-xs font-weight-bold">
+                      {{ field.du_thnbrdr }}
+                      {% comment %} <a class="text-decoration-none text-dark"
+                        href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a>
+                      {% endcomment %}
+                    </span>
+                  </td>
+                  <td class="align-middle text-sm ">
+                    <span class="text-xs font-weight-bold">
+                      {{ field.pu_nmpmlk }}
+                      {% comment %} <a class="text-decoration-none text-dark"
+                        href="{% url 'userprofile:update_userp' field.id %}"> {{ field.user.email }} </a>
+                      {% endcomment %}
+                    </span>
+                  </td>
+                  <td class="align-middle">
+                    <a type="button" href="{% url 'umkmdat:upd_umkm' field.id %}" class="btn btn-sm btn-warning"><i
+                        class="bi bi-pencil-square"></i></a>
+                    {% if field.user.is_superuser %}
+                    {% else %}
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                      class="btn btn-sm btn-danger"><i class="bi bi-eraser-fill"> </i></button>
+                    {% endif %}
+                  </td>
+
+                  <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p><strong> {{ field.du_ftusha }} </strong></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                          <a href="{% url 'umkmdat:del_umkm'  field.id %}" class="btn btn-danger">Hapus</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row my-2">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                {% if page_obj.has_previous %}
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page=1">&laquo; first</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.previous_page_number }}">previous</a> </li>
+              <li class="page-item"> <a class="page-link"
+                  href="?search={{search}}&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+              </li>
+              {% endif %}
+              </li>
+      
+              <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+      
+              {% if page_obj.has_next %}
+              <li class="page-item"> <a class="page-link"
+                  href="?search={{search}}&page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.next_page_number }}">next</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.paginator.num_pages }}">last
+                  &raquo;</a> </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
+
       </div>
     </div>
   </div>
 
+ 
+</div>
 
+
+
+  <script>
+    function ptypevalue(event) {
+      var selectElement = event.target;
+      var value = selectElement.value;
+      if (value == "Import"){
+        $("#filehandle").show();
+      } else  if (value == "Export"){
+        $("#filehandle").hide();
+      }
+    }
+  </script>
 {% endblock %}

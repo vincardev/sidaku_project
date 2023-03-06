@@ -55,6 +55,38 @@ def GetKategoriName(typeid):
 
     return value
 
+@register.simple_tag
+def GetListKategori():
+
+    UU     = 1
+    PUU    = 2
+    PPEM   = 3
+    PPRES  = 4
+    KIP    = 5
+    PMEN   = 6
+    KEPMEN = 7
+    KEPDEP = 8
+    PTER   = 9
+    PETPEL = 10
+    SUED   = 11
+
+    KATEGORI_CHOICES = [
+        (UU, ("Undang-Undang")),
+        (PUU, ("Perancangan Undang-Undang")),
+        (PPEM, ("Peraturan Pemerintah")),
+        (PPRES, ("Peraturan Presiden")),
+        (KIP, ("Keputusan dan Intruksi Presiden")),
+        (PMEN, ("Peraturan Mentri")),
+        (KEPMEN, ("Keputusan Mentri")),
+        (KEPDEP, ("Keputusan Deputi")),
+        (PTER, ("Peraturan Terkait")),
+        (PETPEL, ("Petunjuk Pelaksanaan")),
+        (SUED, ("Surat Edaran")),
+    ]
+    
+    return KATEGORI_CHOICES
+
+
 
 # @register.simple_tag
 # def GetRoomsRatesNormal(roomid):

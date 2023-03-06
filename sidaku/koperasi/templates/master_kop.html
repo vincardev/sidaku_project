@@ -10,9 +10,28 @@
 <div class="container">
 
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Data Koperasi</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <select name="file-format" class="form-select-sm my-3" placeholder="Select Format">
+            {% comment %} <option selected>Choose format...</option> {% endcomment %}
+            <option selected>XLS (Excel)</option>
+            {% comment %} <option >CSV</option> {% endcomment %}
+            <option>JSON</option>
+          </select>
+          <input id="filehandle" type="file" name="importData" class="form-control-sm" style="display:none;">
+          <select name="post-type" class="form-select-sm my-3" placeholder="Select Format" onchange="ptypevalue(event)">
+            <option selected>Export</option>
+            <option>Import</option>
+          </select>
+          {% comment %} <div id="filehandle"> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          <button class="btn btn-sm btn-dark" type="submit">Proses</button>
+        </form>
       </div>
     </div>
   
@@ -21,11 +40,31 @@
         <h3>
           <a href="{% url 'koper:add_kop' %}" class="btn btn-sm btn-dark">Tambah Data</a>
         </h3>
+
   
       </div>
     </div>
   
   
+    <div class="row">
+      <div class="col-md-12">
+  
+        <form method="get">
+          <div class="row mb-2">
+            <div class="col-md-8 align-items-center">
+              <div class="position-relative"><input class="form-control search" name="search"
+                  placeholder="Search by Nama Koperasi, Alamat Koperasi, Nama Ketua"> </div>
+            </div>
+            <div class="col-md-2 align-items-center">
+              <button type="submit" class="btn btn-dark form-control">
+                <span data-feather="search"></span> Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
           <div class="card">
@@ -52,7 +91,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {% for field in tables_1 %}
+                      {% for field in page_obj %}
                       <tr>
                         <td>
                           <div class="d-flex py-1">
@@ -144,10 +183,58 @@
                   </table>
                 </div>
               </div>
+
+
+
+              <div class="row my-2">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      {% if page_obj.has_previous %}
+                    <li class="page-item"> <a class="page-link" href="?search={{search}}&page=1">&laquo; first</a> </li>
+                    <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.previous_page_number }}">previous</a> </li>
+                    <li class="page-item"> <a class="page-link"
+                        href="?search={{search}}&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                    </li>
+                    {% endif %}
+                    </li>
+            
+                    <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+            
+                    {% if page_obj.has_next %}
+                    <li class="page-item"> <a class="page-link"
+                        href="?search={{search}}&page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+                    <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.next_page_number }}">next</a> </li>
+                    <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.paginator.num_pages }}">last
+                        &raquo;</a> </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+              </div>
+              
+
+
             </div>
       </div>
     </div>
+
+
+
+
   </div>
 
+  
+  <script>
+    
+    function ptypevalue(event) {
+      var selectElement = event.target;
+      var value = selectElement.value;
+      if (value == "Import"){
+        $("#filehandle").show();
+      } else  if (value == "Export"){
+        $("#filehandle").hide();
+      }
+    }
+  </script>
 
 {% endblock %}

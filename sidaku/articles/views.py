@@ -3,6 +3,7 @@ from .models import Article, ArticleSeries
 from django.contrib import messages
 from .decorators import user_is_superuser
 from .forms import SeriesCreateForm, ArticleCreateForm, SeriesUpdateForm, ArticleUpdateForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def homepage(request):
@@ -42,6 +43,10 @@ def article(request, series: str, article: str):
 def master_article(request):
     matching_article = Article.objects.all()
     
+    paginator   = Paginator(matching_article, 10) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj    = paginator.get_page(page_number)
+    
     return render(
         request=request,
         template_name='main/master_article.html',
@@ -49,6 +54,7 @@ def master_article(request):
             "objects"       : matching_article,
             "type"          : "article",
             'side_active'   : 'article',
+            'page_obj'   : page_obj,
             }
         )
 
@@ -57,6 +63,10 @@ def master_article(request):
 def master_series(request):
     matching_series = ArticleSeries.objects.all()
     
+    paginator   = Paginator(matching_series, 10) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj    = paginator.get_page(page_number)
+    
     return render(
         request=request,
         template_name='main/master_series.html',
@@ -64,6 +74,7 @@ def master_series(request):
             "objects": matching_series,
             "type": "series",
             'side_active'   : 'series',
+            'page_obj'   : page_obj,
             }
         )
 

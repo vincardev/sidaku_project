@@ -19,22 +19,22 @@
     
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active " id="nav-lapkeukop-tab" data-bs-toggle="tab" data-bs-target="#nav-lapkeukop"
-              type="button" role="tab" aria-controls="nav-lapkeukop" aria-selected="true">Daftar Keuangan Koperasi</button>
-          <button class="nav-link" id="nav-lapkeuumkm-tab" data-bs-toggle="tab" data-bs-target="#nav-lapkeuumkm"
-              type="button" role="tab" aria-controls="nav-lapkeuumkm" aria-selected="false">Daftar Keuangan UMKM</button>
+          <button class="nav-link  {% if tab_active == 'tab_kop' %} active {% endif %}  " id="nav-lapkeukop-tab" data-bs-toggle="tab" data-bs-target="#nav-lapkeukop"
+              type="button" role="tab" aria-controls="nav-lapkeukop" aria-selected="false">Daftar Keuangan Koperasi</button>
+          {% comment %} <button class="nav-link  {% if tab_active == 'tab_umkm' %} active {% endif %} " id="nav-lapkeuumkm-tab" data-bs-toggle="tab" data-bs-target="#nav-lapkeuumkm"
+              type="button" role="tab" aria-controls="nav-lapkeuumkm" aria-selected="true">Daftar Keuangan UMKM</button> {% endcomment %}
          
       </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-lapkeukop" role="tabpanel" aria-labelledby="nav-lapkeukop-tab"
+      <div class="tab-pane fade {% if tab_active == 'tab_kop' %} show active {% endif %} " id="nav-lapkeukop" role="tabpanel" aria-labelledby="nav-lapkeukop-tab"
           tabindex="0">
           {% include "part/lapkeukop.html" %}
       </div>
-      <div class="tab-pane fade" id="nav-lapkeuumkm" role="tabpanel" aria-labelledby="nav-lapkeuumkm-tab"
+      {% comment %} <div class="tab-pane fade {% if tab_active == 'tab_umkm' %} show active {% endif %}  " id="nav-lapkeuumkm" role="tabpanel" aria-labelledby="nav-lapkeuumkm-tab"
           tabindex="0">
           {% include "part/lapkeuumkm.html" %}
-      </div>
+      </div> {% endcomment %}
   </div> 
   
   

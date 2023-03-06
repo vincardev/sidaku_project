@@ -33,7 +33,7 @@
         <div class="row mb-2">
           <div class="col-md-8 align-items-center">
             <div class="position-relative"><input class="form-control search" name="search"
-                placeholder="Search by Kode, Kategori, Deskripsi..."> </div>
+                placeholder="Search by Name, Username, Email..."> </div>
           </div>
           <div class="col-md-2 align-items-center">
             <button type="submit" class="btn btn-dark form-control">
@@ -136,6 +136,33 @@
             </table>
           </div>
         </div>
+
+        <div class="row my-2">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                {% if page_obj.has_previous %}
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page=1">&laquo; first</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.previous_page_number }}">previous</a> </li>
+              <li class="page-item"> <a class="page-link"
+                  href="?search={{search}}&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+              </li>
+              {% endif %}
+              </li>
+      
+              <li class="page-item active"><a class="page-link">{{ page_obj.number}}</a></li>
+      
+              {% if page_obj.has_next %}
+              <li class="page-item"> <a class="page-link"
+                  href="?search={{search}}&page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.next_page_number }}">next</a> </li>
+              <li class="page-item"> <a class="page-link" href="?search={{search}}&page={{ page_obj.paginator.num_pages }}">last
+                  &raquo;</a> </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib import messages
 from .models import *
 from .forms import *
+from django.core.paginator import Paginator
 
 @login_required(login_url=settings.LOGIN_URL)
 def master_keu(request):
@@ -14,16 +15,35 @@ def master_keu(request):
     tables = KeuanganModel.objects.all()
     tables_umkm = KeuanganUMKMModel.objects.all()
 
-    if request.GET:
-        search = request.GET.get('search')
-        query = (Q(doc_nmkop__icontains=search) | Q(doc_tahun__icontains=search) | 
-        Q(doc_bulan__icontains=search)) 
-        tables = tables.filter(query )
+    # if request.GET:
+    #     search = request.GET.get('search')
+    #     query = (Q(doc_nmkop__icontains=search) | Q(doc_tahun__icontains=search) | 
+    #     Q(doc_bulan__icontains=search)) 
+    #     tables = tables.filter(query )
     
+
+
+    paginator   = Paginator(tables, 10) # Show 25 contacts per page.
+    page_number = request.GET.get('page_1')
+    page_kop    = paginator.get_page(page_number)
+
+    paginator_2   = Paginator(tables_umkm, 10) # Show 25 contacts per page.
+    page_number_2 = request.GET.get('page_2')
+    page_umkm    = paginator_2.get_page(page_number_2)
+
+    tab_active = 'tab_kop'
+    if page_number_2 :
+        tab_active = 'tab_umkm'
+    elif page_number :
+        tab_active = 'tab_kop'
+
     list_data = {
         'side_active'   : 'lapkeu',
         'tables' : tables,
+        'page_kop' : page_kop,
         'tables_umkm' : tables_umkm,
+        'page_umkm' : page_umkm,
+        'tab_active' : tab_active,
     }
 
     return render (request, 'master_keu.html', list_data)
@@ -64,6 +84,8 @@ def add_keu(request):
     }
 
     return render (request, 'add_keu.html', list_data)
+
+
 
 
 @login_required(login_url=settings.LOGIN_URL)

@@ -1,7 +1,42 @@
+{% load humanize %}
 <div class="card p-1 pt-3 mb-2 rounded-3 shadow border-1">
     <h3 class="text-center cl-green-3 text-uppercase "> PRODUK UNGGULAN</h3>
     <div class="card-body row ">
+        <div class="container py-5">
+            <div class="row">
 
-        produk
+            {% for item in prod %}
+            {% comment %} <div class="col-lg-4 col-md-12 mb-4">
+                <div class="bg-image hover-zoom ripple shadow-1-strong rounded shadow">
+                <img src="{{item.fotoprod.url}}"
+                    class="w-100" />
+                <a href="#!">
+                    <div class="card-img-overlay" style="background-color: rgba(0, 0, 0, 0.5);">
+                    <div class="d-flex justify-content-between align-items-start h-100 p-3">
+                        <h5 class="badge bg-light    text-dark text-left">{{item.komoditi}}</h5>
+                        <h5 class="badge bg-light    text-dark text-right">{{item.harga}}</h5>
+                    </div>
+                    </div>
+                </a>
+                </div>
+            </div> {% endcomment %}
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card bg-dark text-white border-0 shadow">
+                {% if item.fotoprod %}
+                <img class="card-img" src="{{item.fotoprod.url}}" alt="{{item.komoditi}}">
+                {% else %}
+                <img class="card-img" src="/static/images/team/default-profile-picture.png" alt="{{item.komoditi}}">
+                {%endif%}
+                <div class="card-img-overlay" style="background-color: rgba(0, 0, 0, 0);">
+                    <div class="d-flex justify-content-between align-items-start h-100 p-3">
+                        <h4 class="badge bg-dark    text-white text-left">{{item.komoditi}}</h4>
+                        <h4 class="badge bg-dark    text-white text-right">Rp. {{item.harga | intcomma}}</h4>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
     </div>
 </div>

@@ -18,7 +18,10 @@
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Bentuk Usaha
             </label>
-            <p> {{umkmdat.du_btkusha }} </p>
+            {% comment %} <p> {{umkmdat.du_btkusha }} </p> {% endcomment %}
+            {% for datval in umkmdat.du_btkusha.all %}
+            <p> {{datval}}</p>
+            {% endfor %}
         </div>
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Tahun Berdiri </label>
@@ -27,12 +30,22 @@
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Bidang Usaha
             </label>
-            <p> {{umkmdat.du_bdgusha }} </p>
+            {% for datval in umkmdat.du_bdgusha.all %}
+            <p> {{datval}}</p>
+            {% endfor %}
         </div>
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Skala Usaha
                 </label>
-            <p> {{umkmdat.dtu_skalausha }} </p>
+
+                {% if umkmdat.dtu_skalausha == 1%}
+                    <p> Mikro </p>
+                {% elif umkmdat.dtu_skalausha == 2%}
+                <p> Kecil </p>
+                {% elif umkmdat.dtu_skalausha == 3%}
+                <p> Menengah </p>
+                {%endif%}
+                    
         </div>
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Nama Pemilik Usaha

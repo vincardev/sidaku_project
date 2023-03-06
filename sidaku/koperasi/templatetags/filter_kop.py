@@ -1,4 +1,7 @@
+from pickle import EMPTY_DICT
 from django import template
+
+from koperasi.models import DetailDpPatuh
 
 register = template.Library()
 from django.template.defaulttags import register
@@ -80,6 +83,91 @@ def GetListBulan(blnid):
 
     return value
 
+@register.simple_tag
+def GetIPKATList(txtid):
+
+   
+    IPKATLIST = [
+        ("tata-kelola", ("TATA KELOLA")),
+        ("profil-risiko", ("PROFIL RISIKO")),
+        ("kinerja", ("KINERJA")),
+        ("permodalan", ("PERMODALAN")),
+    ]
+
+    value = ""
+    for key,textstring in IPKATLIST:
+        if key == txtid:
+            value = textstring
+
+    return value
+
+@register.simple_tag
+def GetTAGSUBKAT(txtid):
+
+    TAGSUBKAT = [
+        ("", ("")),
+        ("risiko-inheren", ("RISIKO INHEREN ")),
+        ("kualitas-manajemen-risiko", ("KUALITAS PENERAPAN MANAJEMEN RISIKO")),
+        ("evaluasi-kinerja-keuangan", ("EVALUASI KINERJA KEUANGAN")),
+        ("manajemen-keuangan", ("MANAJEMEN KEUANGAN")),
+        ("kesinambungan-keuangan", ("KESINAMBUNGAN KEUANGAN")),
+        ("kualitas-manajemen-risiko", ("KUALITAS PENERAPAN MANAJEMEN RISIKO")),
+        ("kecukupan-modal", ("KECUKUPAN PERMODALAN")),
+        ("kecukupan-pengelolaan-modal", ("KECUKUPAN PENGELOLAAN PERMODALAN")),
+
+    ]
+   
+    value = ""
+    for key,textstring in TAGSUBKAT:
+        if key == txtid:
+            value = textstring
+
+    return value
+
+@register.simple_tag
+def GetIPSUBKATList(txtid):
+
+  
+   
+    IPSUBKATLIST = [
+        ("prinsip-koperasi", ("PRINSIP KOPERASI")),
+        ("kelembagaan", ("KELEMBAGAAN")),
+        ("manajemen", ("MANAJEMEN")),
+
+        ("risiko-operasional", ("Risiko Operasional")),
+        ("risiko-kepatuhan", ("Risiko Kepatuhan")),
+        ("risiko-likuiditas", ("Risiko Likuiditas")),
+        ("kpmr-pinjaman", ("Kualitas Penerapan Manajemen Risiko Pinjaman/pembiayaan")),
+        ("kpmr-operasional", ("Kualitas Penerapan Manajemen Risiko Operasional")),
+        ("kpmr-kepatuhan", ("Kualitas Penerapan Manajemen Risiko Kepatuhan")),
+        ("kpmr-likuiditas", ("Kualitas Penerapan Manajemen Risiko Likuiditas")),
+
+        ("rentabilitas-kemandirian", ("Rentabilitas dan Kemandirian")),
+        ("efisiensi", ("Efisiensi")),
+        ("kualitas-aset", ("Kualitas Aset")),
+        ("aspek-likuiditas", ("Aspek Likuiditas")),
+
+        ("pertumbuhan", ("Pertumbuhan")),
+        ("aspek-jatidiri", ("Aspek Jatidiri")),
+    ]
+
+
+    value = ""
+    for key,textstring in IPSUBKATLIST:
+        if key == txtid:
+            value = textstring
+
+    return value
+
+@register.simple_tag
+def GetDPData(kopid,dpid):
+    detail = None
+    try:
+        detail = DetailDpPatuh.objects.get(choose_kop = kopid, choose_dp = dpid)
+    except Exception as e:
+        detail = None
+
+    return detail
 
 # @register.simple_tag
 # def GetRoomsRatesNormal(roomid):

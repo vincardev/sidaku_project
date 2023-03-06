@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from userprofile.models import UserProfile
 
@@ -64,10 +65,17 @@ def master_userp(request):
         tables = UserProfile.objects.filter(query)
     else:
         tables = UserProfile.objects.all()
+
+    
+
+    paginator   = Paginator(tables, 10) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj    = paginator.get_page(page_number)
     
     list_data = {
         'side_active'   : 'profile',
         'tables' : tables,
+        'page_obj' : page_obj,
     }
 
     return render (request, 'users/master_userp.html', list_data)

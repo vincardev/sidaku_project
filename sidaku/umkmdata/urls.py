@@ -11,5 +11,6 @@ urlpatterns = [
 	path('update/<int:umkm_id>', views.upd_umkm, name='upd_umkm'),
 	
     path ('tabledata/<int:umkm_id>', views.getjsontable, name='jsontabledata'),
+    path ('proddata/<int:prod_id>', views.getjsonproduk, name='jsonprodukdata'),
 
 ]

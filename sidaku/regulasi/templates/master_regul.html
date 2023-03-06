@@ -42,15 +42,15 @@
     <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-phk-tab" data-bs-toggle="tab" data-bs-target="#nav-phk" type="button" role="tab" aria-controls="nav-phk" aria-selected="true">Produk Hukum</button>
-          <button class="nav-link" id="nav-rpk-tab" data-bs-toggle="tab" data-bs-target="#nav-rpk" type="button" role="tab" aria-controls="nav-rpk" aria-selected="false">Rapat Koordinasi</button>
-          <button class="nav-link" id="nav-ppr-tab" data-bs-toggle="tab" data-bs-target="#nav-ppr" type="button" role="tab" aria-controls="nav-ppr" aria-selected="false">Paparan</button>
+          <button class="nav-link  {% if tab_active == 'tab_1' %} active {% endif %} " id="nav-phk-tab" data-bs-toggle="tab" data-bs-target="#nav-phk" type="button" role="tab" aria-controls="nav-phk" aria-selected="true">Produk Hukum</button>
+          <button class="nav-link {% if tab_active == 'tab_2' %} active {% endif %} " id="nav-rpk-tab" data-bs-toggle="tab" data-bs-target="#nav-rpk" type="button" role="tab" aria-controls="nav-rpk" aria-selected="false">Rapat Koordinasi</button>
+          <button class="nav-link {% if tab_active == 'tab_3' %} active {% endif %} " id="nav-ppr-tab" data-bs-toggle="tab" data-bs-target="#nav-ppr" type="button" role="tab" aria-controls="nav-ppr" aria-selected="false">Paparan</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
 
         {% comment %} PRODUK HUKUM {% endcomment %}
-        <div class="tab-pane fade show active" id="nav-phk" role="tabpanel" aria-labelledby="nav-phk-tab" tabindex="0">
+        <div class="tab-pane fade  {% if tab_active == 'tab_1' %} show active {% endif %} " id="nav-phk" role="tabpanel" aria-labelledby="nav-phk-tab" tabindex="0">
 
           <div class="card rounded-0 rounded-bottom">
             <div class="card-header pb-0">
@@ -77,7 +77,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for field in tables_1 %}
+                    {% for field in page_reg_1 %}
                     <tr>
                       <td style="width: 25rem;">
                         <div class="d-flex py-1">
@@ -145,12 +145,40 @@
                 </table>
               </div>
             </div>
+
+            <div class="row my-2">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    {% if page_reg_1.has_previous %}
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_1=1">&laquo; first</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_1={{ page_reg_1.previous_page_number }}">previous</a>
+                  </li>
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_1={{ page_reg_1.previous_page_number }}">{{ page_reg_1.previous_page_number }}</a>
+                  </li>
+                  {% endif %}
+                  </li>
+      
+                  <li class="page-item active"><a class="page-link">{{ page_reg_1.number}}</a></li>
+      
+                  {% if page_reg_1.has_next %}
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_1={{ page_reg_1.next_page_number }}">{{page_reg_1.next_page_number}}</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_1={{ page_reg_1.next_page_number }}">next</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_1={{ page_reg_1.paginator.num_pages }}">last
+                      &raquo;</a> </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+
           </div>
 
         </div>
 
         {% comment %} RAPAT KORDINASI {% endcomment %}
-        <div class="tab-pane fade" id="nav-rpk" role="tabpanel" aria-labelledby="nav-rpk-tab" tabindex="0">
+        <div class="tab-pane fade  {% if tab_active == 'tab_2' %} show active {% endif %} " id="nav-rpk" role="tabpanel" aria-labelledby="nav-rpk-tab" tabindex="0">
           
           <div class="card rounded-0 rounded-bottom">
             <div class="card-header pb-0">
@@ -176,7 +204,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for field in tables_2 %}
+                    {% for field in page_reg_2 %}
                     <tr>
                       <td  style="width: 25rem;">
                         <div class="d-flex py-1">
@@ -236,12 +264,40 @@
                 </table>
               </div>
             </div>
+
+            <div class="row my-2">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    {% if page_reg_2.has_previous %}
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_2=1">&laquo; first</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_2={{ page_reg_2.previous_page_number }}">previous</a>
+                  </li>
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_2={{ page_reg_2.previous_page_number }}">{{ page_reg_2.previous_page_number }}</a>
+                  </li>
+                  {% endif %}
+                  </li>
+      
+                  <li class="page-item active"><a class="page-link">{{ page_reg_2.number}}</a></li>
+      
+                  {% if page_reg_2.has_next %}
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_2={{ page_reg_2.next_page_number }}">{{page_reg_2.next_page_number}}</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_2={{ page_reg_2.next_page_number }}">next</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_2={{ page_reg_2.paginator.num_pages }}">last
+                      &raquo;</a> </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+
           </div>
 
         </div>
         
         {% comment %} PAPARAN {% endcomment %}
-        <div class="tab-pane fade" id="nav-ppr" role="tabpanel" aria-labelledby="nav-ppr-tab" tabindex="0">
+        <div class="tab-pane fade  {% if tab_active == 'tab_3' %} show active {% endif %} " id="nav-ppr" role="tabpanel" aria-labelledby="nav-ppr-tab" tabindex="0">
 
           <div class="card rounded-0 rounded-bottom">
             <div class="card-header pb-0">
@@ -266,7 +322,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for field in tables_3 %}
+                    {% for field in page_reg_3 %}
                     <tr>
                       <td  style="width: 25rem;">
                         <div class="d-flex py-1">
@@ -315,6 +371,34 @@
                 </table>
               </div>
             </div>
+
+            <div class="row my-2">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    {% if page_reg_3.has_previous %}
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_3=1">&laquo; first</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_3={{ page_reg_3.previous_page_number }}">previous</a>
+                  </li>
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_3={{ page_reg_3.previous_page_number }}">{{ page_reg_3.previous_page_number }}</a>
+                  </li>
+                  {% endif %}
+                  </li>
+      
+                  <li class="page-item active"><a class="page-link">{{ page_reg_3.number}}</a></li>
+      
+                  {% if page_reg_3.has_next %}
+                  <li class="page-item"> <a class="page-link"
+                      href="?search={{search}}&page_3={{ page_reg_3.next_page_number }}">{{page_reg_3.next_page_number}}</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_3={{ page_reg_3.next_page_number }}">next</a> </li>
+                  <li class="page-item"> <a class="page-link" href="?search={{search}}&page_3={{ page_reg_3.paginator.num_pages }}">last
+                      &raquo;</a> </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+
           </div>
 
         </div>

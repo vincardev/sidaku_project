@@ -110,6 +110,7 @@
             dataType: "json",
         
             success : function (resp) {
+                {% comment %} console.log(resp.prod_json); {% endcomment %}
                 for (let i = 0; i < resp.prod_json.length; i++) {
                     data = {
                         "id":resp.prod_json[i].id,
@@ -119,8 +120,11 @@
                         "satuan":resp.prod_json[i].satuan,
                         "harga":resp.prod_json[i].harga,
                         "total":resp.prod_json[i].total,
+                        "url" : '/media/'+resp.prod_json[i].fotoprod
                     }
+                
                     strjson.push(data);
+                    //GetUrlImageProduk(resp.prod_json[i].id, i);
                 }
 
                 for (let i = 0; i < resp.demprod_json.length; i++) {

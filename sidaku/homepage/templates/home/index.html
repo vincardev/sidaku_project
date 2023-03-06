@@ -67,11 +67,23 @@
          <div class="col-lg-4 col-sm-6">
             <div class="service-item">
                <i class="flaticon-036-parking"></i>
-               <h6>KOMIDITI KOPERASI DAN UMUM</h6>
+               <h6>10 UMKM Dengan INVESTASI TINGGI </h6>
 
                <div class="card border-0">
                   <div class="card-body">
-                     <canvas id="myPieChart"> </canvas>
+                     <canvas id="barAsetChart"> </canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 col-sm-6">
+            <div class="service-item">
+               <i class="flaticon-036-parking"></i>
+               <h6>10 UMKM Dengan OMZET TINGGI </h6>
+
+               <div class="card border-0">
+                  <div class="card-body">
+                     <canvas id="barOmzetChart"> </canvas>
                   </div>
                </div>
             </div>
@@ -83,7 +95,7 @@
 
                <div class="card border-0">
                   <div class="card-body">
-                     <canvas id="myBarChart"> </canvas>
+                     <canvas id="pieSkala"> </canvas>
                   </div>
                </div>
             </div>
@@ -121,7 +133,7 @@
                </div>
             </div>
          </div>
-         <div class="col-lg-4 col-sm-6">
+         {% comment %} <div class="col-lg-4 col-sm-6">
             <div class="service-item">
                <i class="flaticon-044-clock-1"></i>
                <h6>BULLWHIP EFECT KUMKM</h6>
@@ -131,7 +143,7 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> {% endcomment %}
       </div>
    </div>
 </section>
@@ -157,14 +169,15 @@
          {% for field in edukasi %}
             <div class="col">
                <div class="card shadow-md text-center border-0">
+                  <a class="text-decoration-none text-dark" href=" {% url 'home:single_fakta' field.series.slug field.article_slug %}">
+                     <div class="card-body">
+                        <img src="{{ field.image.url }}" class="img-fluid align-center mb-3 mt-3" alt="image desc"
+                           width="75%" height="75%">
 
-                  <div class="card-body">
-                     <img src="{{ field.image.url }}" class="img-fluid align-center mb-3 mt-3" alt="image desc"
-                        width="75%" height="75%">
-
-                     <h5 class="card-title">{{ field.title }}</h5>
-                     <p class="card-text" style="clear:both">{{ field.content | striptags | truncatechars:150 }}</p>
-                  </div>
+                        <h5 class="card-title">{{ field.title }}</h5>
+                        <p class="card-text" style="clear:both">{{ field.content | striptags | truncatechars:150 }}</p>
+                     </div>
+                  </a>
                </div>
             </div>
          {% endfor %}
@@ -198,7 +211,7 @@
                      <p class="card-text">{{ field.content | striptags | truncatechars:150  }}</p>
                      <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                           <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                           <a type="button" href=" {% url 'home:single_berita' field.series.slug field.article_slug %} " class="btn btn-sm btn-outline-secondary">View</a>
                         </div>
                         <small class="text-muted">{{ field.published | date | striptags  }}</p></small>
                      </div>
@@ -239,6 +252,53 @@
 </section>
 
 
+
+<div class="modal modal-xl fade" id="modalGraphOmz" tabindex="-1" aria-labelledby="modalGraphOmzLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalGraphOmzLabel">New message</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body" id="graphContentOmz">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+<div class="modal modal-xl fade" id="modalGraphAst" tabindex="-1" aria-labelledby="modalGraphAstLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalGraphAstLabel">New message</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body" id="graphContentAst">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+<div class="modal modal-xl fade" id="modalGraphSkl" tabindex="-1" aria-labelledby="modalGraphSklLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalGraphSklLabel">New message</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body" id="graphContentSkl">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
 {% endblock  %}
 
 
@@ -246,9 +306,10 @@
 {% block javascripts %}
 
 <script src="{% static 'js/mainjs/mappingarea.js' %}"></script>
-<script src="{% static 'vendor/chartjs/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'vendor/chartjs/graphjs/frontgraphs.js' %}"></script>
+{% comment %} <script src="{% static 'vendor/chartjs/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'vendor/chartjs/demo/chart-bar-demo.js' %}"></script>
-<script src="{% static 'vendor/chartjs/demo/chart-pie-demo.js' %}"></script>
+<script src="{% static 'vendor/chartjs/demo/chart-pie-demo.js' %}"></script> {% endcomment %}
 
 <script>
    function getDate(elem,val=0) {

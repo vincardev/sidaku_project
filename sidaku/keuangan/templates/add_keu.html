@@ -36,8 +36,8 @@
                         <button class="nav-link active " id="nav-dokulap-tab" data-bs-toggle="tab" data-bs-target="#nav-dokulap"
                             type="button" role="tab" aria-controls="nav-dokulap" aria-selected="true">Dokumen Laporan</button>
                         <button class="nav-link" id="nav-lapaset-tab" data-bs-toggle="tab" data-bs-target="#nav-lapaset"
-                            type="button" role="tab" aria-controls="nav-lapaset" aria-selected="false">Laporan Aset</button>
-                        <button class="nav-link" id="nav-lapwajib-tab" data-bs-toggle="tab"
+                            type="button" role="tab" aria-controls="nav-lapaset" aria-selected="false">Laporan Keuangan </button>
+                        {% comment %} <button class="nav-link" id="nav-lapwajib-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-lapwajib" type="button" role="tab" aria-controls="nav-lapwajib"
                             aria-selected="false">Laporan Kewajiban</button>
                         <button class="nav-link" id="nav-lapoeku-tab" data-bs-toggle="tab"
@@ -46,7 +46,7 @@
                         <button class="nav-link" id="nav-lapopen-tab" data-bs-toggle="tab" data-bs-target="#nav-lapopen"
                             type="button" role="tab" aria-controls="nav-lapopen" aria-selected="false">Laporan Pendapatan</button>
                         <button class="nav-link" id="nav-lapoya-tab" data-bs-toggle="tab" data-bs-target="#nav-lapoya"
-                            type="button" role="tab" aria-controls="nav-lapoya" aria-selected="false">Laporan Biaya</button>
+                            type="button" role="tab" aria-controls="nav-lapoya" aria-selected="false">Laporan Biaya</button> {% endcomment %}
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -56,9 +56,9 @@
                     </div>
                     <div class="tab-pane fade" id="nav-lapaset" role="tabpanel" aria-labelledby="nav-lapaset-tab"
                         tabindex="0">
-                        {% include "part/lapaset.html" %}
+                        {% include "part/lapasetkop.html" %}
                     </div>
-                    <div class="tab-pane fade" id="nav-lapwajib" role="tabpanel" aria-labelledby="nav-lapwajib-tab"
+                    {% comment %} <div class="tab-pane fade" id="nav-lapwajib" role="tabpanel" aria-labelledby="nav-lapwajib-tab"
                         tabindex="0">
                         {% include "part/lapwajib.html" %}
                     </div>
@@ -73,7 +73,7 @@
                     <div class="tab-pane fade" id="nav-lapoya" role="tabpanel" aria-labelledby="nav-lapoya-tab"
                         tabindex="0">
                         {% include "part/lapoya.html" %}
-                    </div>
+                    </div> {% endcomment %}
                 </div> 
 
 

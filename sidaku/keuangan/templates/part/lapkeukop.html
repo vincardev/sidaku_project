@@ -1,93 +1,122 @@
 <div class="row">
-    <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
-        <div class="card rounded-0">
-            <div class="card-header pb-0 rounded-0 ">
-              <div class="row ">
-                <div class="col-lg-12">
-                  <h3>
-                    <a href="{% url 'uang:add_keu' %}" class="btn btn-sm btn-dark small">Tambah Laporan Koperasi</a>
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive">
-                <table class="table mb-0 table-hover">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Koperasi</th>
-                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun</th>
-                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bulan</th>
-                      <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for field in tables %}
-                    <tr>
-                      <td>
-                        <div class="d-flex py-1">
-                          <div class="d-flex flex-column ">
-                            <h6 class="mb-0 text-sm"> 
-                                {{ field.doc_nmkop }} 
-                            </h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle text-sm" >
-
-                          <div class="d-flex flex-column ">
-                              <h6 class="mb-0 text-sm"> 
-                                  {{ field.doc_tahun }} 
-                              </h6>
-                          </div>
-                      </td>
-
-                      <td>
-                        <div class="d-flex py-1">
-                          <div class="d-flex flex-column ">
-                            <h6 class="mb-0 text-sm"> 
-
-                            {% GetListBulan field.doc_bulan as val_bulan %}
-                            {{ val_bulan }} 
-                            </h6>
-                          </div>
-                        </div>
-                      </td>
-                      
-                      <td class="align-middle">
-                        <a type="button" href="{% url 'uang:upd_keu' field.id %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
-                        {% if field.user.is_superuser %}
-                        {% else %}
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
-                          class="btn btn-sm btn-danger" ><i class="bi bi-eraser-fill"> </i></button>
-                        {% endif %}
-                      </td>
-    
-                      <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p><strong> {{ field.doc_nmkop }} </strong></p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                              <a href="{% url 'uang:del_keu'  field.id %}" class="btn btn-danger">Hapus</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-    
-                    </tr>
-    
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+  <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+    <div class="card rounded-0">
+      <div class="card-header pb-0 rounded-0 ">
+        <div class="row ">
+          <div class="col-lg-12">
+            <h3>
+              <a href="{% url 'uang:add_keu' %}" class="btn btn-sm btn-dark small">Tambah Laporan Koperasi</a>
+            </h3>
           </div>
+        </div>
+      </div>
+      <div class="card-body px-0 pb-2">
+        <div class="table-responsive">
+          <table class="table mb-0 table-hover">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Nama Koperasi</th>
+                <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Tahun</th>
+                <th class="text-uppercase text-secondary  font-weight-bolder opacity-7 ps-2">Bulan</th>
+                <th class="text-uppercase text-secondary  font-weight-bolder opacity-7"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for field in page_kop %}
+              <tr>
+                <td>
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column ">
+                      <h6 class="mb-0 text-sm">
+                        {{ field.doc_nmkop }}
+                      </h6>
+                    </div>
+                  </div>
+                </td>
+                <td class="align-middle text-sm">
+
+                  <div class="d-flex flex-column ">
+                    <h6 class="mb-0 text-sm">
+                      {{ field.doc_tahun }}
+                    </h6>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column ">
+                      <h6 class="mb-0 text-sm">
+
+                        {% GetListBulan field.doc_bulan as val_bulan %}
+                        {{ val_bulan }}
+                      </h6>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="align-middle">
+                  <a type="button" href="{% url 'uang:upd_keu' field.id %}" class="btn btn-sm btn-warning"><i
+                      class="bi bi-pencil-square"></i></a>
+                  {% if field.user.is_superuser %}
+                  {% else %}
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{field.id}}"
+                    class="btn btn-sm btn-danger"><i class="bi bi-eraser-fill"> </i></button>
+                  {% endif %}
+                </td>
+
+                <div class="modal fade" tabindex="-1" id="hapus-{{field.id}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Apakah anda ingin menghapus?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong> {{ field.doc_nmkop }} </strong></p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                        <a href="{% url 'uang:del_keu'  field.id %}" class="btn btn-danger">Hapus</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              {% if page_kop.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page_1=1">&laquo; first</a> </li>
+            <li class="page-item"> <a class="page-link" href="?page_1={{ page_kop.previous_page_number }}">previous</a>
+            </li>
+            <li class="page-item"> <a class="page-link"
+                href="?page_1={{ page_kop.previous_page_number }}">{{ page_kop.previous_page_number }}</a>
+            </li>
+            {% endif %}
+            </li>
+
+            <li class="page-item active"><a class="page-link">{{ page_kop.number}}</a></li>
+
+            {% if page_kop.has_next %}
+            <li class="page-item"> <a class="page-link"
+                href="?page_1={{ page_kop.next_page_number }}">{{page_kop.next_page_number}}</a> </li>
+            <li class="page-item"> <a class="page-link" href="?page_1={{ page_kop.next_page_number }}">next</a> </li>
+            <li class="page-item"> <a class="page-link" href="?page_1={{ page_kop.paginator.num_pages }}">last
+                &raquo;</a> </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
     </div>
   </div>
+</div>

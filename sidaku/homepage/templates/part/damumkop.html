@@ -18,7 +18,19 @@
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Jenis Koperasi
             </label>
-            <p> {{koper.du_jenkop }} </p>
+
+            {% if koper.du_jenkop == 1%}
+            <p> Konsumen </p>
+            {% elif koper.du_jenkop == 2%}
+            <p> Simpan Pinjam </p>
+            {% elif koper.du_jenkop == 3%}
+            <p> Jasa </p>
+            {% elif koper.du_jenkop == 4%}
+            <p> Produsen </p>
+            {% elif koper.du_jenkop == 5%}
+            <p> Pemasaran </p>
+            {%endif%}
+                
         </div>
         <div class="col-lg-6 col-sm-12 mb-2 form-group ">
             <label class="cl-green-3 text-uppercase fs-5"><i class="bi bi-geo-fill cl-green-3"></i> Badan Hukum </label>

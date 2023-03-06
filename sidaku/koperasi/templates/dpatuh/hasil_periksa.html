@@ -1,0 +1,477 @@
+{% load static %}
+{% load filter_kop %}
+{% load widget_tweaks %}
+
+
+<script>
+</script>
+
+<div class="card p-3 mb-2 rounded-0 rounded-bottom">
+    <h3 class="text-center"> HASIL PEMERIKSAAN KESEHATAN KOPERASI </h3>
+    <div class="card-body row ">
+        <div class="col-lg-12  col-sm-12 mb-2 form-group">
+            <div class="row">
+
+                <div class="col-lg-12  col-sm-12 text-left py-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm ">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th> ASPEK PEMERIKSAAN  </th>
+                                    <th> RATIO (%) </th>
+                                    <th> NILAI / RERATA </th>
+                                    <th> SKOR </th>
+                                    <th> KRITERIA DAN KATEGORI  </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-success text-white" > ASPEK TATA KELOLA </td> 
+                                    <td class="text-center  fw-bold bg-success text-white" id="hratio-tata-kelola"></td>
+                                    <td class="text-center fw-bold bg-success text-white" id="hnilai-tata-kelola"></td>
+                                    <td class="text-center fw-bold bg-success text-white" id="hskor-tata-kelola"></td>
+                                    <td class="text-center fw-bold bg-success text-white" id="hkriteria-tata-kelola"></td>
+                                </tr>
+                                {% regroup dpl_kelola by kat_var.ipsubkat as data_by_subkat %}
+                                {% for subkat in data_by_subkat %}
+                                <tr>
+                                    {% GetIPSUBKATList subkat.grouper as ipkattext %}
+                                    <td colspan="1" class="table-active fw-bold "> {{ ipkattext }} </td>
+                                    <td class="table-active fw-bold text-center hratio-tata-kelola-total" id="hratio-{{subkat.grouper}}"></td>
+                                    <td class="table-active fw-bold text-center hnilai-tata-kelola-total" id="hnilai-{{subkat.grouper}}"></td>
+                                    <td class="table-active fw-bold text-center hskor-tata-kelola-total" id="hskor-{{subkat.grouper}}"></td>
+                                    <td class="table-active fw-bold text-center hkriteria-tata-kelola-total"  id="hkriteria-{{subkat.grouper}}"></td>
+                                </tr>
+                                    {% regroup subkat.list by kat_var as data_by_dpl %}
+                                    {% for grdat in data_by_dpl %}
+
+                                        <tr>
+                                            <td colspan="1" > 
+                                                {{ grdat.grouper }}   <br>
+                                            </td>
+                                            <td class="text-center  hratio-tata-kelola-sub hratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}"  id="hratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center hnilai-tata-kelola-sub hnilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}" id="hnilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center hskor-tata-kelola-sub hskor-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}" id="hskor-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            <td class="text-center hkriteria-tata-kelola-sub hkriteria-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}"  id="hkriteria-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                        </tr>
+                                    
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-success text-white"> ASPEK PROFIL RESIKO </td> 
+                                    <td class="text-center  fw-bold bg-success text-white" id="hratio-profil-risiko"></td>
+                                    <td class="text-center  fw-bold bg-success text-white" id="hnilai-profil-risiko"></td>
+                                    <td class="text-center  fw-bold bg-success text-white" id="hskor-profil-risiko"></td>
+                                    <td class="text-center  fw-bold bg-success text-white" id="hkriteria-profil-risiko"></td>
+                                </tr>
+
+                                {% regroup dpl_risiko by kat_var.tagsubkat as data_by_tagsubkat %}                                
+
+                                {% for tagsubkat in data_by_tagsubkat %}
+
+                                    <tr>
+                                        {% GetTAGSUBKAT tagsubkat.grouper as tagsubtext %}
+                                        <td colspan="1" class="fw-bold bg-secondary text-white"> {{ tagsubtext }} </td>
+                                        <td class="bg-secondary fw-bold text-center hratio-profil-risiko-total-s" id="hratio-{{tagsubkat.grouper}}"></td>
+                                        <td class="bg-secondary fw-bold text-center hnilai-profil-risiko-total-s" id="hnilai-{{tagsubkat.grouper}}"></td>
+                                        <td class="bg-secondary fw-bold text-center hskor-profil-risiko-total-s" id="hskor-{{tagsubkat.grouper}}"></td>
+                                        <td class="bg-secondary fw-bold text-center hkriteria-profil-risiko-total-s" id="hkriteria-{{tagsubkat.grouper}}"></td>
+                                    </tr>
+
+                                    {% if tagsubkat.grouper == 'risiko-inheren' %}
+                                     <tr>
+                                        <td colspan="1" class="table-active fw-bold ">Resiko Pinjaman/Pembiayaan  </td>
+                                        <td class="table-active text-center fw-bold hratio-profil-risiko-total" id="hratio-risiko-pinjaman"></td>
+                                        <td class="table-active text-center fw-bold hnilai-profil-risiko-total" id="hnilai-risiko-pinjaman"></td>
+                                        <td class="table-active text-center fw-bold hskor-profil-risiko-total" id="hskor-risiko-pinjaman"></td>
+                                        <td class="table-active text-center fw-bold hkriteria-profil-risiko-total" id="hkriteria-risiko-pinjaman"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1" > Aset Produktif Terhadap Total Aset </td>
+                                        <td class="text-center hratio-sub-{{tagsubkat.grouper}}    hratio-profil-risiko-sub hratio-profil-risiko_risiko-pinjaman"  id="hratio-asprototal"></td>
+                                        <td class="text-center hnilai-sub-{{tagsubkat.grouper}}    hnilai-profil-risiko-sub hnilai-profil-risiko_risiko-pinjaman" id="hnilai-asprototal"></td>
+                                        <td class="text-center hskor-sub-{{tagsubkat.grouper}}     hskor-profil-risiko-sub hskor-profil-risiko_risiko-pinjaman" id="hskor-asprototal"></td>
+                                        <td class="text-center hkriteria-sub-{{tagsubkat.grouper}} hkriteria-profil-risiko-sub hkriteria-profil-risiko_risiko-pinjaman"  id="hkriteria-asprototal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" > Pinjaman Diberikan Terhadap Total Aset Produktif </td>
+                                        <td class="text-center hratio-sub-{{tagsubkat.grouper}}    hratio-profil-risiko-sub hratio-profil-risiko_risiko-pinjaman"  id="hratio-pinjasprod"></td>
+                                        <td class="text-center hnilai-sub-{{tagsubkat.grouper}}    hnilai-profil-risiko-sub hnilai-profil-risiko_risiko-pinjaman" id="hnilai-pinjasprod"></td>
+                                        <td class="text-center hskor-sub-{{tagsubkat.grouper}}     hskor-profil-risiko-sub hskor-profil-risiko_risiko-pinjaman" id="hskor-pinjasprod"></td>
+                                        <td class="text-center hkriteria-sub-{{tagsubkat.grouper}} hkriteria-profil-risiko-sub hkriteria-profil-risiko_risiko-pinjaman"  id="hkriteria-pinjasprod"></td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% regroup tagsubkat.list by kat_var.ipsubkat as data_by_subkat %}
+                                    {% for subkat in data_by_subkat %}
+
+
+                                    <tr>
+                                        {% GetIPSUBKATList subkat.grouper as ipkattext %}
+                                        <td colspan="1" class="table-active fw-bold "> {{ ipkattext }} {{subkat.grouper}}</td>
+                                        <td class="table-active text-center fw-bold hratio-profil-risiko-total" id="hratio-{{subkat.grouper}}"></td>
+                                        <td class="table-active text-center fw-bold hnilai-profil-risiko-total" id="hnilai-{{subkat.grouper}}"></td>
+                                        <td class="table-active text-center fw-bold hskor-profil-risiko-total" id="hskor-{{subkat.grouper}}"></td>
+                                        <td class="table-active text-center fw-bold hkriteria-profil-risiko-total" id="hkriteria-{{subkat.grouper}}"></td>
+                                    </tr>
+
+                                      {% if subkat.grouper == 'risiko-likuiditas' %}
+                                    <tr>
+                                        <td colspan="1" > Aset Likuid Terhadap Total Aset </td>
+                                        <td class="text-center hratio-sub-{{tagsubkat.grouper}}    hratio-profil-risiko-sub hratio-profil-risiko_risiko-likuiditas "  id="hratio-aliktotal"></td>
+                                        <td class="text-center hnilai-sub-{{tagsubkat.grouper}}    hnilai-profil-risiko-sub hnilai-profil-risiko_risiko-likuiditas" id="hnilai-aliktotal"></td>
+                                        <td class="text-center hskor-sub-{{tagsubkat.grouper}}     hskor-profil-risiko-sub hskor-profil-risiko_risiko-likuiditas" id="hskor-aliktotal"></td>
+                                        <td class="text-center hkriteria-sub-{{tagsubkat.grouper}} hkriteria-profil-risiko-sub hkriteria-profil-risiko_risiko-likuiditas"  id="hkriteria-aliktotal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" > Aset Likuid Terhadap Kewajiban Lancar </td>
+                                        <td class="text-center hratio-sub-{{tagsubkat.grouper}}    hratio-profil-risiko-sub hratio-profil-risiko_risiko-likuiditas"  id="hratio-alikwajib"></td>
+                                        <td class="text-center hnilai-sub-{{tagsubkat.grouper}}    hnilai-profil-risiko-sub hnilai-profil-risiko_risiko-likuiditas" id="hnilai-alikwajib"></td>
+                                        <td class="text-center hskor-sub-{{tagsubkat.grouper}}     hskor-profil-risiko-sub hskor-profil-risiko_risiko-likuiditas" id="hskor-alikwajib"></td>
+                                        <td class="text-center hkriteria-sub-{{tagsubkat.grouper}} hkriteria-profil-risiko-sub hkriteria-profil-risiko_risiko-likuiditas"  id="hkriteria-alikwajib"></td>
+                                    </tr>
+                                    {% endif %}
+
+                                    
+                                        {% regroup subkat.list by kat_var as data_by_dpl %}
+                                        {% for grdat in data_by_dpl %}
+
+                                            <tr>
+                                                <td colspan="1" > {{ grdat.grouper }}  </td>
+                                                <td class="text-center hratio-sub-{{tagsubkat.grouper}}     hratio-profil-risiko-sub hratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}"  id="hratio-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center hnilai-sub-{{tagsubkat.grouper}}     hnilai-profil-risiko-sub hnilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}" id="hnilai-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center hskor-sub-{{tagsubkat.grouper}}      hskor-profil-risiko-sub hskor-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}" id="hskor-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                                <td class="text-center hkriteria-sub-{{tagsubkat.grouper}}  hkriteria-profil-risiko-sub hkriteria-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}"  id="hkriteria-{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"></td>
+                                            </tr>
+
+                                            <script>
+                                                {% comment %} addProfileRisikoArray("{{grdat.grouper.ipkat}}_{{ grdat.grouper.ipsubkat }}_{{ grdat.grouper.id }}"); {% endcomment %}
+                                            </script>
+                                        
+                                        
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-success text-white"> KINERJA </td> 
+                                    <td class="fw-bold bg-success text-white text-center" id="hratio-kinerja"></td>
+                                    <td class="fw-bold bg-success text-white text-center" id="hnilai-kinerja"></td>
+                                    <td class="fw-bold bg-success text-white text-center" id="hskor-kinerja"></td>
+                                    <td class="fw-bold bg-success text-white text-center" id="hkriteria-kinerja"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-secondary text-white"> EVALUASI KINERJA KEUANGAN</td>
+                                    <td class="bg-secondary text-white text-center"  id="hratio-eval"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hnilai-eval"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hskor-eval"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hkriteria-eval"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Rentabilitas dan Kemandirian </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-eval-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-eval-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-eval-1"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-eval-1"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Rentabilitas Aset (Return on Asset) </td>
+                                    <td class="text-center"  id="hratio-roa"></td>
+                                    <td class="text-center" id="hnilai-roa"></td>
+                                    <td class="text-center" id="hskor-roa"></td>
+                                    <td class="text-center"  id="hkriteria-roa"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Rentabilitas Ekuitas (Return on Equity) </td>
+                                    <td class="text-center"  id="hratio-roe"></td>
+                                    <td class="text-center" id="hnilai-roe"></td>
+                                    <td class="text-center" id="hskor-roe"></td>
+                                    <td class="text-center"  id="hkriteria-roe"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Kemandirian Operasional </td>
+                                    <td class="text-center"  id="hratio-kmo"></td>
+                                    <td class="text-center" id="hnilai-kmo"></td>
+                                    <td class="text-center" id="hskor-kmo"></td>
+                                    <td class="text-center"  id="hkriteria-kmo"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Efisiensi </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-eval-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-eval-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-eval-2"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-eval-2"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Biaya Operasional terhadap Pendapatan Operasional</td>
+                                    <td class="text-center"  id="hratio-bopo"></td>
+                                    <td class="text-center" id="hnilai-bopo"></td>
+                                    <td class="text-center" id="hskor-bopo"></td>
+                                    <td class="text-center"  id="hkriteria-bopo"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Biaya Usaha terhadap SHU Kotor</td>
+                                    <td class="text-center"  id="hratio-busk"></td>
+                                    <td class="text-center" id="hnilai-busk"></td>
+                                    <td class="text-center" id="hskor-busk"></td>
+                                    <td class="text-center"  id="hkriteria-busk"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-secondary text-white"> MANAJEMEN KEUANGAN</td>
+                                    <td class="bg-secondary text-white text-center"  id="hratio-manung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hnilai-manung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hskor-manung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hkriteria-manung"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Kualitas Aset </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-manung-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-manung-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-manung-1"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-manung-1"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pinjaman pada Anggota terhadap Total Piutang</td>
+                                    <td class="text-center"  id="hratio-patp"></td>
+                                    <td class="text-center" id="hnilai-patp"></td>
+                                    <td class="text-center" id="hskor-patp"></td>
+                                    <td class="text-center"  id="hkriteria-patp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pinjaman Bermasalah Terhadap Total Piutang</td>
+                                    <td class="text-center"  id="hratio-pbtp"></td>
+                                    <td class="text-center" id="hnilai-pbtp"></td>
+                                    <td class="text-center" id="hskor-pbtp"></td>
+                                    <td class="text-center"  id="hkriteria-pbtp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Cadangan Risiko  Terhadap Pinjaman Bermasalah</td>
+                                    <td class="text-center"  id="hratio-crpb"></td>
+                                    <td class="text-center" id="hnilai-crpb"></td>
+                                    <td class="text-center" id="hskor-crpb"></td>
+                                    <td class="text-center"  id="hkriteria-crpb"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Aspek Likuiditas </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-manung-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-manung-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-manung-2"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-manung-2"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Kas dan Bank terhadap Kewajiban Jangka Pendek</td>
+                                    <td class="text-center"  id="hratio-kbwjp"></td>
+                                    <td class="text-center" id="hnilai-kbwjp"></td>
+                                    <td class="text-center" id="hskor-kbwjp"></td>
+                                    <td class="text-center"  id="hkriteria-kbwjp"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Piutang terhadap Dana Yang Diterima</td>
+                                    <td class="text-center"  id="hratio-pdd"></td>
+                                    <td class="text-center" id="hnilai-pdd"></td>
+                                    <td class="text-center" id="hskor-pdd"></td>
+                                    <td class="text-center"  id="hkriteria-pdd"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Aset Lancar terhadap Kewajiban Jangka Pendek</td>
+                                    <td class="text-center"  id="hratio-alwjp"></td>
+                                    <td class="text-center" id="hnilai-alwjp"></td>
+                                    <td class="text-center" id="hskor-alwjp"></td>
+                                    <td class="text-center"  id="hkriteria-alwjp"></td>
+                                </tr>  
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-secondary text-white"> KESINAMBUNGAN KEUANGAN</td>
+                                    <td class="bg-secondary text-white text-center"  id="hratio-nambung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hnilai-nambung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hskor-nambung"></td>
+                                    <td class="bg-secondary text-white text-center"  id="hkriteria-nambung"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Pertumbuhan </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-nambung-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-nambung-1"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-nambung-1"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-nambung-1"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Aset</td>
+                                    <td class="text-center"  id="hratio-ptas"></td>
+                                    <td class="text-center" id="hnilai-ptas"></td>
+                                    <td class="text-center" id="hskor-ptas"></td>
+                                    <td class="text-center"  id="hkriteria-ptas"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Dana diterima</td>
+                                    <td class="text-center"  id="hratio-ptdd"></td>
+                                    <td class="text-center" id="hnilai-ptdd"></td>
+                                    <td class="text-center" id="hskor-ptdd"></td>
+                                    <td class="text-center"  id="hkriteria-ptdd"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Ekuitas</td>
+                                    <td class="text-center"  id="hratio-ptek"></td>
+                                    <td class="text-center" id="hnilai-ptek"></td>
+                                    <td class="text-center" id="hskor-ptek"></td>
+                                    <td class="text-center"  id="hkriteria-ptek"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Pertumbuhan Hasil Usaha Bersih</td>
+                                    <td class="text-center"  id="hratio-ptub"></td>
+                                    <td class="text-center" id="hnilai-ptub"></td>
+                                    <td class="text-center" id="hskor-ptub"></td>
+                                    <td class="text-center"  id="hkriteria-ptub"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> Aspek Jatidiri </td>
+                                    <td class="table-active text-center fw-bold" id="hratio-child-nambung-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hnilai-child-nambung-2"     ></td>
+                                    <td class="table-active text-center fw-bold" id="hskor-child-nambung-2"      ></td>
+                                    <td class="table-active text-center fw-bold" id="hkriteria-child-nambung-2"  ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" >Pendapatan Utama terhadap Total Pendapatan</td>
+                                    <td class="text-center"  id="hratio-putp"></td>
+                                    <td class="text-center" id="hnilai-putp"></td>
+                                    <td class="text-center" id="hskor-putp"></td>
+                                    <td class="text-center"  id="hkriteria-putp"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >SHU Bersih terhadap Simpanan Pokok dan Simpanan</td>
+                                    <td class="text-center"  id="hratio-sbsps"></td>
+                                    <td class="text-center" id="hnilai-sbsps"></td>
+                                    <td class="text-center" id="hskor-sbsps"></td>
+                                    <td class="text-center"  id="hkriteria-sbsps"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Partisipasi Simpanan Anggota</td>
+                                    <td class="text-center"  id="hratio-psa"></td>
+                                    <td class="text-center" id="hnilai-psa"></td>
+                                    <td class="text-center" id="hskor-psa"></td>
+                                    <td class="text-center"  id="hkriteria-psa"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-success text-white"> PERMODALAN</td>
+                                    <td class="bg-success text-white text-center"  id="hratio-modal"></td>
+                                    <td class="bg-success text-white text-center"  id="hnilai-modal"></td>
+                                    <td class="bg-success text-white text-center" id="hskor-modal"></td>
+                                    <td class="bg-success text-white text-center" id="hkriteria-modal"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> KECUKUPAN PERMODALAN </td>
+                                    <td class="table-active hratio-child-modal    text-center fw-bold" id="hratio-child-modal-1"     ></td>
+                                    <td class="table-active hnilai-child-modal    text-center fw-bold" id="hnilai-child-modal-1"     ></td>
+                                    <td class="table-active hskor-child-modal     text-center fw-bold" id="hskor-child-modal-1"      ></td>
+                                    <td class="table-active hkriteria-child-modal text-center fw-bold" id="hkriteria-child-modal-1"  ></td>
+                                </tr>    
+                                <tr>
+                                    <td colspan="1" >Ekuitas terhadap Total Aset</td>
+                                    <td class="text-center hratio-sub-modal-1      hratio-sub-modal"        id="hratio-eta"></td>
+                                    <td class="text-center hnilai-sub-modal-1      hnilai-sub-modal"        id="hnilai-eta"></td>
+                                    <td class="text-center hskor-sub-modal-1       hskor-sub-modal"         id="hskor-eta"></td>
+                                    <td class="text-center hkriteria-sub-modal-1   hkriteria-sub-modal"     id="hkriteria-eta"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Kecukupan Modal</td>
+                                    <td class="text-center hratio-sub-modal-1      hratio-sub-modal"          id="hratio-kcm"></td>
+                                    <td class="text-center hnilai-sub-modal-1      hnilai-sub-modal"         id="hnilai-kcm"></td>
+                                    <td class="text-center hskor-sub-modal-1       hskor-sub-modal"          id="hskor-kcm"></td>
+                                    <td class="text-center hkriteria-sub-modal-1   hkriteria-sub-modal"       id="hkriteria-kcm"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" class="table-active fw-bold "> KECUKUPAN PENGELOLAAN PERMODALAN</td>
+                                    <td class="table-active hratio-child-modal text-center fw-bold"     id="hratio-child-modal-2"   ></td>
+                                    <td class="table-active hnilai-child-modal text-center fw-bold"     id="hnilai-child-modal-2"   ></td>
+                                    <td class="table-active hskor-child-modal text-center fw-bold"      id="hskor-child-modal-2"   ></td>
+                                    <td class="table-active hkriteria-child-modal text-center fw-bold"  id="hkriteria-child-modal-2"   ></td>
+                                </tr>    
+                                <tr>
+                                    <td colspan="1" >Modal Pinjaman Anggota Terhadap Total Aset</td>
+                                    <td class="text-center hratio-sub-modal-2      hratio-sub-modal"          id="hratio-mpata"></td>
+                                    <td class="text-center hnilai-sub-modal-2      hnilai-sub-modal"         id="hnilai-mpata"></td>
+                                    <td class="text-center hskor-sub-modal-2       hskor-sub-modal"          id="hskor-mpata"></td>
+                                    <td class="text-center hkriteria-sub-modal-2   hkriteria-sub-modal"       id="hkriteria-mpata"></td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1" >Kewajiban Jk. Panjang Terhadap Ekuitas</td>
+                                    <td class="text-center hratio-sub-modal-2      hratio-sub-modal     "         id="hratio-wjpe"></td>
+                                    <td class="text-center hnilai-sub-modal-2      hnilai-sub-modal     "         id="hnilai-wjpe"></td>
+                                    <td class="text-center hskor-sub-modal-2       hskor-sub-modal      "          id="hskor-wjpe"></td>
+                                    <td class="text-center hkriteria-sub-modal-2   hkriteria-sub-modal  "       id="hkriteria-wjpe"></td>
+                                </tr> 
+
+
+                                <tr>
+                                    <td colspan="1" class="fw-bold bg-dark text-white"> NILAI SKOR & PREDIKAT PEMERIKSAAN KESEHATAN</td>
+    
+                                    <td class="bg-dark text-center text-white" id="hratio-predikat"></td>
+                                    <td class="bg-dark text-center text-white" id="hnilai-predikat"></td>
+                                    <td class="bg-dark text-center text-white" id="hskor-predikat"></td>
+                                    <td class="bg-dark text-center text-white" id="hkriteria-predikat"></td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="table-responsive">
+                                        <table class="table table-bordered table-sm ">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="bg-dark text-center text-white" >TATA KELOLA</td>
+                                                    <td class="bg-dark text-center text-white" id="tata-kelola-pros" >30%</td>
+                                                    <td class="bg-dark text-center text-white" id="tata-kelola-skortot" ></td>
+                                                    <td class="bg-dark text-center text-white" id="tata-kelola-subtot" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-dark text-center text-white" >PROFIL RISIKO</td>
+                                                    <td class="bg-dark text-center text-white" id="profil-risiko-pros" >15%</td>
+                                                    <td class="bg-dark text-center text-white" id="profil-risiko-skortot" ></td>
+                                                    <td class="bg-dark text-center text-white" id="profil-risiko-subtot" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-dark text-center text-white" >KINERJA KEUANGAN</td>
+                                                    <td class="bg-dark text-center text-white" id="kinerja-pros" >40%</td>
+                                                    <td class="bg-dark text-center text-white" id="kinerja-skortot" ></td>
+                                                    <td class="bg-dark text-center text-white" id="kinerja-subtot" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-dark text-center text-white" >PERMODALAN</td>
+                                                    <td class="bg-dark text-center text-white" id="modal-pros" >15%</td>
+                                                    <td class="bg-dark text-center text-white" id="modal-skortot" ></td>
+                                                    <td class="bg-dark text-center text-white" id="modal-subtot" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-dark text-center text-white" >JUMLAH =</td>
+                                                    <td class="bg-dark text-center text-white" id="jumlah-pros" ></td>
+                                                    <td class="bg-dark text-center text-white" id="jumlah-skortot" ></td>
+                                                    <td class="bg-dark text-center text-white" id="jumlah-subtot" ></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                                
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% block javascripts %}
+{% endblock %}

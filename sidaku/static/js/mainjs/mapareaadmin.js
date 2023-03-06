@@ -2,7 +2,9 @@
 var current_marker_position, current_accuracy;
 var LatitDef = -7.8751223;
 var LongiDef = 112.5109015;
-var map_init = L.map('maparea').setView([LatitDef, LongiDef], 13);
+var map_init = L.map('maparea',{
+  renderer:  L.canvas({ padding: 0.5 })
+}).setView([LatitDef, LongiDef], 13);
 
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 

@@ -1,0 +1,112 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+
+{% block title %} {{berita.title}} {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+
+<div class="container-fluid">
+    <div class="row mb-2 mt-2">
+        <div class="col-lg-9">
+
+            <div class="card mb-4">
+                <img src="{{ berita.image.url }}" class="img-fluid " alt="image desc" width="100%"
+                    data-stellar-ratio="0.1" style="max-height:400px; background-size:cover;object-fit: cover;">
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{berita.title}}</h4>
+                    <h6 class="card-subtitle text-muted">{{berita.subtitle}}</h6>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{berita.content | safe }}</p>
+                </div>
+                <div class="card-body text-end">
+                    <small class="text-muted "> {{berita.author}},
+                        {{ berita.published | date | striptags  }}</small>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <div class="col-lg-3 mb-2">
+            <div class="flex-shrink-0 p-3 bg-green-3 rounded-3 shadow text-white">
+
+                <div class="list-group" id="list-tab" role="tablist">
+                    <ul class="list-unstyled ps-0">
+
+                        <li class="mb-1">
+                            <button
+                                class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-dark collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#projas-collapse" aria-expanded="true">
+                                Fakta Terkini
+                            </button>
+                            <div class="collapse show" id="projas-collapse">
+                                <ul class="list-group btn-toggle-nav list-unstyled">
+                                    {% for field in breaking_news %}
+                                    <hr class="w-100 my-1">
+                                    <li class="list-group-item align-items-start border-top py-0">
+                                        <a href="{% url 'home:single_fakta' field.series.slug field.article_slug %}"
+                                            class="text-decoration-none text-dark">
+                                            <div class="ms-4 me-auto">
+                                                <div class="fw-bold text-truncate" style="max-width:200px">
+                                                    {{field.title}}</div>
+                                                <span class="d-inline-block text-truncate" style="max-width:150px">
+                                                    {{ field.subtitle }} </span> <br>
+                                                <small> {{field.author}} ,
+                                                    {{ field.published | date | striptags  }}</small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                    <hr class="w-100 my-1">
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="mb-1">
+                            <button
+                                class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-dark  collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#dokor-collapse" aria-expanded="true">
+                                Kategori
+                            </button>
+                            <div class="collapse show" id="dokor-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+                                    {% for series in all_series %}
+                                    <li><a class="d-flex text-decoration-none rounded list-group-item text-dark"
+                                            href="{% url 'home:list_series_fakta' series.slug  %}"> {{series.title}}</a></li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+{% endblock  %}

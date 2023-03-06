@@ -12,20 +12,25 @@
                                 <div class="row">
                                     <div class="col-lg-3 align-self-center">
                                         <a href="/"  style="text-decoration: none;">   
-                                            <img src=" {{tables_company.compLogo.url}}" class="img-fluid" >
-                                            {% comment %} <img src="{{ tables_company.vLogo.url }}"  
-                                            class="img-fluid" > {% endcomment %}
+
+                                            {% if tables_company %}
+                                                <img src=" {{tables_company.compLogo.url}}" class="img-fluid" >
+                                            {% endif %}
                                         </a>
                                     </div>
                                     <div class="col-lg-9 align-self-center">
-                                        <span class="text-dark fs-5"> {{tables_company.compName}}</span>
-                                        {% comment %} <a href="/"  style="text-decoration: none;">   
-                                            <span class="text-white"> {{ tables_company.vName }} </span>
-                                        </a> {% endcomment %}
+
+                                        {% if tables_company %}
+                                            <span class="text-dark fs-5"> {{tables_company.compName}}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
+
+                                    {% if tables_company %}
+                                    
                                     <p class="text-dark">  {{tables_company.compDesc}}</p>
+                                    {% endif %}
                                    
                                 </div>
                             </div>
@@ -38,7 +43,10 @@
                                 <div class="row">
                                     <h6  class="text-dark">Kantor </h6>
                                     <p class="text-dark small">  
-                                        {{tables_company.compAddr}}
+
+                                        {% if tables_company %}
+                                            {{tables_company.compAddr}}
+                                        {% endif %}
                                     </p>
                                 </div>
                             </div>
@@ -50,11 +58,14 @@
                                 <div class="row">
                                     <h6  class="text-dark">Kontak Kami</h6>
                                     <ul class="text-dark">
+
+                                        {% if tables_company %}
                                         <li><i class="fa fa-phone"></i> <small> {{tables_company.compPhone}}</small></li>
                                         <li><i class="fa fa-envelope"></i> <small>  {{tables_company.compEmail}} </small></li>
                                         <li><i class="fa fa-facebook"></i> <small>  {{tables_company.compFb}}</small></li>
                                         <li><i class="fa fa-instagram"></i> <small>  {{tables_company.compIg}} </small></li>
                                         <li><i class="fa fa-globe"></i> <small>  {{tables_company.compWeb}} </small></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -66,16 +77,25 @@
                                 <div class="row">
                                     <div class="col-lg-3 align-self-center">
                                         <a href="/"  style="text-decoration: none;">   
+
+                                        {% if tables_company %}
                                             <img src=" {{tables_company.partLogo.url}}" class="img-fluid" >
+                                        {% endif %}
                                         </a>
                                     </div>
                                     <div class="col-lg-9 align-self-center">
-                                        <span class="text-dark fs-5"> {{tables_company.partName}}</span>
+
+                                        {% if tables_company %}
+                                            <span class="text-dark fs-5"> {{tables_company.partName}}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
                                     <p class="text-dark">
-                                        {{tables_company.partDesc}}
+
+                                        {% if tables_company %}
+                                            {{tables_company.partDesc}}
+                                        {% endif %}
                                     </p>
                                    
                                 </div>

@@ -1,0 +1,204 @@
+{% extends 'frontend/base/front_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load filter_home %}
+{% load widget_tweaks %}
+
+{% block title %} Hubungi Kami {% endblock %}
+
+{% block stylesheet %}{% endblock  %}
+{% block javascripts_head %}{% endblock  %}
+
+{% block front_content %}
+
+<div class="container-fluid px-0 ">
+
+    <div class="container-fluid p-5">
+        <div class="row">
+
+
+            <div class="col-lg-6 p-6">
+                <img src="/static/images/login/cust_support.jpg" class="img-fluid">
+            </div>
+
+            <div class="col-lg-6">
+
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success">{{ message }} </div>
+                {% else %}
+                <div class="alert alert-danger">{{ message }} </div>
+                {% endif %}
+                {% endfor %}
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-6 mb-2 form-group">
+                            <div class="row">
+                                <div class="col text-left py-6">
+                                    <label>{{ form.scName.label }}</label>
+                                    {% if form.is_bound %}
+                                    {% if form.scName.errors %}
+                                    {% render_field form.scName class="form-control is-invalid" %}
+                                    {% else %}
+                                    {% render_field form.scName class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field form.scName class="form-control" %}
+                                    {% endif %}
+                                    {% for error in form.scName.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 mb-2 form-group">
+                            <div class="row">
+                                <div class="col text-left py-6">
+                                    <label>{{ form.scPhone.label }}</label>
+                                    {% if form.is_bound %}
+                                    {% if form.scPhone.errors %}
+                                    {% render_field form.scPhone class="form-control is-invalid" %}
+                                    {% else %}
+                                    {% render_field form.scPhone class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field form.scPhone class="form-control" %}
+                                    {% endif %}
+                                    {% for error in form.scPhone.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-2 form-group">
+                            <div class="row">
+                                <div class="col text-left py-6">
+                                    <label>{{ form.scEmail.label }}</label>
+                                    {% if form.is_bound %}
+                                    {% if form.scEmail.errors %}
+                                    {% render_field form.scEmail class="form-control is-invalid" %}
+                                    {% else %}
+                                    {% render_field form.scEmail class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field form.scEmail class="form-control" %}
+                                    {% endif %}
+                                    {% for error in form.scEmail.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 mb-2 form-group">
+                            <div class="row">
+                                <div class="col text-left py-6">
+                                    <label>{{ form.scSubjek.label }}</label>
+                                    {% if form.is_bound %}
+                                    {% if form.scSubjek.errors %}
+                                    {% render_field form.scSubjek class="form-control is-invalid" %}
+                                    {% else %}
+                                    {% render_field form.scSubjek class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field form.scSubjek class="form-control" %}
+                                    {% endif %}
+                                    {% for error in form.scSubjek.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mb-2 form-group">
+                            <div class="row">
+                                <div class="col text-left py-6">
+                                    <label>{{ form.scMsgs.label }}</label>
+                                    {% if form.is_bound %}
+                                    {% if form.scMsgs.errors %}
+                                    {% render_field form.scMsgs class="form-control is-invalid" %}
+                                    {% else %}
+                                    {% render_field form.scMsgs class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field form.scMsgs class="form-control" %}
+                                    {% endif %}
+                                    {% for error in form.scMsgs.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12 mb-2 form-group text-right">
+                            <div class="row">
+                                <div class="col py-6">
+                                    <button class="btn btn-success">Kirim</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container-fluid bg-blue-3 p-5">
+        <div class="row">
+
+            <div class="d-flex col-lg-6 align-items-center p-5">
+                <div class="row">
+                    <div class="col-lg-6 text-center p-3 d-grid gap-4">
+
+                        {% if tables_company.compAdmFt1 %}
+                        <img src="{{tables_company.compAdmFt1.url}}" class="rounded-circle img-fluid">
+                        {% else %}
+                        <img src="static/images/team/default-profile-picture.png" class="rounded-circle img-fluid">
+                        {% endif %}
+                        <h4 class="fw-normal text-white">{{tables_company.compAdmNm1}} </h4>
+                        <p><a class="btn btn-success btn-lg w-100" target="_blank"
+                                href="https://wa.me/{{tables_company.compAdm1}}"> <i class="bi bi-whatsapp"></i>
+                                Tanya</a></p>
+                    </div>
+
+                    <div class="col-lg-6 text-center p-3 d-grid gap-4">
+                        {% if tables_company.compAdmFt2 %}
+                        <img src="{{tables_company.compAdmFt2.url}}" class="rounded-circle img-fluid">
+                        {% else %}
+                        <img src="static/images/team/default-profile-picture.png" class="rounded-circle img-fluid">
+                        {% endif %}
+                        <h4 class="fw-normal text-white">{{tables_company.compAdmNm2}} </h4>
+                        <p><a class="btn btn-success btn-lg w-100" target="_blank"
+                                href="https://wa.me/{{tables_company.compAdm2}}"> <i class="bi bi-whatsapp"></i>
+                                Tanya</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 p-6">
+                <img src="/static/images/login/wa-img.png" class="img-fluid">
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock  %}
+
+
+{% block javascripts %}
+{% endblock  %}
